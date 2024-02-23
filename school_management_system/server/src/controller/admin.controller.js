@@ -39,23 +39,46 @@ const adminRegister = async (req, res) => {
   }
 };
 
-const adminLogin = async (req,res) => {
-  const {email,password} = req.body
-  if(password && email){
-    let existingAdmin = await admin.findOne({email})
-    if(existingAdmin){
-      const passwordMatch = await bcrypt.compare(password,existingAdmin.password)
-      if(passwordMatch){
-        res.send(existingAdmin)
-      }else{
-        res.send({message:"Invalid email or password"})
+const adminLogin = async (req, res) => {
+  const { email, password } = req.body;
+  if (password && email) {
+    let existingAdmin = await admin.findOne({ email });
+    if (existingAdmin) {
+      const passwordMatch = await bcrypt.compare(
+        password,
+        existingAdmin.password
+      );
+      if (passwordMatch) {
+        res.send(existingAdmin);
+      } else {
+        res.send({ message: "Invalid email or password" });
       }
-    }else{
-      res.send({message:"User not found"})
+    } else {
+      res.send({ message: "User not found" });
     }
-  }else{
-    res.send({message:"Email and password are required"})
+  } else {
+    res.send({ message: "Email and password are required" });
   }
-}
+};
 
-module.exports = {adminRegister,adminLogin}
+const getAllAdmins = async (req, res) => {
+  try {
+    const admins = await admin.find()
+    res.send(admins)
+  } catch (error) {
+    res.send({message:"Error getting al admins"})
+  }
+};
+
+const getAdminById = async (req, res) => {
+  const adminId = req.params.id
+  try {
+    const admin1 = await admin.findById(adminId)
+    if(admin1) res.send(admin1)
+    else res.send({message:"Admin Not found"})
+  } catch (error) {
+    res.send({message:"error getting a single admin info"})
+  }
+};
+
+module.exports = { adminRegister, adminLogin, getAdminById, getAllAdmins };
