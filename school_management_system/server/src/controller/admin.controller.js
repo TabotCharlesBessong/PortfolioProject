@@ -63,22 +63,78 @@ const adminLogin = async (req, res) => {
 
 const getAllAdmins = async (req, res) => {
   try {
-    const admins = await admin.find()
-    res.send(admins)
+    const admins = await admin.find();
+    res.send(admins);
   } catch (error) {
-    res.send({message:"Error getting al admins"})
+    res.send({ message: "Error getting al admins" });
   }
 };
 
 const getAdminById = async (req, res) => {
-  const adminId = req.params.id
+  const adminId = req.params.id;
   try {
-    const admin1 = await admin.findById(adminId)
-    if(admin1) res.send(admin1)
-    else res.send({message:"Admin Not found"})
+    const admin1 = await admin.findById(adminId);
+    if (admin1) res.send(admin1);
+    else res.send({ message: "Admin Not found" });
   } catch (error) {
-    res.send({message:"error getting a single admin info"})
+    res.send({ message: "error getting a single admin info" });
   }
 };
 
-module.exports = { adminRegister, adminLogin, getAdminById, getAllAdmins };
+const updateAdmin = async (req, res) => {
+  const {email,name,schoolName,password} = req.body;
+  const adminId = req.params.id;
+
+  try {
+    // finding the admin
+    const updatedAdmin = await admin.findById(adminId);
+    if (!updatedAdmin) {
+      res.status(400).json({message:"Admin Not found"});
+      return
+    }
+    // update the admins information
+    updatedAdmin.name = name || updatedAdmin.name
+    updatedAdmin.email = email || updatedAdmin.email
+    updatedAdmin.schoolName = schoolName || updatedAdmin.schoolName
+
+    const existingSchool = await admin.findOne({schoolName})
+    const existingAdmin = await admin.findOne({email})
+    if(existingAdmin || existingSchool){
+      res.send({message:"Please the above values already exist"})
+      return
+    }
+
+    if(password){
+      const hashedPassword = await bcrypt.hash(password,12)
+      updatedAdmin.password = hashedPassword
+    }
+    await updatedAdmin.save()
+    res.send(updatedAdmin)
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update admin" });
+  }
+};
+
+const deleteAdmin = async (req, res) => {
+  const adminId = req.params.id;
+
+  try {
+    const deletedAdmin = await admin.findByIdAndDelete(adminId);
+    if (deletedAdmin) {
+      res.status(200).json({ message: "Admin deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Admin not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete admin" });
+  }
+};
+
+module.exports = {
+  adminRegister,
+  adminLogin,
+  getAdminById,
+  getAllAdmins,
+  updateAdmin,
+  deleteAdmin,
+};
