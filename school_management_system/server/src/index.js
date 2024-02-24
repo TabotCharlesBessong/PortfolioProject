@@ -5,6 +5,7 @@ const dotenv = require("dotenv")
 const adminRouter = require("./routes/admin.router")
 const studentRouter = require("./routes/student.router")
 const sclassRouter = require("./routes/sclass.router")
+const subjectRouter = require("./routes/subject.router")
 
 dotenv.config()
 
@@ -17,6 +18,7 @@ app.use(cors())
 app.use("/api/admin",adminRouter)
 app.use("/api/student",studentRouter)
 app.use("/api/sclass",sclassRouter)
+app.use("/api/subject",subjectRouter)
 
 mongoose.connect(process.env.MONGO_URI).then(console.log("Connected to the database successfully")).catch((err) => console.log("Error connecting to the database"))
 
