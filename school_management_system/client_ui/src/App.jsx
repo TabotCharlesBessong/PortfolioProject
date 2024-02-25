@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  AccountMenu,
   CustomBarChart,
   CustomPieChart,
   Popup,
@@ -92,6 +93,9 @@ const App = () => {
       </div>
       <div>
         <SpeedDialTemplate actions={subjectActions} />
+      </div>
+      <div>
+        <AccountMenu />
       </div>
     </div>
   );
