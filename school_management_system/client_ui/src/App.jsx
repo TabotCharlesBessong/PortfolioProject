@@ -3,6 +3,7 @@ import {
   CustomBarChart,
   CustomPieChart,
   Popup,
+  SpeedDialTemplate,
   TableTemplate,
 } from "./component";
 import { barData, generateSubjectData, pieData } from "./constant/data/chart";
@@ -11,6 +12,8 @@ import { IconButton } from "@mui/material";
 import { BlueButton, PurpleButton } from "./component/styles/buttonStyles";
 import { PersonRemove } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { PostAdd } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 
 const App = () => {
   const data = generateSubjectData(8);
@@ -44,6 +47,19 @@ const App = () => {
     );
   };
 
+  const subjectActions = [
+    {
+      icon: <PostAdd color="primary" />,
+      name: "Add New Subject",
+      action: () => {},
+    },
+    {
+      icon: <Delete color="error" />,
+      name: "Delete All Subjects",
+      action: () => deleteHandler(),
+    },
+  ];
+
   return (
     <div style={{ width: "100%" }}>
       <CustomPieChart data={pieData} />
@@ -69,10 +85,13 @@ const App = () => {
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
-          width:"100vw"
+          width: "100vw",
         }}
       >
         <TableTemplate buttonHaver={UserHaver} columns={columns} rows={table} />
+      </div>
+      <div>
+        <SpeedDialTemplate actions={subjectActions} />
       </div>
     </div>
   );
