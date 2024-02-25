@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { CustomBarChart, CustomPieChart, Popup } from './component';
+import { CustomBarChart, CustomPieChart, Popup, TableTemplate } from './component';
 import { barData, generateSubjectData, pieData } from './constant/data/chart';
+import { columns, generateTableData } from './constant/data/table';
 
 const App = () => {
   const data = generateSubjectData(8)
   console.log(data)
   console.log(barData)
   const [showPopup, setShowPopup] = useState(false);
+  const table = generateTableData(37)
+  console.log({table,columns})
   
   return (
     <div style={{ width: "100%" }}>
@@ -21,7 +24,14 @@ const App = () => {
         }}
       >
         <button onClick={() => setShowPopup(!showPopup)}>Toogle</button>
-        <Popup message="Done Successfully!" setShowPopup={setShowPopup} showPopup={showPopup} />
+        <Popup
+          message="Done Successfully!"
+          setShowPopup={setShowPopup}
+          showPopup={showPopup}
+        />
+      </div>
+      <div>
+        {/* <TableTemplate columns={columns} rows={table} /> */}
       </div>
     </div>
   );
