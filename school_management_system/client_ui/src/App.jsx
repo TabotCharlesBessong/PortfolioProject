@@ -1,16 +1,49 @@
-import React, { useState } from 'react';
-import { CustomBarChart, CustomPieChart, Popup, TableTemplate } from './component';
-import { barData, generateSubjectData, pieData } from './constant/data/chart';
-import { columns, generateTableData } from './constant/data/table';
+import React, { useState } from "react";
+import {
+  CustomBarChart,
+  CustomPieChart,
+  Popup,
+  TableTemplate,
+} from "./component";
+import { barData, generateSubjectData, pieData } from "./constant/data/chart";
+import { columns, generateTableData } from "./constant/data/table";
+import { IconButton } from "@mui/material";
+import { BlueButton, PurpleButton } from "./component/styles/buttonStyles";
+import { PersonRemove } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
-  const data = generateSubjectData(8)
-  console.log(data)
-  console.log(barData)
+  const data = generateSubjectData(8);
+  console.log(data);
+  console.log(barData);
   const [showPopup, setShowPopup] = useState(false);
-  const table = generateTableData(37)
-  console.log({table,columns})
-  
+  const table = generateTableData(37);
+  console.log({ table, columns });
+  // const navigate = useNavigate()
+  const deleteHandler = () => {
+    console.log("Ouch deleted");
+  };
+  const UserHaver = ({ row }) => {
+    return (
+      <>
+        <IconButton onClick={() => deleteHandler(row.id, "Student")}>
+          <PersonRemove color="error" />
+        </IconButton>
+        <BlueButton variant="contained" onClick={{}}>
+          View
+        </BlueButton>
+        <PurpleButton
+          variant="contained"
+          onClick={() =>
+            navigate("/Admin/students/student/attendance/" + row.id)
+          }
+        >
+          Attendance
+        </PurpleButton>
+      </>
+    );
+  };
+
   return (
     <div style={{ width: "100%" }}>
       <CustomPieChart data={pieData} />
@@ -30,11 +63,19 @@ const App = () => {
           showPopup={showPopup}
         />
       </div>
-      <div>
-        {/* <TableTemplate columns={columns} rows={table} /> */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          width:"100vw"
+        }}
+      >
+        <TableTemplate buttonHaver={UserHaver} columns={columns} rows={table} />
       </div>
     </div>
   );
-}
+};
 
-export default App
+export default App;

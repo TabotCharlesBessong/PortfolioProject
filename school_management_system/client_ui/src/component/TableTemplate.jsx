@@ -6,7 +6,7 @@ import {
   TablePagination,
 } from "@mui/material";
 import React, { useState } from "react";
-import { StyledTableCell, StyledTableRow } from "./styles";
+import { StyledTableCell, StyledTableRow } from "./styles/styles.jss";
 
 const TableTemplate = ({ buttonHaver: ButtonHaver, columns, rows }) => {
   const [page, setPage] = useState(0);
