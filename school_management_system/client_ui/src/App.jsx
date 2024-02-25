@@ -1,20 +1,19 @@
 import React from 'react'
-import { CustomPieChart } from './component';
+import { CustomBarChart, CustomPieChart } from './component';
+import { barData, generateSubjectData, pieData } from './constant/data/chart';
 
 const App = () => {
-  const chartData = [
-    { name: "A", value: 79 },
-    { name: "B", value: 41 },
-    { name: "C", value: 59 },
-    { name: "D", value: 81 },
-    { name: "E", value: 49 },
-    { name: "F", value: 54 },
-  ];
+  const data = generateSubjectData()
+  console.log(data)
+  console.log(barData)
+  
   return (
-    <div style={{width:'100%'}} >
-      <CustomPieChart data={chartData} />
+    <div style={{ width: "100%" }}>
+      <CustomPieChart data={pieData} />
+      <CustomBarChart chartData={data} dataKey="attendancePercentage" />
+      <CustomBarChart chartData={barData} dataKey="marksObtained" />
     </div>
-  )
+  );
 }
 
 export default App
