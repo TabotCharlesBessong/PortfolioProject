@@ -3,7 +3,7 @@ import { CustomBarChart, CustomPieChart } from './component';
 import { barData, generateSubjectData, pieData } from './constant/data/chart';
 
 const App = () => {
-  const data = generateSubjectData()
+  const data = generateSubjectData(8)
   console.log(data)
   console.log(barData)
   
