@@ -3,6 +3,7 @@ import {
   AccountMenu,
   CustomBarChart,
   CustomPieChart,
+  ErrorPage,
   Popup,
   SpeedDialTemplate,
   TableTemplate,
@@ -102,6 +103,9 @@ const App = () => {
       </div>
       <div>
         <AccountMenu />
+      </div>
+      <div>
+        <ErrorPage />
       </div>
     </div>
   );
