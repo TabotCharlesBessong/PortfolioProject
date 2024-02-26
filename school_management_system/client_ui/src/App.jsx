@@ -15,6 +15,8 @@ import { PersonRemove } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { PostAdd } from "@mui/icons-material";
 import { Delete } from "@mui/icons-material";
+import { generateRandomAttendanceData } from "./constant/data/utils";
+import { groupAttendanceBySubject } from "./utils/attendanceCalculator";
 
 const App = () => {
   const data = generateSubjectData(8);
@@ -27,6 +29,10 @@ const App = () => {
   const deleteHandler = () => {
     console.log("Ouch deleted");
   };
+  const attendance = generateRandomAttendanceData(17)
+  console.log(attendance)
+  // const subjectAttendance = groupAttendanceBySubject(attendance)
+  // console.log(subjectAttendance)
   const UserHaver = ({ row }) => {
     return (
       <>

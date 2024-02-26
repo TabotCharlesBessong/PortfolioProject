@@ -1,3 +1,5 @@
+import { calculateSubjectAttendancePercentage } from "../../utils/attendanceCalculator";
+
 export const pieData = [
   { name: "A", value: 79 },
   { name: "B", value: 41 },
@@ -37,7 +39,7 @@ export const generateSubjectData = (n) => {
     const subject = subjects[Math.floor(Math.random() * subjects.length)];
     const totalClasses = Math.floor(Math.random() * 31);
     const attendanceClasses = Math.floor(Math.random() * (totalClasses + 1));
-    const attendancePercentage = Math.round(((attendanceClasses/totalClasses) * 100),2);
+    const attendancePercentage = calculateSubjectAttendancePercentage(attendanceClasses,totalClasses)
     const marksObtained = Math.floor(Math.random() * 101);
     const subName = subject + " Subject";
 
