@@ -1,14 +1,21 @@
-import React from 'react'
+import React from "react";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
+import { Header } from "./components";
 
 const App = () => {
   return (
-    <div className='flex items-center justify-center w-full' >
-      <div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={"Home page"} />
+        <Route path="/about" element={"About page"} />
+        <Route path="/signin" element={"Signin page"} />
+        <Route path="/signup" element={"Signup page"} />
+        <Route path="/dashboard" element={"Dashboard"} />
+        <Route path="/projects" element={"Projects Page"} />
+      </Routes>
+    </Router>
+  );
+};
 
-      <h1 className="text-6xl text-center text-orange-700 font-bold uppercase">Hello men</h1>
-      </div>
-    </div>
-  )
-}
-
-export default App
+export default App;
