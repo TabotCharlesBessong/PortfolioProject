@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
-import { Header } from "./components";
+import { Footer, Header } from "./components";
 import { SignUp } from "./pages";
 
 const App = () => {
@@ -15,6 +15,7 @@ const App = () => {
         <Route path="/dashboard" element={"Dashboard"} />
         <Route path="/projects" element={"Projects Page"} />
       </Routes>
+      <Footer />
     </Router>
   );
 };
