@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    profilePicture: {
+      type: String,
+      default:
+        "https://yt3.ggpht.com/yti/ANjgQV9-6fuOGSPBD61fKCsisWJtFtaLjR9D26pekaShFw=s108-c-k-c0x00ffffff-no-rj",
+    },
   },
   { timestamps: true }
 );
