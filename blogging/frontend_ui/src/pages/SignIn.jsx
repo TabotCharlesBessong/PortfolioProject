@@ -12,6 +12,8 @@ const SignIn = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
   const {loading,error:errorMessage} = useSelector((state) => state.user)
+  console.log(loading)
+  // console.log({state.user})
   const dispatch = useDispatch()
   const handleSubmit = async (e) => {
     e.preventDefault();
