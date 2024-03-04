@@ -1,6 +1,6 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
-import { Footer, Header } from "./components";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Footer, Header, PrivateRoute } from "./components";
 import { SignIn, SignUp } from "./pages";
 
 const App = () => {
@@ -12,7 +12,9 @@ const App = () => {
         <Route path="/about" element={"About page"} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={"Dashboard"} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={"Dashboard"} />
+        </Route>
         <Route path="/projects" element={"Projects Page"} />
       </Routes>
       <Footer />
