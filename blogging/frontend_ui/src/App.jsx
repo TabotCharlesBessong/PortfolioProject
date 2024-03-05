@@ -20,9 +20,9 @@ const App = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
-        {/* <Route element={<OnlyAdminPrivateRoute />}> */}
+        <Route element={<OnlyAdminPrivateRoute />}>
         <Route path="/createpost" element={<CreatePost />} />
-        {/* </Route> */}
+        </Route>
         <Route path="/projects" element={"Projects Page"} />
       </Routes>
       <Footer />
