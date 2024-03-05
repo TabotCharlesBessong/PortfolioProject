@@ -1,7 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Footer, Header, PrivateRoute } from "./components";
-import { Dashboard, SignIn, SignUp } from "./pages";
+import {
+  Footer,
+  Header,
+  OnlyAdminPrivateRoute,
+  PrivateRoute,
+} from "./components";
+import { CreatePost, Dashboard, SignIn, SignUp } from "./pages";
 
 const App = () => {
   return (
@@ -15,6 +20,9 @@ const App = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
+        {/* <Route element={<OnlyAdminPrivateRoute />}> */}
+        <Route path="/createpost" element={<CreatePost />} />
+        {/* </Route> */}
         <Route path="/projects" element={"Projects Page"} />
       </Routes>
       <Footer />
