@@ -3,6 +3,7 @@ import cors  from "cors"
 import mongoose  from "mongoose"
 import dotenv  from "dotenv"
 import userRouter  from "./router/user.router.js"
+import cookieParser from "cookie-parser"
 
 dotenv.config()
 
@@ -12,6 +13,7 @@ const app = express()
 // middlewares
 app.use(express.json({limit:'10mb'}))
 app.use(cors())
+app.use(cookieParser())
 
 app.use("/api/user",userRouter)
 
