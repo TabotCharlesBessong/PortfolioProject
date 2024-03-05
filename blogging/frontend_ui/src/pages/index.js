@@ -1,3 +1,4 @@
 export { default as SignUp } from "./SignUp";
 export { default as SignIn } from "./SignIn";
 export { default as Dashboard } from "./dashboard/Dashboard";
+export { default as CreatePost } from "./dashboard/CreatePost";
