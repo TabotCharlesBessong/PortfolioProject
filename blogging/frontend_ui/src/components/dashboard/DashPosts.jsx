@@ -1,28 +1,48 @@
-import { Table } from "flowbite-react";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import { Spinner, Table } from "flowbite-react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
+  const [loading, setLoading] = useState(false)
   // console.log(currentUser)
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
-        const data = res.json();
-        console.log(data)
+        setLoading(true)
+        const res = await fetch(
+          `/api/post/getposts?userId=${currentUser._id}`,
+          {
+            headers: {
+              "Cache-Control": "no-cache",
+            },
+          }
+        )
+          .then((r) => r.json())
+          .then((r) => {
+            setUserPosts(r.posts);
+          });
+          setLoading(false)
+        // const data = res.json();
+        // console.log(data)
         if (res.ok) setUserPosts(data.posts);
       } catch (error) {
         console.log(error.message);
+        setLoading(false)
       }
     };
     if (currentUser.isAdmin) fetchPosts();
   }, [currentUser._id]);
+  console.log(userPosts);
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-      {currentUser.isAdmin || userPosts?.length > 0 ? (
+      {loading ? (
+        <div className="text-center my-8 mx-auto">
+          <Spinner size="xl" />
+        </div>
+      ) : currentUser.isAdmin && userPosts?.length > 0 ? (
         <>
           <Table hoverable className="shadow-md">
             <Table.Head>
