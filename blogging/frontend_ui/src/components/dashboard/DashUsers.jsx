@@ -1,4 +1,4 @@
-import { Modal, Table, Button } from "flowbite-react";
+import { Modal, Table, Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
@@ -10,18 +10,22 @@ const DashUsers = () => {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState("");
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        setLoading(true)
         const res = await fetch(`/api/user/getusers`);
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
+          setLoading(false)
           if (data.users.length < 9) {
             setShowMore(false);
           }
         }
       } catch (error) {
+        setLoading(false)
         console.log(error.message);
       }
     };
@@ -46,7 +50,22 @@ const DashUsers = () => {
     }
   };
 
-  const handleDeleteUser = async () => {};
+  const handleDeleteUser = async () => {
+    try {
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`,{
+        method:"DELETE"
+      })
+      const data = await res.json()
+      if(res.ok){
+        setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete))
+        setShowModal(false)
+      }else{
+        console.log(data.message)
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  };
 
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
@@ -107,7 +126,12 @@ const DashUsers = () => {
             </button>
           )}
         </>
-      ) : (
+      ) : loading ? (
+        <div className="text-center my-8 mx-auto">
+
+          <Spinner size="xl" />
+        </div>
+      ): (
         <p>You have no users yet!</p>
       )}
       <Modal
