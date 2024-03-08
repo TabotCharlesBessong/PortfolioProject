@@ -6,7 +6,7 @@ import {
   OnlyAdminPrivateRoute,
   PrivateRoute,
 } from "./components";
-import { CreatePost, Dashboard, SignIn, SignUp } from "./pages";
+import { CreatePost, Dashboard, EditPost, SignIn, SignUp } from "./pages";
 
 const App = () => {
   return (
@@ -21,7 +21,8 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
         <Route element={<OnlyAdminPrivateRoute />}>
-        <Route path="/createpost" element={<CreatePost />} />
+          <Route path="/createpost" element={<CreatePost />} />
+          <Route path="/editpost/:postId" element={<EditPost />} />
         </Route>
         <Route path="/projects" element={"Projects Page"} />
       </Routes>

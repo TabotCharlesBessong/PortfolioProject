@@ -11,7 +11,6 @@ const DashPosts = () => {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
-  console.log(showMore);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -27,14 +26,10 @@ const DashPosts = () => {
           .then((r) => r.json())
           .then((r) => {
             setUserPosts(r.posts);
-            console.log(r.posts.length);
-            console.log(showMore);
             if (r.posts.length < 2) setShowMore(false);
-            console.log(showMore);
           });
         setLoading(false);
         // const data = res.json();
-        // console.log(data)
         if (res.ok) setUserPosts(data.posts);
       } catch (error) {
         console.log(error.message);
@@ -43,7 +38,6 @@ const DashPosts = () => {
     };
     if (currentUser.isAdmin) fetchPosts();
   }, [currentUser._id]);
-  console.log(showMore);
 
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
@@ -59,16 +53,12 @@ const DashPosts = () => {
         .then((r) => r.json())
         .then((r) => {
           setUserPosts((prev) => [...prev, ...r.posts]);
-          console.log(r.posts.length);
-          console.log(showMore);
           if (r.posts.length < 2) setShowMore(false);
-          console.log(showMore);
         });
     } catch (error) {
       console.log(error.message);
     }
   };
-  console.log(showMore);
 
   const handleDeletePost = async () => {
     setShowModal(false);
@@ -110,7 +100,7 @@ const DashPosts = () => {
             </Table.Head>
             {userPosts?.map((post) => (
               <Table.Body className="divide-y">
-                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                <Table.Row key={post.title} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
                     {new Date(post.updatedAt).toLocaleDateString()}
                   </Table.Cell>
@@ -146,7 +136,7 @@ const DashPosts = () => {
                   <Table.Cell>
                     <Link
                       className="text-teal-500 hover:underline"
-                      to={`/update-post/${post._id}`}
+                      to={`/editpost/${post._id}`}
                     >
                       <span>Edit</span>
                     </Link>
