@@ -23,17 +23,12 @@ const EditPost = () => {
             "Cache-Control": "no-cache",
           },
         })
-          .then((r) => r.json())
-          .then((r) => {
-            setPublishError(null);
-            console.log(r);
-            setFormData(r.posts[0]);
-            // console.log(r.posts.length);
-            console.log(formData);
-            // if (r.posts.length < 2) setShowMore(false);
-            // console.log(showMore);
-          });
-        if (res.ok) setUserPosts(data.posts);
+        if (res.ok) {
+          const data = await res.json()
+          console.log(data)
+          setFormData(data.posts[0])
+          console.log(formData)
+        }
       } catch (error) {
         console.log(error.message);
       }
@@ -81,7 +76,7 @@ const EditPost = () => {
     e.preventDefault();
     try {
       const res = await fetch(
-        `/api/post/updatepost/65e75fa1576f62d8f97e3e7f/${currentUser._id}`,
+        `/api/post/updatepost/${postId}/${currentUser._id}`,
         {
           method: "PUT",
           headers: {
