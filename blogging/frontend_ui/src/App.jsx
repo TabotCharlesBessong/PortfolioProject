@@ -6,7 +6,7 @@ import {
   OnlyAdminPrivateRoute,
   PrivateRoute,
 } from "./components";
-import { CreatePost, Dashboard, EditPost, SignIn, SignUp } from "./pages";
+import { CreatePost, Dashboard, EditPost, PostPage, SignIn, SignUp } from "./pages";
 
 const App = () => {
   return (
@@ -25,6 +25,7 @@ const App = () => {
           <Route path="/editpost/:postId" element={<EditPost />} />
         </Route>
         <Route path="/projects" element={"Projects Page"} />
+        <Route path="/post/:postSlug" element={<PostPage />} />
       </Routes>
       <Footer />
     </Router>
