@@ -5,12 +5,14 @@ import {
   Header,
   OnlyAdminPrivateRoute,
   PrivateRoute,
+  ScrollToTop,
 } from "./components";
 import { CreatePost, Dashboard, EditPost, PostPage, SignIn, SignUp } from "./pages";
 
 const App = () => {
   return (
     <Router>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={"Home page"} />
