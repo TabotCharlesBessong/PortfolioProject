@@ -5,4 +5,5 @@ export { default as CreatePost } from "./dashboard/CreatePost";
 export { default as EditPost } from "./dashboard/EditPost";
 export { default as PostPage } from "./PostPage";
 export { default as HomePage } from "./HomePage";
-export {default as SearchPage} from "./SearchPage"
+export { default as SearchPage } from "./SearchPage";
+export { default as AboutPage } from "./AboutPage.jsx";
