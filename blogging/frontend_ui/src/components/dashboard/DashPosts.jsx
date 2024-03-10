@@ -155,7 +155,7 @@ const DashPosts = () => {
           )}
         </>
       ) : (
-        ""
+        "You have no post yet"
       )}
       <Modal
         show={showModal}
