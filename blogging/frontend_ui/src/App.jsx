@@ -7,7 +7,7 @@ import {
   PrivateRoute,
   ScrollToTop,
 } from "./components";
-import { CreatePost, Dashboard, EditPost, HomePage, PostPage, SignIn, SignUp } from "./pages";
+import { CreatePost, Dashboard, EditPost, HomePage, PostPage, SearchPage, SignIn, SignUp } from "./pages";
 
 const App = () => {
   return (
@@ -27,6 +27,7 @@ const App = () => {
           <Route path="/editpost/:postId" element={<EditPost />} />
         </Route>
         <Route path="/projects" element={"Projects Page"} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/post/:postSlug" element={<PostPage />} />
       </Routes>
       <Footer />
