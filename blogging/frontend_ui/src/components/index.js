@@ -13,4 +13,4 @@ export { default as DashSidebar } from "./dashboard/DashSidebar";
 export { default as DashUsers } from "./dashboard/DashUsers";
 export { default as OnlyAdminPrivateRoute } from "./routes/OnlyAdminPrivateRoute";
 export { default as PrivateRoute } from "./routes/PrivateRoute";
-
+export { default as DashboardComp } from "./dashboard/DashboardComp";
