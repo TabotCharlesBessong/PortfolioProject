@@ -16,6 +16,7 @@
     "@mui/lab": "5.0.0-alpha.166",
     "@mui/material": "^5.15.11",
     "@reduxjs/toolkit": "^2.2.1",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "axios": "^1.6.7",
     "dotenv": "^16.4.5",
     "eslint-config-react-app": "^7.0.1",

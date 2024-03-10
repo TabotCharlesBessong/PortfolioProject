@@ -11,3 +11,4 @@ export { default as DashUsers } from "./dashboard/DashUsers";
 export { default as ScrollToTop } from "./common/ScrollToTop";
 export { default as CommentSection } from "./common/CommentSection";
 export { default as Comment } from "./common/Comment";
+export { default as PostCard } from "./common/PostCard";
