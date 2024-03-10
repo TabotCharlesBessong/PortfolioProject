@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import {
   HiAnnotation,
   HiArrowSmRight,
+  HiChartPie,
   HiDocumentText,
   HiOutlineUserGroup,
   HiUser,
@@ -48,19 +49,28 @@ const DashSidebar = () => {
               Profile
             </Sidebar.Item>
           </Link>
-          {currentUser.isAdmin && (
-            <Link to="/dashboard?tab=posts">
-              <Sidebar.Item
-                active={tab === "posts"}
-                icon={HiDocumentText}
-                as="div"
-              >
-                Posts
-              </Sidebar.Item>
-            </Link>
-          )}
+          {/* {currentUser.isAdmin && (
+          )} */}
           {currentUser.isAdmin && (
             <>
+              <Link to="/dashboard?tab=dash">
+                <Sidebar.Item
+                  active={tab === "dash" || !tab}
+                  icon={HiChartPie}
+                  as="div"
+                >
+                  Dashboard
+                </Sidebar.Item>
+              </Link>
+              <Link to="/dashboard?tab=posts">
+                <Sidebar.Item
+                  active={tab === "posts"}
+                  icon={HiDocumentText}
+                  as="div"
+                >
+                  Posts
+                </Sidebar.Item>
+              </Link>
               <Link to="/dashboard?tab=users">
                 <Sidebar.Item
                   active={tab === "users"}
