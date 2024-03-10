@@ -13,17 +13,17 @@ const DashUsers = () => {
   const [loading, setLoading] = useState(false)
   useEffect(() => {
     const fetchUsers = async () => {
+      setLoading(true)
       try {
-        setLoading(true)
         const res = await fetch(`/api/user/getusers`);
         const data = await res.json();
         if (res.ok) {
           setUsers(data.users);
-          setLoading(false)
           if (data.users.length < 9) {
             setShowMore(false);
           }
         }
+        setLoading(false)
       } catch (error) {
         setLoading(false)
         console.log(error.message);
