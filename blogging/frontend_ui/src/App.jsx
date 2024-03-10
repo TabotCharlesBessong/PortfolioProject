@@ -7,7 +7,7 @@ import {
   PrivateRoute,
   ScrollToTop,
 } from "./components";
-import { CreatePost, Dashboard, EditPost, PostPage, SignIn, SignUp } from "./pages";
+import { CreatePost, Dashboard, EditPost, HomePage, PostPage, SignIn, SignUp } from "./pages";
 
 const App = () => {
   return (
@@ -15,7 +15,7 @@ const App = () => {
       <ScrollToTop />
       <Header />
       <Routes>
-        <Route path="/" element={"Home page"} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/about" element={"About page"} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
