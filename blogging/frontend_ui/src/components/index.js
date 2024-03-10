@@ -1,14 +1,16 @@
-export { default as Header } from "./common/Header";
-export { default as Footer } from "./common/Footer";
 export { default as OAuth } from "./OAuth";
 export { default as ThemeProvider } from "./ThemeProvider";
-export { default as PrivateRoute } from "./routes/PrivateRoute";
+export { default as Comment } from "./common/Comment";
+export { default as CommentSection } from "./common/CommentSection";
+export { default as Footer } from "./common/Footer";
+export { default as Header } from "./common/Header";
+export { default as PostCard } from "./common/PostCard";
+export { default as ScrollToTop } from "./common/ScrollToTop";
+export { default as DashComments } from "./dashboard/DashComments";
+export { default as DashPosts } from "./dashboard/DashPosts";
 export { default as DashProfile } from "./dashboard/DashProfile";
 export { default as DashSidebar } from "./dashboard/DashSidebar";
-export { default as OnlyAdminPrivateRoute } from "./routes/OnlyAdminPrivateRoute";
-export { default as DashPosts } from "./dashboard/DashPosts";
 export { default as DashUsers } from "./dashboard/DashUsers";
-export { default as ScrollToTop } from "./common/ScrollToTop";
-export { default as CommentSection } from "./common/CommentSection";
-export { default as Comment } from "./common/Comment";
-export { default as PostCard } from "./common/PostCard";
+export { default as OnlyAdminPrivateRoute } from "./routes/OnlyAdminPrivateRoute";
+export { default as PrivateRoute } from "./routes/PrivateRoute";
+
