@@ -1,9 +1,9 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toggleTheme } from "../../redux/theme/themeSlice";
 import { signoutSuccess } from "../../redux/user/userSlice";
 
@@ -12,18 +12,34 @@ const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation()
   const handleSignout = async () => {
     try {
-      const res = await fetch('/api/user/signout',{
-        method:"POST"
-      })
-      const data = await res.json()
-      if(!res.ok) console.log(data.message)
-      else dispatch(signoutSuccess())
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) console.log(data.message);
+      else dispatch(signoutSuccess());
     } catch (error) {
-      console.log()
+      console.log();
     }
-  }
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermUrl = urlParams.get("searchTerm");
+    if (searchTermUrl) setSearchTerm(searchTermUrl);
+  }, [location.search]);
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const urlParams = new URLSearchParams(location.search)
+    urlParams.set("searchTerm",searchTerm)
+    const searchQuery = urlParams.toString()
+    navigate(`/search?${searchQuery}`)
+    }
   return (
     <Navbar className="border-b-2">
       <Link
@@ -35,12 +51,14 @@ const Header = () => {
         </span>
         Tabot
       </Link>
-      <form>
+      <form onSubmit={handleSubmit} >
         <TextInput
           type="text"
           rightIcon={AiOutlineSearch}
           placeholder="Search...."
           className="hidden lg:inline"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
       <Button className="w-12 h-10 lg:hidden" color="gray" pill>
@@ -73,7 +91,7 @@ const Header = () => {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item onClick={handleSignout} >Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/signin">
