@@ -37,4 +37,4 @@ To run the MERN stack project locally, follow these steps:
 1. Clone the repository:
 
    ```shell
-   git clone https://github.com/your-username/mern-stack-project.git
+   git clone `https://github.com/TabotCharlesBessong/PortfolioProject.git`
