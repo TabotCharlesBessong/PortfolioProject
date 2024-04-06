@@ -9,4 +9,5 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
-console.log("Hello world!");
+
+module.exports = app
