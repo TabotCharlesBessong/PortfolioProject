@@ -83,8 +83,13 @@ userSchema.methods.getJWTToken = function () {
   });
 };
 
-// COMPARE PASSWORD
-userSchema.methods.comparePassword = function () {
+// compare password
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+// Generate reset password token
+userSchema.methods.getResetPasswordToken = async function () {
   // generate token
   const resetToken = crypto.randomBytes(20).toString("hex");
 
