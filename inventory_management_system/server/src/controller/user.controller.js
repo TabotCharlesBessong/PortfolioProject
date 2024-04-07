@@ -17,16 +17,30 @@ const registerUser = catchAsyncError(async (req, res, next) => {
 });
 
 const loginUser = catchAsyncError(async (req, res, next) => {
-  const {email,password} = req.body
+  const { email, password } = req.body;
 
-  if(!email || !password) return next(new ErrorHandler("Please enter your email and Password",400))
+  if (!email || !password)
+    return next(new ErrorHandler("Please enter your email and Password", 400));
 
-  const user = await userModel.findOne({email}).select("+password")
+  const user = await userModel.findOne({ email }).select("+password");
 
-  if(!user) return next(new ErrorHandler("Invalid Email or Password",401))
-  const isPasswordMatched = await user.comparePassword(password)
-  if(!isPasswordMatched) return next(new ErrorHandler("Invalid email or password",401))
-  sendToken(user,200,res)
+  if (!user) return next(new ErrorHandler("Invalid Email or Password", 401));
+  const isPasswordMatched = await user.comparePassword(password);
+  if (!isPasswordMatched)
+    return next(new ErrorHandler("Invalid email or password", 401));
+  sendToken(user, 200, res);
 });
 
-module.exports = { registerUser, loginUser };
+const logUserOut = catchAsyncError(async (req, res, next) => {
+  res.cookie("token",null,{
+    expires:new Date(Date.now()),
+    httpOnly:true
+  })
+
+  res.status(200).json({
+    success:true,
+    message:"Logged Out"
+  })
+});
+
+module.exports = { registerUser, loginUser, logUserOut };
