@@ -3,6 +3,7 @@ const userModel = require("../models/userModel");
 const ErrorHandler = require("../utils/errorHandler");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
+const crypto = require("crypto");
 
 const registerUser = catchAsyncError(async (req, res, next) => {
   const { name, email, password, phoneNumber, role } = req.body;
@@ -77,4 +78,56 @@ const forgotPassword = catchAsyncError(async (req, res, next) => {
   }
 });
 
-module.exports = { registerUser, loginUser, logUserOut, forgotPassword };
+const resetPassword = catchAsyncError(async (req, res, next) => {
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await userModel.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+  if (!user)
+    return next(
+      new ErrorHandler(
+        "Reset Password Token is invalid or has been expired",
+        400
+      )
+    );
+  if(req.body.password !== req.body.confirmPassword) return next(new ErrorHandler("Your two passwords do not match",400))
+
+  user.password = req.body.password
+  user.resetPasswordToken = undefined
+  user.resetPasswordExpire = undefined
+
+  await user.save()
+  sendToken(user,200,res)
+  // const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you did not request this email, please ignore it.`;
+  // try {
+  //   await sendEmail({
+  //     email: user.email,
+  //     subject: `Password Recovery Email`,
+  //     message,
+  //   });
+
+  //   res.status(200).json({
+  //     success: true,
+  //     message: `Email sent to ${user.email} successfully`,
+  //   });
+  // } catch (error) {
+  //   user.resetPasswordToken = undefined;
+  //   user.resetPasswordExpire = undefined;
+
+  //   await user.save({ validateBeforeSave: false });
+  //   return next(new ErrorHandler(error.message, 500));
+  // }
+});
+
+module.exports = {
+  registerUser,
+  loginUser,
+  logUserOut,
+  forgotPassword,
+  resetPassword,
+};
