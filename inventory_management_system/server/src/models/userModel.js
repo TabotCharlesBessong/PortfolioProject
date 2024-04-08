@@ -89,7 +89,7 @@ userSchema.methods.comparePassword = async function (password) {
 };
 
 // Generate reset password token
-userSchema.methods.getResetPasswordToken = async function () {
+userSchema.methods.getResetPasswordToken = function () {
   // generate token
   const resetToken = crypto.randomBytes(20).toString("hex");
 
