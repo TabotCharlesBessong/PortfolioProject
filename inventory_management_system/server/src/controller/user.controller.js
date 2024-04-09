@@ -125,6 +125,18 @@ const resetPassword = catchAsyncError(async (req, res, next) => {
   // }
 });
 
+const updatePassword = catchAsyncError(async (req, res, next) => {
+  const user = await userModel.findById(req.user.id).select("+password");
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+  if (!isPasswordMatched)
+    return next(new ErrorHandler("Old password is incorrect", 400));
+  if (req.body.newPassword !== req.body.confirmPassword)
+    return next(new ErrorHandler("password does not match", 400));
+  user.password = req.body.newPassword;
+  await user.save();
+  sendToken(user, 200, res);
+});
+
 const getUserDetails = catchAsyncError(async (req, res, next) => {
   const user = await userModel.findById(req.user.id);
 
@@ -164,4 +176,5 @@ module.exports = {
   getUserDetails,
   getAllUsers,
   getSingleUser,
+  updatePassword,
 };
