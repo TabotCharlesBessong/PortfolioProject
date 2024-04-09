@@ -95,14 +95,15 @@ const resetPassword = catchAsyncError(async (req, res, next) => {
         400
       )
     );
-  if(req.body.password !== req.body.confirmPassword) return next(new ErrorHandler("Your two passwords do not match",400))
+  if (req.body.password !== req.body.confirmPassword)
+    return next(new ErrorHandler("Your two passwords do not match", 400));
 
-  user.password = req.body.password
-  user.resetPasswordToken = undefined
-  user.resetPasswordExpire = undefined
+  user.password = req.body.password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
 
-  await user.save()
-  sendToken(user,200,res)
+  await user.save();
+  sendToken(user, 200, res);
   // const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you did not request this email, please ignore it.`;
   // try {
   //   await sendEmail({
@@ -124,10 +125,43 @@ const resetPassword = catchAsyncError(async (req, res, next) => {
   // }
 });
 
+const getUserDetails = catchAsyncError(async (req, res, next) => {
+  const user = await userModel.findById(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+const getAllUsers = catchAsyncError(async (req, res, next) => {
+  const users = await userModel.find();
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+const getSingleUser = catchAsyncError(async (req, res, next) => {
+  const user = await userModel.findById(req.params.id);
+
+  if (!user)
+    return next(
+      new ErrorHandler(`User does not exist with Id: ${req.params.id}`)
+    );
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
 module.exports = {
   registerUser,
   loginUser,
   logUserOut,
   forgotPassword,
   resetPassword,
+  getUserDetails,
+  getAllUsers,
+  getSingleUser,
 };
