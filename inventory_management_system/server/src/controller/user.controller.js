@@ -167,6 +167,31 @@ const getSingleUser = catchAsyncError(async (req, res, next) => {
   });
 });
 
+const updateProfile = catchAsyncError(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    phoneNumber: req.body.phoneNumber,
+  };
+
+  const user = await userModel.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+  res.status(200).json({ success: true, user });
+});
+
+const deleteUser = catchAsyncError(async (req, res, next) => {
+  const user = await userModel.findByIdAndDelete(req.params.id);
+  if (!user)
+    return next(ErrorHandler(`User with id ${req.params.id} does not exist!`));
+  res.status(200).json({
+    success: true,
+    message: "User deleted Successfully",
+  });
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -177,4 +202,6 @@ module.exports = {
   getAllUsers,
   getSingleUser,
   updatePassword,
+  updateProfile,
+  deleteUser,
 };

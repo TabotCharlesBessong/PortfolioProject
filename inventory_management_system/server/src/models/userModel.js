@@ -25,9 +25,9 @@ const userSchema = new mongoose.Schema({
     maxLength: [11, " cannot exceed more than 11 digits"],
     validate: {
       validator: function (v) {
-        return /^[0-9]{11}/.test(v);
+        return /^[0-9]{9,14}$/.test(v);
       },
-      message: "{VALUE} is not a valid 11 digit number!",
+      message: "{VALUE} is not a valid, at least 9 digits number maximum 14 digits number!",
     },
   },
   password: {
