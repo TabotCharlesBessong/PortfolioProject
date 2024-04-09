@@ -192,6 +192,24 @@ const deleteUser = catchAsyncError(async (req, res, next) => {
   });
 });
 
+const updateUserRole = catchAsyncError(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  await userModel.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -204,4 +222,5 @@ module.exports = {
   updatePassword,
   updateProfile,
   deleteUser,
+  updateUserRole,
 };
