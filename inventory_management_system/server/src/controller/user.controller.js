@@ -167,6 +167,21 @@ const getSingleUser = catchAsyncError(async (req, res, next) => {
   });
 });
 
+const updateProfile = catchAsyncError(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    phoneNumber: req.body.phoneNumber,
+  };
+
+  const user = await userModel.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+  res.status(200).json({ success: true, user });
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -177,4 +192,5 @@ module.exports = {
   getAllUsers,
   getSingleUser,
   updatePassword,
+  updateProfile
 };
