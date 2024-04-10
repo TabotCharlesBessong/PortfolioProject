@@ -1,8 +1,11 @@
 import React from 'react'
+import ThemeConfig from './theme'
 
 const App = () => {
   return (
-    <div>App</div>
+    <ThemeConfig>
+      Hello
+    </ThemeConfig>
   )
 }
 
