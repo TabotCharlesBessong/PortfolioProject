@@ -1,0 +1,17 @@
+.card {
+  background: linear-gradient(to right, #141e30, #243b55);
+  color: white;
+
+  font-family: Roboto;
+}
+.btn {
+  padding: 7px;
+  text-align: center;
+}
+
+/* On screens that are 370px width or less, */
+@media screen and (max-width: 370px) {
+  .mbl {
+    display: none;
+  }
+}
