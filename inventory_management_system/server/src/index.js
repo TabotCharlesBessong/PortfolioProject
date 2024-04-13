@@ -4,7 +4,8 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
-const userRouter = require("./routes/user.router")
+const userRouter = require("./routes/user.router");
+const vendorProductRouter = require("./routes/vendorProduct.router");
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/api/user",userRouter)
+app.use("/api/user", userRouter);
+app.use("/api/admin", vendorProductRouter);
 
-module.exports = app
+module.exports = app;
