@@ -1,10 +1,15 @@
-const express = require("express")
-const { isAuthenticatedUser } = require("../middleware/auth")
-const { createProduct, getAllProducts } = require("../controller/vendorProduct.controller")
+const express = require("express");
+const { isAuthenticatedUser } = require("../middleware/auth");
+const {
+  createProduct,
+  getAllProducts,
+  getAdminProcucts,
+} = require("../controller/vendorProduct.controller");
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("/vendorProduct/new",isAuthenticatedUser,createProduct)
-router.get("/vendorproducts",getAllProducts)
+router.post("/vendorProduct/new", isAuthenticatedUser, createProduct);
+router.get("/vendorproducts", getAllProducts);
+router.get("/adminproducts", isAuthenticatedUser, getAdminProcucts);
 
-module.exports = router
+module.exports = router;

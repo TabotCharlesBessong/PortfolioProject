@@ -27,15 +27,23 @@ const getAllProducts = catchAsyncError(async (req, res, next) => {
     .pagination();
   let products = await apifeature.query;
   let filteredProductsCount = products.length;
-  res
-    .status(200)
-    .json({
-      productsCount,
-      success: true,
-      products,
-      filteredProductsCount,
-      pages,
-    });
+  res.status(200).json({
+    productsCount,
+    success: true,
+    products,
+    filteredProductsCount,
+    pages,
+  });
 });
 
-module.exports = { createProduct, getAllProducts };
+const getAdminProcucts = catchAsyncError(async (req, res, next) => {
+  const products = await vendorProductModel.find()
+  const productsCount = await vendorProductModel.countDocuments()
+  res.status(200).json({
+    success:true,
+    products,
+    productsCount
+  })
+});
+
+module.exports = { createProduct, getAllProducts, getAdminProcucts };
