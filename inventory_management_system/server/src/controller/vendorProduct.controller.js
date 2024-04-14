@@ -37,13 +37,27 @@ const getAllProducts = catchAsyncError(async (req, res, next) => {
 });
 
 const getAdminProcucts = catchAsyncError(async (req, res, next) => {
-  const products = await vendorProductModel.find()
-  const productsCount = await vendorProductModel.countDocuments()
+  const products = await vendorProductModel.find();
+  const productsCount = await vendorProductModel.countDocuments();
   res.status(200).json({
-    success:true,
+    success: true,
     products,
-    productsCount
-  })
+    productsCount,
+  });
 });
 
-module.exports = { createProduct, getAllProducts, getAdminProcucts };
+const getProductDetails = catchAsyncError(async (req, res, next) => {
+  const product = await vendorProductModel.findById(req.params.id).lean();
+  if (!product) return next(new ErrorHandler("Product not found", 404));
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
+
+module.exports = {
+  createProduct,
+  getAllProducts,
+  getAdminProcucts,
+  getProductDetails,
+};
