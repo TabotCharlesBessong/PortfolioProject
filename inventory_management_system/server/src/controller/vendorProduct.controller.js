@@ -74,10 +74,21 @@ const updateProduct = catchAsyncError(async (req, res, next) => {
   })
 });
 
+const deleteProduct = catchAsyncError(async (req,res,next) => {
+  const product = await vendorProductModel.findByIdAndDelete(req.params.id)
+  if(!product) return next(new ErrorHandler("Product not found",404))
+  // await product.remove()
+  res.status(200).json({
+    success:true,
+    message:"Product deleted "
+  })
+})
+
 module.exports = {
   createProduct,
   getAllProducts,
   getAdminProcucts,
   getProductDetails,
   updateProduct,
+  deleteProduct
 };
