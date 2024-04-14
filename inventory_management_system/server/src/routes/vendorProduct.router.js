@@ -7,6 +7,7 @@ const {
   getProductDetails,
   updateProduct,
   deleteProduct,
+  createProductReview,
 } = require("../controller/vendorProduct.controller");
 
 const router = express.Router();
@@ -17,5 +18,6 @@ router.get("/adminproducts", isAuthenticatedUser, getAdminProcucts);
 router.get("/vendorproduct/:id",getProductDetails)
 router.put("/vendorproduct/:id",isAuthenticatedUser,updateProduct)
 router.delete("/vendorproduct/:id",isAuthenticatedUser,deleteProduct)
+router.put("/vendorproduct/review",isAuthenticatedUser,createProductReview)
 
 module.exports = router;
