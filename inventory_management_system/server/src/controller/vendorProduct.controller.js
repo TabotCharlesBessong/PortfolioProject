@@ -117,6 +117,19 @@ const createProductReview = catchAsyncError(async (req,res,next) => {
   })
 })
 
+const getProductReviews = catchAsyncError(async (req, res, next) => {
+  const product = await vendorProductModel.findById(req.query.id);
+
+  if (!product) {
+    return next(new ErrorHandler("Product not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    reviews: product.reviews,
+  });
+});
+
 module.exports = {
   createProduct,
   getAllProducts,
@@ -124,5 +137,6 @@ module.exports = {
   getProductDetails,
   updateProduct,
   deleteProduct,
-  createProductReview
+  createProductReview,
+  getProductReviews
 };
