@@ -17,7 +17,7 @@ const createProduct = catchAsyncError(async (req, res, next) => {
 });
 
 const getAllProducts = catchAsyncError(async (req, res, next) => {
-  const resultPerPage = 4;
+  const resultPerPage = 3;
   const productsCount = await vendorProductModel.countDocuments();
   // const allProducts = await vendorProductModel.find()
   const pages = Math.ceil(productsCount / resultPerPage);
@@ -25,7 +25,7 @@ const getAllProducts = catchAsyncError(async (req, res, next) => {
     .search()
     .searchDept()
     .filter()
-    .pagination();
+    .pagination(resultPerPage);
   let products = await apifeature.query;
   let filteredProductsCount = products.length;
   res.status(200).json({
