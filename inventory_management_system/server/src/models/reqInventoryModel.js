@@ -52,3 +52,5 @@ const reqInventorySchema = new mongoose.Schema({
     default: new Date(),
   },
 });
+
+module.exports = mongoose.model("ReqInventory",reqInventorySchema)
