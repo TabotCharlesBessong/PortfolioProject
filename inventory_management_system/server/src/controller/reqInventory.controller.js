@@ -14,4 +14,20 @@ const createReqInventory = catchAsyncError(async (req,res,next) => {
   })
 })
 
-module.exports = {createReqInventory}
+const getSingleRequest = catchAsyncError(async (req, res, next) => {
+  const request = await reqInventoryModel.findById(req.params.id).populate(
+    "user",
+    "name email phoneNumber"
+  );
+
+  if (!request) {
+    return next(new ErrorHandler("Request not found with this Id", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    request,
+  });
+});
+
+module.exports = {createReqInventory,getSingleRequest}
