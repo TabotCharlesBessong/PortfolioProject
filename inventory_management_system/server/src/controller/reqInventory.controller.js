@@ -38,4 +38,20 @@ const myRequests = catchAsyncError(async (req, res, next) => {
   });
 });
 
-module.exports = { createReqInventory, getSingleRequest, myRequests };
+const getAllRequest = catchAsyncError(async (req, res, next) => {
+  const request = await reqInventoryModel
+    .find()
+    .populate("user", "name email phoneNumber role");
+
+  res.status(200).json({
+    success: true,
+    request,
+  });
+});
+
+module.exports = {
+  createReqInventory,
+  getSingleRequest,
+  myRequests,
+  getAllRequest,
+};
