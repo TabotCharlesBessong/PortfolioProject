@@ -78,10 +78,26 @@ const updateRequest = catchAsyncError(async (req, res, next) => {
   });
 });
 
+const deleteRequest = catchAsyncError(async (req, res, next) => {
+  const request = await reqInventoryModel.findByIdAndDelete(req.params.id);
+
+  if (!request) {
+    return next(new ErrorHandler("Request not found with this Id", 404));
+  }
+
+  // await request.remove();
+
+  res.status(200).json({
+    success: true,
+    message: "Request deleted",
+  });
+});
+
 module.exports = {
   createReqInventory,
   getSingleRequest,
   myRequests,
   getAllRequest,
   updateRequest,
+  deleteRequest
 };
