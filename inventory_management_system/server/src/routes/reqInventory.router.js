@@ -1,10 +1,15 @@
-const express = require("express")
-const { isAuthenticatedUser } = require("../middleware/auth")
-const { createReqInventory, getSingleRequest } = require("../controller/reqInventory.controller")
+const express = require("express");
+const { isAuthenticatedUser } = require("../middleware/auth");
+const {
+  createReqInventory,
+  getSingleRequest,
+  myRequests,
+} = require("../controller/reqInventory.controller");
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("/new",isAuthenticatedUser,createReqInventory)
-router.post("/:id",isAuthenticatedUser,getSingleRequest)
+router.post("/new", isAuthenticatedUser, createReqInventory);
+router.post("/:id", isAuthenticatedUser, getSingleRequest);
+router.post("/me", isAuthenticatedUser, myRequests);
 
-module.exports = router
+module.exports = router;
