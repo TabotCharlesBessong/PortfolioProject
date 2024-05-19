@@ -1,6 +1,6 @@
 import React from 'react'
 import { listData } from '../../constant/data'
-import { Card } from '../../components'
+import { Card, Map } from '../../components'
 import "./listPage.scss"
 
 const ListPage = () => {
@@ -14,7 +14,7 @@ const ListPage = () => {
         </div>
       </div>
       <div className="mapContainer">
-
+        <Map items={listData} />
       </div>
     </div>
   )
