@@ -1,6 +1,7 @@
 import React from 'react'
 import "./homepage.scss"
 import images from '../../constant/images';
+import { SearchBar } from '../../components';
 
 const HomePage = () => {
   return (
@@ -14,7 +15,7 @@ const HomePage = () => {
             facilis id pariatur fugit quos laudantium temporibus dolor ea
             repellat provident impedit!
           </p>
-          {/* <SearchBar /> */}
+          <SearchBar />
           <div className="boxes">
             <div className="box">
               <h1>16+</h1>
