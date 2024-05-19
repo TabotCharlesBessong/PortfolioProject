@@ -1,5 +1,6 @@
 import React from 'react'
 import "./homepage.scss"
+import images from '../../constant/images';
 
 const HomePage = () => {
   return (
@@ -31,7 +32,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className="imgContainer">
-        <img src="/bg.png" alt="" />
+        <img src={images.bg} alt="" />
       </div>
     </div>
   );
