@@ -12,6 +12,7 @@ import school from "../assets/images/school.png"
 import size from "../assets/images/size.png"
 import utility from "../assets/images/utility.png"
 import bus from "../assets/images/bus.png"
+import arrow from "../assets/images/arrow.png"
 
 const images = {
   logo,
@@ -27,7 +28,8 @@ const images = {
   school,
   size,
   utility,
-  bus
+  bus,
+  arrow
 }
 
 export default images

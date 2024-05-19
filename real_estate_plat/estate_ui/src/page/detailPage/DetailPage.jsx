@@ -1,6 +1,6 @@
 import React from 'react'
 import "./detailPage.scss"
-import { Map } from '../../components';
+import { Map, Slider } from '../../components';
 import { singlePostData, userData } from '../../constant/data';
 import images from '../../constant/images';
 
@@ -9,7 +9,7 @@ const DetailPage = () => {
     <div className="singlePage">
       <div className="details">
         <div className="wrapper">
-          {/* <Slider images={singlePostData.images} /> */}
+          <Slider image={singlePostData.images} />
           <div className="info">
             <div className="top">
               <div className="post">
