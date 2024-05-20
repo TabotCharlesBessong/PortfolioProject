@@ -1,6 +1,6 @@
 import React from 'react'
 import {createBrowserRouter,RouterProvider} from "react-router-dom"
-import { DetailPage, HomePage, ListPage, LoginPage, ProfilePage, SignupPage, UpdateProfile } from './page'
+import { DetailPage, HomePage, ListPage, LoginPage, NewPost, ProfilePage, SignupPage, UpdateProfile } from './page'
 import { Layout } from './routes'
 
 const App = () => {
@@ -37,6 +37,10 @@ const App = () => {
           path: "/profile/update",
           element: <UpdateProfile />,
         },
+        {
+          path:"/new",
+          element:<NewPost />
+        }
       ],
     },
   ]);
