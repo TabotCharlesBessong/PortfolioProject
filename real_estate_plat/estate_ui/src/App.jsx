@@ -1,6 +1,6 @@
 import React from 'react'
 import {createBrowserRouter,RouterProvider} from "react-router-dom"
-import { DetailPage, HomePage, ListPage, ProfilePage } from './page'
+import { DetailPage, HomePage, ListPage, LoginPage, ProfilePage, SignupPage } from './page'
 import { Layout } from './routes'
 
 const App = () => {
@@ -24,6 +24,14 @@ const App = () => {
         {
           path:"/:id",
           element:<DetailPage />
+        },
+        {
+          path:"/login",
+          element:<LoginPage />
+        },
+        {
+          path:"/signup",
+          element:<SignupPage />
         }
       ]
     }
