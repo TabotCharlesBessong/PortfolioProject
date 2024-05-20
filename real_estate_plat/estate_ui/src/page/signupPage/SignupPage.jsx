@@ -1,18 +1,19 @@
 import React from 'react'
-import "./loginPage.scss"
+import "./signupPage.scss"
 import { Link } from 'react-router-dom';
 import images from '../../constant/images';
 
-const LoginPage = () => {
+const SignupPage = () => {
   return (
-    <div className="login">
+    <div className="register">
       <div className="formContainer">
         <form>
-          <h1>Welcome back</h1>
+          <h1>Create an Account</h1>
           <input name="username" type="text" placeholder="Username" />
+          <input name="email" type="text" placeholder="Email" />
           <input name="password" type="password" placeholder="Password" />
-          <button>Login</button>
-          <Link to="/signup">{"Don't"} you have an account?</Link>
+          <button>Register</button>
+          <Link to="/login">Do you have an account?</Link>
         </form>
       </div>
       <div className="imgContainer">
@@ -22,4 +23,4 @@ const LoginPage = () => {
   );
 }
 
-export default LoginPage
+export default SignupPage
