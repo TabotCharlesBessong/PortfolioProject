@@ -4,3 +4,4 @@ export { default as ListPage } from "./listPage/ListPage";
 export { default as DetailPage } from "./detailPage/DetailPage";
 export { default as LoginPage } from "./loginPage/LoginPage";
 export { default as SignupPage } from "./signupPage/SignupPage";
+export { default as UpdateProfile } from "./updateProfile/UpdateProfile";
