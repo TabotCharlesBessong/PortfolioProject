@@ -6,6 +6,13 @@ import save from "../assets/images/save.png"
 import chat from "../assets/images/chat.png"
 import bed from "../assets/images/bed.png"
 import bath from "../assets/images/bath.png"
+import fee from "../assets/images/fee.png"
+import pet from "../assets/images/pet.png"
+import school from "../assets/images/school.png"
+import size from "../assets/images/size.png"
+import utility from "../assets/images/utility.png"
+import bus from "../assets/images/bus.png"
+import arrow from "../assets/images/arrow.png"
 
 const images = {
   logo,
@@ -15,7 +22,14 @@ const images = {
   save,
   bath,
   bed,
-  chat
+  chat,
+  fee,
+  pet,
+  school,
+  size,
+  utility,
+  bus,
+  arrow
 }
 
 export default images
