@@ -1,6 +1,6 @@
 import React from 'react'
 import {createBrowserRouter,RouterProvider} from "react-router-dom"
-import { DetailPage, HomePage, ListPage, ProfilePage } from './page'
+import { DetailPage, HomePage, ListPage, LoginPage, ProfilePage } from './page'
 import { Layout } from './routes'
 
 const App = () => {
@@ -24,6 +24,10 @@ const App = () => {
         {
           path:"/:id",
           element:<DetailPage />
+        },
+        {
+          path:"/login",
+          element:<LoginPage />
         }
       ]
     }
