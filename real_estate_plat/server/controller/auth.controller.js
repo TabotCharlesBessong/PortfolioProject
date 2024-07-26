@@ -11,6 +11,13 @@ export const register = async (req, res) => {
 
     console.log(hashedPassword);
 
+    // CHECKING EXISTING USER
+    // const existingUser = await prisma.user.findUnique({email})
+    // if(existingUser) {
+    //   // return res.status(500).json({error:`User with email address ${email} already exist!`})
+    //   console.log(`User with email address ${email} already exist!`);
+    // }
+
     // CREATE A NEW USER AND SAVE TO DB
     const newUser = await prisma.user.create({
       data: {
@@ -20,7 +27,7 @@ export const register = async (req, res) => {
       },
     });
 
-    console.log(newUser);
+    // console.log(newUser);
 
     res.status(201).json({ message: "User created successfully",newUser });
   } catch (err) {
