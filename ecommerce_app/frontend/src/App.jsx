@@ -1,12 +1,14 @@
 import React from "react";
+import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
 
 const App = () => {
   return (
-    <div className="flex flex-1 items-center justify-center">
-      <div className="w-full flex flex-1 items-center justify-center">
-        <h1 className="text-5xl text-center text-orange-700">Hello test</h1>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element="Hello home" />
+        <Route path="/login" element="Hello Login" />
+      </Routes>
+    </Router>
   );
 };
 
