@@ -3,9 +3,9 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles";
 import { Link, useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
-// import axios from "axios";
+import axios from "axios";
 // import { server } from "../../server";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const SingupComponent = () => {
   const [email, setEmail] = useState("");
@@ -22,28 +22,28 @@ const SingupComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-    // const newForm = new FormData();
+    const newForm = new FormData();
 
-    // newForm.append("file", avatar);
-    // newForm.append("name", name);
-    // newForm.append("email", email);
-    // newForm.append("password", password);
+    newForm.append("file", avatar);
+    newForm.append("name", name);
+    newForm.append("email", email);
+    newForm.append("password", password);
 
-    // axios
-    //   .post(`${server}/user/create-user`, newForm, config)
-    //   .then((res) => {
-    //     toast.success(res.data.message);
-    //     setName("");
-    //     setEmail("");
-    //     setPassword("");
-    //     setAvatar();
-    //   })
-    //   .catch((error) => {
-    //     toast.error(error.response.data.message);
-    //   });
-    console.log("submitting")
+    axios
+      .post("http://localhost:5000/api/user/signup", newForm, config)
+      .then((res) => {
+        toast.success(res.data.message);
+        setName("");
+        setEmail("");
+        setPassword("");
+        setAvatar();
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      });
+    // console.log("submitting")
     navigate("/")
   };
 
