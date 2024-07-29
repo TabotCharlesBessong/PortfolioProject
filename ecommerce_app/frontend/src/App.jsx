@@ -1,13 +1,13 @@
 import React from "react";
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
-import { Login, Signup } from "./pages";
+import { HomePage, Login, Signup } from "./pages";
 import {ToastContainer} from "react-toastify"
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element="Hello home" />
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
