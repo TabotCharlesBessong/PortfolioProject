@@ -1,5 +1,14 @@
-import React from 'react'
-import { BestDeals, Categories, Events, Header, Hero } from '../../components'
+import React from "react";
+import {
+  BestDeals,
+  Categories,
+  Events,
+  FeaturedProduct,
+  Footer,
+  Header,
+  Hero,
+  Sponsored,
+} from "../../components";
 
 const HomePage = () => {
   return (
@@ -9,8 +18,11 @@ const HomePage = () => {
       <Categories />
       <BestDeals />
       <Events />
+      <FeaturedProduct />
+      <Sponsored />
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
