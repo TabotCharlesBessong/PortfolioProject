@@ -1,3 +1,5 @@
+import React from "react";
+
 // navigation Data
 export const navItems = [
   {
