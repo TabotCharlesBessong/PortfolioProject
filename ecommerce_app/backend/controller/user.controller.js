@@ -39,7 +39,7 @@ const signup = async (req, res, next) => {
 
     try {
       await sendMail({
-        email: user.email,
+        email: email,
         subject: "Activate your account",
         message: `Hello ${user.name}, please click on the link to activate your account: ${activationUrl}`,
       });
