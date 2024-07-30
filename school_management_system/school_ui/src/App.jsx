@@ -2,12 +2,16 @@ import React from "react";
 import {
   AdminDashboard,
   AdminSignin,
+  Announcement,
   Assignments,
   Attendance,
   Classes,
+  EventCalender,
   Exam,
   Home,
+  Library,
   Performance,
+  SettingsProfile,
   StudentDashboard,
   Students,
   StudentSignin,
@@ -34,6 +38,10 @@ const App = () => {
         <Route path="/admin/performance" element={<Performance />} />
         <Route path="/admin/students" element={<Students />} />
         <Route path="/admin/teachers" element={<Teachers />} />
+        <Route path="/admin/settings" element={<SettingsProfile />} />
+        <Route path="/admin/library" element={<Library />} />
+        <Route path="/admin/events" element={<EventCalender />} />
+        <Route path="/admin/communication" element={<Announcement />} />
         <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
         <Route path="/student/dashboard" element={<StudentDashboard />} />
         <Route path="/admin/assignments" element={<Assignments />} />
