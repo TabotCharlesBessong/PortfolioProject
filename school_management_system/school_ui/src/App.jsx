@@ -12,6 +12,7 @@ import {
   Library,
   Performance,
   SettingsProfile,
+  StudentAnnouncement,
   StudentAssignment,
   StudentDashboard,
   StudentExams,
@@ -48,6 +49,7 @@ const App = () => {
         <Route path="/student/dashboard" element={<StudentDashboard />} />
         <Route path="/student/assignments" element={<StudentAssignment />} />
         <Route path="/student/exams" element={<StudentExams />} />
+        <Route path="/student/communication" element={<StudentAnnouncement />} />
         <Route path="/admin/assignments" element={<Assignments />} />
       </Routes>
     </Router>

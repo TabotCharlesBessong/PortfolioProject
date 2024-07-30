@@ -17,4 +17,5 @@ export { default as Announcement } from "./dashboard/admin/Anountcement.jsx";
 export { default as StudentDashboard } from "./dashboard/student/StudentDashboard.jsx";
 export { default as StudentAssignment } from "./dashboard/student/StudentAssignment.jsx";
 export { default as StudentExams } from "./dashboard/student/StudentExams.jsx";
+export { default as StudentAnnouncement } from "./dashboard/student/StudentAnnouncement.jsx";
 export { default as TeacherDashboard } from "./dashboard/TeacherDashboard.jsx";
