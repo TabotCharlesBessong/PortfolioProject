@@ -2,6 +2,7 @@ import React from "react";
 import {
   AdminDashboard,
   AdminSignin,
+  Assignments,
   Classes,
   Home,
   StudentDashboard,
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/admin/classes" element={<Classes />} />
         <Route exact path="/teacher/dashboard" element={<TeacherDashboard />} />
         <Route exact path="/student/dashboard" element={<StudentDashboard />} />
+        <Route exact path="/admin/assignments" element={<Assignments />} />
       </Routes>
     </Router>
   );
