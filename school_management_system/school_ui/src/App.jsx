@@ -5,7 +5,9 @@ import {
   Assignments,
   Attendance,
   Classes,
+  Exam,
   Home,
+  Performance,
   StudentDashboard,
   StudentSignin,
   TeacherDashboard,
@@ -25,10 +27,12 @@ const App = () => {
         <Route path="/teacher-signin" element={<TeacherSignin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/classes" element={<Classes />} />
+        <Route path="/admin/exams" element={<Exam />} />
         <Route path="/admin/attendance" element={<Attendance />} />
+        <Route path="/admin/performance" element={<Performance />} />
         <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
         <Route path="/student/dashboard" element={<StudentDashboard />} />
-        <Route exact path="/admin/assignments" element={<Assignments />} />
+        <Route path="/admin/assignments" element={<Assignments />} />
       </Routes>
     </Router>
   );
