@@ -20,5 +20,6 @@ export { default as StudentExams } from "./dashboard/student/StudentExams.jsx";
 export { default as StudentAnnouncement } from "./dashboard/student/StudentAnnouncement.jsx";
 export { default as StudentAttendance } from "./dashboard/student/StudentAttendance.jsx";
 export { default as StudentLibrary } from "./dashboard/student/StudentLibrary.jsx";
+export { default as StudentProfile } from "./dashboard/student/StudentProfile.jsx";
 export { default as StudentPerformance } from "./dashboard/student/StudentPerformance.jsx";
 export { default as TeacherDashboard } from "./dashboard/TeacherDashboard.jsx";

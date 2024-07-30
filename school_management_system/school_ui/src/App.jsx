@@ -19,6 +19,7 @@ import {
   StudentExams,
   StudentLibrary,
   StudentPerformance,
+  StudentProfile,
   Students,
   StudentSignin,
   TeacherDashboard,
@@ -56,6 +57,7 @@ const App = () => {
         <Route path="/student/attendance" element={<StudentAttendance />} />
         <Route path="/student/library" element={<StudentLibrary />} />
         <Route path="/student/performance" element={<StudentPerformance />} />
+        <Route path="/student/settings" element={<StudentProfile />} />
         <Route path="/admin/assignments" element={<Assignments />} />
       </Routes>
     </Router>
