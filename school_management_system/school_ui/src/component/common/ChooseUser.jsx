@@ -34,15 +34,15 @@ const ChooseUser = () => {
     <ChooseUserContainer>
       <UserSection>
         <Title>Admin</Title>
-        <Button to="/admin">Login as Admin</Button>
+        <Button to="/admin-signin">Login as Admin</Button>
       </UserSection>
       <UserSection>
         <Title>Student</Title>
-        <Button to="/student">Login as Student</Button>
+        <Button to="/student-signin">Login as Student</Button>
       </UserSection>
       <UserSection>
         <Title>Teacher</Title>
-        <Button to="/teacher">Login as Teacher</Button>
+        <Button to="/teacher-signin">Login as Teacher</Button>
       </UserSection>
     </ChooseUserContainer>
   );
