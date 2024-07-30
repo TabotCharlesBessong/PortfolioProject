@@ -1,4 +1,6 @@
 import React from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { ChooseUser } from "./component";
 import {
   AdminDashboard,
   AdminSignin,
@@ -22,12 +24,12 @@ import {
   StudentProfile,
   Students,
   StudentSignin,
+  TeacherAnnouncement,
+  TeacherAssignment,
   TeacherDashboard,
   Teachers,
   TeacherSignin,
 } from "./pages";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ChooseUser } from "./component";
 
 const App = () => {
   return (
@@ -49,7 +51,6 @@ const App = () => {
         <Route path="/admin/library" element={<Library />} />
         <Route path="/admin/events" element={<EventCalender />} />
         <Route path="/admin/communication" element={<Announcement />} />
-        <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
         <Route path="/student/dashboard" element={<StudentDashboard />} />
         <Route path="/student/assignments" element={<StudentAssignment />} />
         <Route path="/student/exams" element={<StudentExams />} />
@@ -59,6 +60,9 @@ const App = () => {
         <Route path="/student/performance" element={<StudentPerformance />} />
         <Route path="/student/settings" element={<StudentProfile />} />
         <Route path="/admin/assignments" element={<Assignments />} />
+        <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+        <Route path="/teacher/communication" element={<TeacherAnnouncement />} />
+        <Route path="/teacher/assignments" element={<TeacherAssignment />} />
       </Routes>
     </Router>
   );
