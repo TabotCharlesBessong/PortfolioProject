@@ -14,6 +14,7 @@ export { default as SettingsProfile } from "./dashboard/admin/SettingsProfile.js
 export { default as Students } from "./dashboard/admin/Students.jsx";
 export { default as Teachers } from "./dashboard/admin/Teachers.jsx";
 export { default as Announcement } from "./dashboard/admin/Anountcement.jsx";
-export { default as StudentDashboard } from "./dashboard/StudentDashboard.jsx";
+export { default as StudentDashboard } from "./dashboard/student/StudentDashboard.jsx";
+export { default as StudentAssignment } from "./dashboard/student/StudentAssignment.jsx";
+export { default as StudentExams } from "./dashboard/student/StudentExams.jsx";
 export { default as TeacherDashboard } from "./dashboard/TeacherDashboard.jsx";
-
