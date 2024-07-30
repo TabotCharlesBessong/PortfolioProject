@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Sidebar } from "../../../component";
 
 const ClassesContainer = styled.div`
-  padding: 20px;
+  display: flex;
 `;
 
 const ClassesHeader = styled.h2`
@@ -13,6 +14,10 @@ const ClassesHeader = styled.h2`
 const ClassList = styled.ul`
   list-style: none;
   padding: 0;
+`;
+
+const Content = styled.div`
+  flex:1;
 `;
 
 const ClassItem = styled.li`
@@ -43,6 +48,10 @@ const AddClassButton = styled.button`
   cursor: pointer;
 `;
 
+const ClassesContent = styled.div`
+  padding:20px;
+`;
+
 const Classes = () => {
   const [newClassName, setNewClassName] = useState("");
   const [classes, setClasses] = useState(["Class A", "Class B", "Class C"]);
@@ -57,21 +66,26 @@ const Classes = () => {
 
   return (
     <ClassesContainer>
-      <ClassesHeader>Classes</ClassesHeader>
-      <AddClassForm onSubmit={handleAddClass}>
-        <AddClassInput
-          type="text"
-          placeholder="Enter class name"
-          value={newClassName}
-          onChange={(e) => setNewClassName(e.target.value)}
-        />
-        <AddClassButton type="submit">Add Class</AddClassButton>
-      </AddClassForm>
-      <ClassList>
-        {classes.map((className, index) => (
-          <ClassItem key={index}>{className}</ClassItem>
-        ))}
-      </ClassList>
+      <Sidebar />
+      <Content>
+        <ClassesContent>
+          <ClassesHeader>Classes</ClassesHeader>
+          <AddClassForm onSubmit={handleAddClass}>
+            <AddClassInput
+              type="text"
+              placeholder="Enter class name"
+              value={newClassName}
+              onChange={(e) => setNewClassName(e.target.value)}
+            />
+            <AddClassButton type="submit">Add Class</AddClassButton>
+          </AddClassForm>
+          <ClassList>
+            {classes.map((className, index) => (
+              <ClassItem key={index}>{className}</ClassItem>
+            ))}
+          </ClassList>
+        </ClassesContent>
+      </Content>
     </ClassesContainer>
   );
 };
