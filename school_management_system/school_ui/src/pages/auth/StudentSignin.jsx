@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StudentSignInContainer = styled.div`
@@ -43,7 +44,7 @@ const StudentSignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSignIn = (e) => {
     e.preventDefault();
     // Handle admin sign-in logic here
     console.log("Admin Sign In:", { email, password });
@@ -52,7 +53,7 @@ const StudentSignIn = () => {
   return (
     <StudentSignInContainer>
       <h2>Student Sign In</h2>
-      <FormContainer onSubmit={handleSubmit}>
+      <FormContainer>
         <InputField
           type="email"
           placeholder="Email"
@@ -67,7 +68,9 @@ const StudentSignIn = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <SubmitButton type="submit">Sign In</SubmitButton>
+        <Link to="/student/dashboard">
+          <SubmitButton onClick={handleSignIn}>Sign In</SubmitButton>
+        </Link>
       </FormContainer>
     </StudentSignInContainer>
   );

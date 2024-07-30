@@ -20,6 +20,7 @@ const SidebarContainer = styled.div`
   background-color: #252529;
   color: white;
   padding-top: 60px;
+  position:relative;
 `;
 
 const SidebarHeader = styled.div`
@@ -65,7 +66,7 @@ const Logo = styled.img`
 const ToggleButton = styled.div`
   position: absolute;
   top: 20px;
-  right: -15px;
+  right: 0;
   width: 30px;
   height: 30px;
   background-color: #1e1e23;
@@ -87,6 +88,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleSidebar = () => {
+    console.log("sidebar toggled");
     setIsOpen(!isOpen);
   };
   return (
@@ -107,6 +109,12 @@ const Sidebar = () => {
             <BsPeople />
           </SidebarIcon>
           <StyledLink to="/admin/classes">Classes</StyledLink>
+        </SidebarNavItem>
+        <SidebarNavItem>
+          <SidebarIcon>
+            <BsPeople />
+          </SidebarIcon>
+          <StyledLink to="/admin/classes">Students</StyledLink>
         </SidebarNavItem>
         <SidebarNavItem>
           <SidebarIcon>

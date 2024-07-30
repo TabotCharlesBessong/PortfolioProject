@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { Sidebar } from "../../component";
+import { TeacherSidebar } from "../../component";
 
-const AdminDashboardContainer = styled.div`
+const TeacherDashboardContainer = styled.div`
   display: flex;
 `;
 
@@ -43,10 +43,10 @@ const CardContent = styled.p`
   color: #555555;
 `;
 
-const AdminDashboard = () => {
+const TeacherDashboard = () => {
   return (
-    <AdminDashboardContainer>
-      <Sidebar />
+    <TeacherDashboardContainer>
+      <TeacherSidebar />
       <Content>
         <Section>
           <SectionTitle>Overview</SectionTitle>
@@ -75,9 +75,11 @@ const AdminDashboard = () => {
           <SectionTitle>Upcoming Events</SectionTitle>
           {/* Add a calendar or list of upcoming events */}
         </Section>
+
+        {/* Add more sections for other parts of the admin dashboard */}
       </Content>
-    </AdminDashboardContainer>
+    </TeacherDashboardContainer>
   );
 };
 
-export default AdminDashboard;
+export default TeacherDashboard;
