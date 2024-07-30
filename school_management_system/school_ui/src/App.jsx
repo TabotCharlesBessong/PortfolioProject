@@ -26,6 +26,8 @@ import {
   StudentSignin,
   TeacherAnnouncement,
   TeacherAssignment,
+  TeacherAttendance,
+  TeacherClasses,
   TeacherDashboard,
   Teachers,
   TeacherSignin,
@@ -63,6 +65,8 @@ const App = () => {
         <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
         <Route path="/teacher/communication" element={<TeacherAnnouncement />} />
         <Route path="/teacher/assignments" element={<TeacherAssignment />} />
+        <Route path="/teacher/attendance" element={<TeacherAttendance />} />
+        <Route path="/teacher/classes" element={<TeacherClasses />} />
       </Routes>
     </Router>
   );
