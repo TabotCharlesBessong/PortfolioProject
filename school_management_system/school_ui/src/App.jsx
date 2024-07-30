@@ -9,6 +9,7 @@ import {
   Home,
   Performance,
   StudentDashboard,
+  Students,
   StudentSignin,
   TeacherDashboard,
   TeacherSignin,
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/admin/exams" element={<Exam />} />
         <Route path="/admin/attendance" element={<Attendance />} />
         <Route path="/admin/performance" element={<Performance />} />
+        <Route path="/admin/students" element={<Students />} />
         <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
         <Route path="/student/dashboard" element={<StudentDashboard />} />
         <Route path="/admin/assignments" element={<Assignments />} />
