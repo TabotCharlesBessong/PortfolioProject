@@ -31,3 +31,5 @@ export { default as TeacherEvents } from "./dashboard/teacher/TeacherEvents.jsx"
 export { default as TeacherExams } from "./dashboard/teacher/TeacherExams.jsx";
 export { default as TeacherPerformance } from "./dashboard/teacher/TeacherPerformance.jsx";
 export { default as TeacherProfile } from "./dashboard/teacher/TeacherProfile.jsx";
+export { default as TeacherStudent } from "./dashboard/teacher/TeacherStudent.jsx";
+export { default as TeacherTeachers } from "./dashboard/teacher/TeacherTeachers.jsx";

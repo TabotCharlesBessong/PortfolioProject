@@ -35,6 +35,8 @@ import {
   TeacherProfile,
   Teachers,
   TeacherSignin,
+  TeacherStudent,
+  TeacherTeachers,
 } from "./pages";
 
 const App = () => {
@@ -75,6 +77,8 @@ const App = () => {
         <Route path="/teacher/exams" element={<TeacherExams />} />
         <Route path="/teacher/performance" element={<TeacherPerformance />} />
         <Route path="/teacher/settings" element={<TeacherProfile />} />
+        <Route path="/teacher/students" element={<TeacherStudent />} />
+        <Route path="/teacher/teachers" element={<TeacherTeachers />} />
       </Routes>
     </Router>
   );
