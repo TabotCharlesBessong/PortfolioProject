@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { StudentSidebar } from "../../component";
+import { StudentSidebar } from "../../../component";
 
 const StudentDashboardContainer = styled.div`
   display: flex;
