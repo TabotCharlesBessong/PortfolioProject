@@ -12,6 +12,7 @@ import {
   Students,
   StudentSignin,
   TeacherDashboard,
+  Teachers,
   TeacherSignin,
 } from "./pages";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/admin/attendance" element={<Attendance />} />
         <Route path="/admin/performance" element={<Performance />} />
         <Route path="/admin/students" element={<Students />} />
+        <Route path="/admin/teachers" element={<Teachers />} />
         <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
         <Route path="/student/dashboard" element={<StudentDashboard />} />
         <Route path="/admin/assignments" element={<Assignments />} />

@@ -9,6 +9,7 @@ export { default as Classes } from "./dashboard/admin/Classes.jsx";
 export { default as Exam } from "./dashboard/admin/Exam.jsx";
 export { default as Performance } from "./dashboard/admin/Performance.jsx";
 export { default as Students } from "./dashboard/admin/Students.jsx";
+export { default as Teachers } from "./dashboard/admin/Teachers.jsx";
 export { default as StudentDashboard } from "./dashboard/StudentDashboard.jsx";
 export { default as TeacherDashboard } from "./dashboard/TeacherDashboard.jsx";
 
