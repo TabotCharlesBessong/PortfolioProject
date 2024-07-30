@@ -113,7 +113,7 @@ const TeacherSidebar = () => {
           <SidebarIcon>
             <BsPeople />
           </SidebarIcon>
-          <StyledLink to="/teacher/classes">Students</StyledLink>
+          <StyledLink to="/teacher/students">Students</StyledLink>
         </SidebarNavItem>
         <SidebarNavItem>
           <SidebarIcon>
