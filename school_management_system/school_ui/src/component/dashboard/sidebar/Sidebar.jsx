@@ -88,13 +88,12 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   const toggleSidebar = () => {
-    console.log("sidebar toggled");
     setIsOpen(!isOpen);
   };
   return (
     <SidebarContainer>
       <SidebarHeader>
-        <Logo src={"../assets/bg1.png"} alt="Logo" />
+        <Logo src="../assets/bg1.png" alt="Logo" />
       </SidebarHeader>
       <SidebarHeader>Admin</SidebarHeader>
       <SidebarNav>
@@ -114,7 +113,7 @@ const Sidebar = () => {
           <SidebarIcon>
             <BsPeople />
           </SidebarIcon>
-          <StyledLink to="/admin/classes">Students</StyledLink>
+          <StyledLink to="/admin/students">Students</StyledLink>
         </SidebarNavItem>
         <SidebarNavItem>
           <SidebarIcon>
