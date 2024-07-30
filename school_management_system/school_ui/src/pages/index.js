@@ -27,3 +27,5 @@ export { default as TeacherAnnouncement } from "./dashboard/teacher/TeacherAnnou
 export { default as TeacherAssignment } from "./dashboard/teacher/TeacherAssignment.jsx";
 export { default as TeacherAttendance } from "./dashboard/teacher/TeacherAttendance.jsx";
 export { default as TeacherClasses } from "./dashboard/teacher/TeacherClasses.jsx";
+export { default as TeacherEvents } from "./dashboard/teacher/TeacherEvents.jsx";
+export { default as TeacherExams } from "./dashboard/teacher/TeacherExams.jsx";
