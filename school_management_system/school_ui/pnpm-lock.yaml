@@ -20,6 +20,9 @@ importers:
       axios:
         specifier: ^1.7.2
         version: 1.7.2
+      chart.js:
+        specifier: ^4.4.3
+        version: 4.4.3
       lorem-ipsum:
         specifier: ^2.0.8
         version: 2.0.8
