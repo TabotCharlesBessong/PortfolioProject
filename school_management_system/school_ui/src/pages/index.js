@@ -22,4 +22,14 @@ export { default as StudentAttendance } from "./dashboard/student/StudentAttenda
 export { default as StudentLibrary } from "./dashboard/student/StudentLibrary.jsx";
 export { default as StudentProfile } from "./dashboard/student/StudentProfile.jsx";
 export { default as StudentPerformance } from "./dashboard/student/StudentPerformance.jsx";
-export { default as TeacherDashboard } from "./dashboard/TeacherDashboard.jsx";
+export { default as TeacherDashboard } from "./dashboard/teacher/TeacherDashboard.jsx";
+export { default as TeacherAnnouncement } from "./dashboard/teacher/TeacherAnnouncement.jsx";
+export { default as TeacherAssignment } from "./dashboard/teacher/TeacherAssignment.jsx";
+export { default as TeacherAttendance } from "./dashboard/teacher/TeacherAttendance.jsx";
+export { default as TeacherClasses } from "./dashboard/teacher/TeacherClasses.jsx";
+export { default as TeacherEvents } from "./dashboard/teacher/TeacherEvents.jsx";
+export { default as TeacherExams } from "./dashboard/teacher/TeacherExams.jsx";
+export { default as TeacherPerformance } from "./dashboard/teacher/TeacherPerformance.jsx";
+export { default as TeacherProfile } from "./dashboard/teacher/TeacherProfile.jsx";
+export { default as TeacherStudent } from "./dashboard/teacher/TeacherStudent.jsx";
+export { default as TeacherTeachers } from "./dashboard/teacher/TeacherTeachers.jsx";
