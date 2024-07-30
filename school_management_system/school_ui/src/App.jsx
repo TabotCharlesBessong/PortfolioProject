@@ -3,6 +3,7 @@ import {
   AdminDashboard,
   AdminSignin,
   Assignments,
+  Attendance,
   Classes,
   Home,
   StudentDashboard,
@@ -24,8 +25,9 @@ const App = () => {
         <Route path="/teacher-signin" element={<TeacherSignin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/classes" element={<Classes />} />
-        <Route exact path="/teacher/dashboard" element={<TeacherDashboard />} />
-        <Route exact path="/student/dashboard" element={<StudentDashboard />} />
+        <Route path="/admin/attendance" element={<Attendance />} />
+        <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+        <Route path="/student/dashboard" element={<StudentDashboard />} />
         <Route exact path="/admin/assignments" element={<Assignments />} />
       </Routes>
     </Router>
