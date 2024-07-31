@@ -17,10 +17,6 @@ const assignmentSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  done: {
-    type: Boolean,
-    default: false,
-  },
 });
 
 const Assignment = mongoose.model("Assignment", assignmentSchema);

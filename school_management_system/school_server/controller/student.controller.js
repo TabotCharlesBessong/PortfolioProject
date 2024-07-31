@@ -1,4 +1,4 @@
-import Student  from "../models/Student.js"
+import Student  from "../models/student.model.js"
 
 
 const studentController = {
