@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors"
 import { dbConnection } from "./db/connection.js";
 import assignmentRouter from "./router/assignment.router.js";
+import studentRouter from "./router/student.router.js";
 
 const app = express();
 dotenv.config()
@@ -18,7 +19,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use("/api/student", studentRouter);
+app.use("/api/student", studentRouter);
 app.use("/api/assignment",assignmentRouter)
 
 dbConnection();
