@@ -9,7 +9,7 @@ const assignmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  class: {
+  grade: {
     type: String,
     required: true,
   },

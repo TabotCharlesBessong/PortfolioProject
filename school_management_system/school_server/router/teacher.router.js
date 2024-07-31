@@ -1,9 +1,9 @@
 import express from "express"
-import teacherController from "../controller/teacher.controller.js"
+import { createTeacher, getAllTeachers } from "../controller/teacher.controller.js"
 
 const teacherRouter = express.Router()
 
-teacherRouter.get("/getall",teacherController.getAllTeachers)
-teacherRouter.post("/create",teacherController.createTeacher)
+teacherRouter.get("/getall",getAllTeachers)
+teacherRouter.post("/create",createTeacher)
 
 export default teacherRouter

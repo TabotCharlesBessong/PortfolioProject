@@ -1,29 +1,23 @@
 import Student  from "../models/student.model.js"
 
 
-const studentController = {
-  getAllStudents: async (req, res) => {
-    try {
-      const students = await Student.find();
-      res.json(students);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  },
-  createStudent: async (req, res) => {
-    const student = new Student({
-      name: req.body.name,
-      registrationNumber: req.body.registrationNumber,
-      class: req.body.class,
+  export const getAllStudents = async (req, res) => {
+    const students = await Student.find();
+    res.status(200).json({
+      success: true,
+      students,
     });
-    try {
-      const newStudent = await student.save();
-      res.status(201).json(newStudent);
-    } catch (err) {
-      res.status(400).json({ message: err.message });
+  }
+  export const createStudent = async (req, res) => {
+    console.log(req.body);
+    const { name, registrationNumber, grade } = req.body;
+    if (!name || !registrationNumber || !grade) {
+      return next("Please Fill Full Form!", 400);
     }
-  },
-  // Implement more controller methods as needed
-};
+    await Student.create({ name, registrationNumber, grade });
+    res.status(200).json({
+      success: true,
+      message: "Student Created!",
+    });
+  }
 
-export default studentController;
