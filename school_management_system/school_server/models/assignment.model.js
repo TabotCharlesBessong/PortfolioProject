@@ -9,17 +9,13 @@ const assignmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  class: {
+  grade: {
     type: String,
     required: true,
   },
   deadline: {
     type: Date,
     required: true,
-  },
-  done: {
-    type: Boolean,
-    default: false,
   },
 });
 

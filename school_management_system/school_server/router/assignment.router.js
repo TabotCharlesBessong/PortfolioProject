@@ -1,9 +1,9 @@
 import express from "express"
-import assignmentController from "../controller/assignment.controller.js"
+import { createAssignment, getAllAssignments } from "../controller/assignment.controller.js"
 
 const assignmentRouter = express.Router()
 
-assignmentRouter.get("/getall",assignmentController.getAllAssignments)
-assignmentRouter.post("/create",assignmentController.createAssignment)
+assignmentRouter.get("/getall",getAllAssignments)
+assignmentRouter.post("/create",createAssignment)
 
 export default assignmentRouter
