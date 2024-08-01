@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Sidebar } from "../../../component";
+import axios from "axios"
 
 const ClassesContainer = styled.div`
   display: flex;
@@ -54,13 +55,34 @@ const ClassesContent = styled.div`
 
 const Classes = () => {
   const [newClassName, setNewClassName] = useState("");
-  const [classes, setClasses] = useState(["Class A", "Class B", "Class C"]);
+  const [classes, setClasses] = useState([]);
 
-  const handleAddClass = (e) => {
+  useEffect(() => {
+    fetchClasses();
+  }, []);
+
+  const fetchClasses = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/class/getall"
+      );
+      setClasses(response.data.classes);
+      console.log(classes)
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  };
+
+  const handleAddClass = async (e) => {
     e.preventDefault();
-    if (newClassName.trim() !== "") {
-      setClasses([...classes, newClassName]);
-      setNewClassName("");
+    if (newClassName.trim() !== '') {
+      try {
+        const response = await axios.post('http://localhost:5000/api/class/create', { grade: newClassName });
+        setClasses([...classes, response.data]); // Assuming response.data contains the new class
+        setNewClassName('');
+      } catch (error) {
+        console.error('Error adding class:', error);
+      }
     }
   };
 
@@ -80,9 +102,10 @@ const Classes = () => {
             <AddClassButton type="submit">Add Class</AddClassButton>
           </AddClassForm>
           <ClassList>
-            {classes.map((className, index) => (
-              <ClassItem key={index}>{className}</ClassItem>
-            ))}
+            {Array.isArray(classes) &&
+              classes.map((classItem, index) => (
+                <ClassItem key={index}>{classItem.grade}</ClassItem>
+              ))}
           </ClassList>
         </ClassesContent>
       </Content>

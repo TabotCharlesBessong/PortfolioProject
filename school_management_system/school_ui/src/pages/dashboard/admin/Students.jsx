@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Sidebar } from "../../../component";
+import axios from "axios"
 
 const StudentsContainer = styled.div`
   display: flex;
@@ -54,21 +55,33 @@ const AddStudentButton = styled.button`
 
 const Students = () => {
   const [newStudent, setNewStudent] = useState("");
-  const [students, setStudents] = useState([
-    { id: 1, name: "John Doe" },
-    { id: 2, name: "Jane Smith" },
-    { id: 3, name: "Michael Johnson" },
-  ]);
+  const [students, setStudents] = useState([]);
 
-  const handleAddStudent = (e) => {
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/student/getall"
+      );
+      setStudents(response.data.students);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  };
+
+  const handleAddStudent = async (e) => {
     e.preventDefault();
-    if (newStudent.trim() !== "") {
-      const newStudentObject = {
-        id: Math.floor(Math.random() * 1000), // Generate a random ID for the student
-        name: newStudent,
-      };
-      setStudents([...students, newStudentObject]);
-      setNewStudent("");
+    if (newStudent.name.trim() !== '' && newStudent.registrationNumber.trim() !== '' && newStudent.grade.trim() !== '') {
+      try {
+        const response = await axios.post('http://localhost:5000/api/student/create', newStudent);
+        setStudents([...students, response.data.student]);
+        setNewStudent({ name: '', registrationNumber: '', grade: '' });
+      } catch (error) {
+        console.error('Error adding student:', error);
+      }
     }
   };
 
@@ -82,14 +95,37 @@ const Students = () => {
             <AddStudentInput
               type="text"
               placeholder="Enter student name"
-              value={newStudent}
-              onChange={(e) => setNewStudent(e.target.value)}
+              value={newStudent.name}
+              onChange={(e) =>
+                setNewStudent({ ...newStudent, name: e.target.value })
+              }
+            />
+            <AddStudentInput
+              type="text"
+              placeholder="Enter registration number"
+              value={newStudent.registrationNumber}
+              onChange={(e) =>
+                setNewStudent({
+                  ...newStudent,
+                  registrationNumber: e.target.value,
+                })
+              }
+            />
+            <AddStudentInput
+              type="text"
+              placeholder="Enter grade"
+              value={newStudent.grade}
+              onChange={(e) =>
+                setNewStudent({ ...newStudent, grade: e.target.value })
+              }
             />
             <AddStudentButton type="submit">Add Student</AddStudentButton>
           </AddStudentForm>
           <StudentList>
             {students.map((student) => (
-              <StudentItem key={student.id}>{student.name}</StudentItem>
+              <StudentItem key={student.id}>
+                {student.name} - {student.registrationNumber} - {student.grade}
+              </StudentItem>
             ))}
           </StudentList>
         </StudentsContent>

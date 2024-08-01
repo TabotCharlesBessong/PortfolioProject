@@ -8,18 +8,13 @@ import teacherRouter from "./router/teacher.router.js";
 import bookRouter from "./router/library.router.js";
 import classRouter from "./router/class.router.js";
 import announcementRouter from "./router/announcement.router.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 dotenv.config();
 
-app.use(
-  cors({
-    origin: ["http://localhost:5137"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
-
+app.use(cors());
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
