@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { StudentSidebar } from "../../../component";
+import axios from "axios"
 
 const LibraryContainer = styled.div`
   display: flex;
@@ -48,11 +49,22 @@ const BorrowButton = styled.button`
 
 const LibrarySection = () => {
   // Sample library data
-  const [books, setBooks] = useState([
-    { id: 1, title: "Book 1", author: "Author 1" },
-    { id: 2, title: "Book 2", author: "Author 2" },
-    { id: 3, title: "Book 3", author: "Author 3" },
-  ]);
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  const fetchBooks = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/book/getall"
+      );
+      setBooks(response.data.books);
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    }
+  };
 
   const handleBorrowBook = (id) => {
     // Implement borrow book functionality here
@@ -68,10 +80,10 @@ const LibrarySection = () => {
         <LibraryHeader>Library</LibraryHeader>
         <BookList>
           {books.map((book) => (
-            <BookItem key={book.id}>
-              <BookTitle>{book.title}</BookTitle>
+            <BookItem key={book._id}>
+              <BookTitle>{book.bookname}</BookTitle>
               <p>Author: {book.author}</p>
-              <BorrowButton onClick={() => handleBorrowBook(book.id)}>
+              <BorrowButton onClick={() => handleBorrowBook(book._id)}>
                 Borrow
               </BorrowButton>
             </BookItem>

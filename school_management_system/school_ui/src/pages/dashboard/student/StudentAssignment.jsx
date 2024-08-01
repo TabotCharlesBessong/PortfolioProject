@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { StudentSidebar } from "../../../component";
+import axios from "axios"
 
 const AssignmentsContainer = styled.div`
   display: flex;
@@ -53,20 +54,22 @@ const AssignmentDoneMessage = styled.p`
 `;
 
 const StudentAssignments = () => {
-  const [assignments, setAssignments] = useState([
-    {
-      id: 1,
-      title: "Assignment 1",
-      description: "Write a short essay on a topic of your choice.",
-      done: false,
-    },
-    {
-      id: 2,
-      title: "Assignment 2",
-      description: "Solve the math problems attached.",
-      done: false,
-    },
-  ]);
+  const [assignments, setAssignments] = useState([]);
+
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+
+  const fetchAssignments = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/assignment/getall"
+      );
+      setAssignments(response.data.assignments);
+    } catch (error) {
+      console.error("Error fetching assignments:", error);
+    }
+  };
 
   const handleDoAssignment = (id) => {
     const updatedAssignments = assignments.map((assignment) =>
