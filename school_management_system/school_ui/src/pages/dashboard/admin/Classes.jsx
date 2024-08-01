@@ -66,10 +66,16 @@ const Classes = () => {
       const response = await axios.get(
         "http://localhost:5000/api/class/getall"
       );
-      setClasses(response.data.classes);
-      console.log(classes)
+      if (response.data && Array.isArray(response.data.classes)) {
+        setClasses(response.data.classes);
+      } else {
+        console.error(
+          "Error fetching classes: Invalid data format",
+          response.data
+        );
+      }
     } catch (error) {
-      console.error("Error fetching classes:", error);
+      console.error("Error fetching classes:", error,message);
     }
   };
 
@@ -78,7 +84,18 @@ const Classes = () => {
     if (newClassName.trim() !== '') {
       try {
         const response = await axios.post('http://localhost:5000/api/class/create', { grade: newClassName });
-        setClasses([...classes, response.data]); // Assuming response.data contains the new class
+        console.log("Response data:", response.data); // Log the response data
+        setClasses((prevClasses) => {
+          if (Array.isArray(prevClasses)) {
+            return [...prevClasses, response.data]; // Use callback function to update state
+          } else {
+            console.error(
+              "Error adding class: Invalid state for classes:",
+              prevClasses
+            );
+            return []; // Reset classes state to an empty array
+          }
+        });
         setNewClassName('');
       } catch (error) {
         console.error('Error adding class:', error);

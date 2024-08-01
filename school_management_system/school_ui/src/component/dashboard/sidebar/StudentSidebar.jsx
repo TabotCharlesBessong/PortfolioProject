@@ -1,31 +1,33 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
 import {
-  BsGraphUp,
-  BsPeople,
-  BsPerson,
-  BsFileText,
   BsBook,
-  BsGraphDown,
   BsCalendar,
-  BsGear,
   BsChatDots,
+  BsFileText,
+  BsGear,
+  BsGraphDown,
+  BsGraphUp,
 } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const SidebarContainer = styled.div`
-  position: relative;
-  width: 250px;
-  background-color: #252529;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: ${({ isOpen }) => (isOpen ? "250px" : "50px")};
+  height: 100%;
+  background-color: #2c3e50;
   color: white;
   padding-top: 60px;
+  transition: width 0.3s ease;
+  z-index: 100;
 `;
 const SidebarHeader = styled.div`
   padding: 20px;
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  background-color: #1e1e23;
 `;
 
 const SidebarNav = styled.ul`
@@ -38,10 +40,10 @@ const SidebarNavItem = styled.li`
   align-items: center;
   padding: 12px 20px;
   font-size: 18px;
-  border-bottom: 1px solid #37373c;
+  border-bottom: 1px solid #34495e;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #37373c;
+    background-color: #34495e;
   }
 `;
 
@@ -66,7 +68,7 @@ const ToggleButton = styled.div`
   right: 0;
   width: 30px;
   height: 30px;
-  background-color: #1e1e23;
+  background-color: #34495e;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -89,7 +91,7 @@ const StudentSidebar = () => {
   };
 
   return (
-    <SidebarContainer>
+    <SidebarContainer style={{ width: isOpen ? "250px" : "50px" }}>
       <SidebarHeader>
         <Logo src={"../assets/bg1.png"} alt="Logo" />
       </SidebarHeader>
