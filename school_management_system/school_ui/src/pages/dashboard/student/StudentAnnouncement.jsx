@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { StudentSidebar } from "../../../component";
+import axios from "axios";
 
 const AnnouncementContainer = styled.div`
   display: flex;
@@ -43,25 +44,20 @@ const AnnouncementContent = styled.p`
 
 const StudentAnnouncement = () => {
   // Sample announcement data
-  const announcements = [
-    {
-      id: 1,
-      title: "Important Notice",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: 2,
-      title: "Upcoming Exam Schedule",
-      content:
-        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      id: 3,
-      title: "Holiday Announcement",
-      content:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-  ];
+  const [announcements, setAnnouncements] = useState([]);
+
+  useEffect(() => {
+    fetchAnnouncements();
+  }, []);
+
+  const fetchAnnouncements = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/announcement/getall');
+      setAnnouncements(response.data.announcements);
+    } catch (error) {
+      console.error('Error fetching announcements:', error);
+    }
+  };
 
   return (
     <AnnouncementContainer>
@@ -72,9 +68,8 @@ const StudentAnnouncement = () => {
         <AnnouncementHeader>Announcements</AnnouncementHeader>
         <AnnouncementList>
           {announcements.map((announcement) => (
-            <AnnouncementItem key={announcement.id}>
-              <AnnouncementTitle>{announcement.title}</AnnouncementTitle>
-              <AnnouncementContent>{announcement.content}</AnnouncementContent>
+            <AnnouncementItem key={announcement._id}>
+              <AnnouncementTitle>{announcement.announcement}</AnnouncementTitle>
             </AnnouncementItem>
           ))}
         </AnnouncementList>

@@ -24,7 +24,7 @@ const SidebarContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: ${({ isOpen }) => (isOpen ? "250px" : "80px")};
+  width: ${({ isOpen }) => (isOpen ? "250px" : "50px")};
   height: 100%;
   background-color: #2c3e50; /* Dark blue background */
   overflow-y: auto; /* Enable vertical scrolling */
@@ -99,7 +99,7 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <SidebarContainer style={{width:isOpen ? '250px' : '80px'}} >
+    <SidebarContainer style={{width:isOpen ? '250px' : '60px'}} >
       <SidebarHeader>
         <Logo src="../assets/bg1.png" alt="Logo" />
       </SidebarHeader>

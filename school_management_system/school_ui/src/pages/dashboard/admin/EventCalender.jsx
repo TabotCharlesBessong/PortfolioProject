@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Sidebar } from "../../../component";
+import axios from "axios"
 
 const EventCalendarContainer = styled.div`
   display: flex;
@@ -29,12 +30,35 @@ const Event = styled.div`
 const EventCalendar = () => {
   const [events, setEvents] = useState([]);
   const [newEvent, setNewEvent] = useState("");
+  const [error, setError] = useState(null);
+
+  // Function to fetch events from the backend
+  const fetchEvents = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/event/getall"
+      );
+      setEvents(response.data.events || []); // Ensure events array is initialized even if response.data.events is undefined
+    } catch (error) {
+      console.error("Error fetching events:", error);
+      setError("Error fetching events");
+    }
+  };
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
   // Function to add a new event
-  const addEvent = () => {
-    if (newEvent.trim() !== "") {
-      setEvents([...events, newEvent]);
-      setNewEvent("");
+  const addEvent = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/api/event/create", {
+        event: newEvent,
+      });
+      setEvents([...events, response.data.event]);
+    } catch (error) {
+      console.error("Error adding event:", error);
+      setError("Error adding event");
     }
   };
 
