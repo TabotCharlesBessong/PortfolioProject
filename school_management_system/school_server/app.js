@@ -9,6 +9,7 @@ import bookRouter from "./router/library.router.js";
 import classRouter from "./router/class.router.js";
 import announcementRouter from "./router/announcement.router.js";
 import cookieParser from "cookie-parser";
+import eventRouter from "./router/event.router.js";
 
 const app = express();
 dotenv.config();
@@ -24,6 +25,7 @@ app.use("/api/teacher", teacherRouter);
 app.use("/api/book", bookRouter);
 app.use("/api/class", classRouter);
 app.use("/api/announcement", announcementRouter);
+app.use("/api/event", eventRouter);
 
 dbConnection();
 
