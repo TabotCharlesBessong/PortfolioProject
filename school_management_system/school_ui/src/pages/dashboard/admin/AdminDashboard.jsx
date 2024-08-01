@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Sidebar } from "../../../component";
 
@@ -9,6 +9,9 @@ const AdminDashboardContainer = styled.div`
 const Content = styled.div`
   flex: 1;
   padding: 20px;
+  margin-left: ${({ isOpen }) =>
+    isOpen ? "250px" : "80px"};
+  transition: margin-left 0.3s ease;
 `;
 
 const Section = styled.section`
@@ -18,6 +21,7 @@ const Section = styled.section`
 const SectionTitle = styled.h2`
   font-size: 24px;
   margin-bottom: 20px;
+  color: #333333;
 `;
 
 const CardContainer = styled.div`
@@ -31,11 +35,17 @@ const Card = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    transform: translateY(-5px);
+  }
 `;
 
 const CardTitle = styled.h3`
   font-size: 18px;
   margin-bottom: 10px;
+  color: #007bff;
 `;
 
 const CardContent = styled.p`
@@ -44,6 +54,7 @@ const CardContent = styled.p`
 `;
 
 const AdminDashboard = () => {
+  const [isOpen, setIsOpen] = useState(true)
   return (
     <AdminDashboardContainer>
       <Sidebar />

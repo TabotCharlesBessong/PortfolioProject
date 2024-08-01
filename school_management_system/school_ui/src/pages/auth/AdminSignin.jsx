@@ -6,6 +6,8 @@ const AdminSignInContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: linear-gradient(45deg, #ff69b4, #ffa07a, #90ee90);
+  height: 100vh;
 `;
 
 const FormContainer = styled.form`
@@ -28,16 +30,22 @@ const InputField = styled.input`
   border-radius: 4px;
 `;
 
-const SubmitButton = styled.button`
+const SubmitButton = styled(Link)`
   width: 100%;
   padding: 10px;
   margin-top: 20px;
   border: none;
-  border-radius: 4px;
-  background-color: #007bff;
+  border-radius: 8px;
+  background-color: #ff4500;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #ff6387;
+  }
 `;
 
 const AdminSignIn = () => {
@@ -68,10 +76,9 @@ const AdminSignIn = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        {/* Use Link component to navigate to admin dashboard */}
-        <Link to="/admin/dashboard">
-          <SubmitButton onClick={handleSignIn}>Sign In</SubmitButton>
-        </Link>
+        <SubmitButton to="/admin/dashboard" onClick={handleSignIn}>
+          Sign In
+        </SubmitButton>
       </FormContainer>
     </AdminSignInContainer>
   );

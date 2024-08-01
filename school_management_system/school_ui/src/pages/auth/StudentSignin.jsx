@@ -6,6 +6,8 @@ const StudentSignInContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: linear-gradient(45deg, #FF69B4, #FFA07A, #90EE90);
+  height: 100vh;
 `;
 
 const FormContainer = styled.form`
@@ -30,14 +32,20 @@ const InputField = styled.input`
 
 const SubmitButton = styled.button`
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 20px;
   border: none;
-  border-radius: 4px;
-  background-color: #007bff;
+  border-radius: 8px;
+  background-color: #ff4500;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
+  text-decoration: none;
+  text-align: center;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #ff6347;
+  }
 `;
 
 const StudentSignIn = () => {

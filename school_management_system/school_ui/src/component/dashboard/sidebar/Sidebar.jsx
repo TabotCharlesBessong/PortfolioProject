@@ -20,7 +20,16 @@ const SidebarContainer = styled.div`
   background-color: #252529;
   color: white;
   padding-top: 60px;
-  position:relative;
+  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: ${({ isOpen }) => (isOpen ? "250px" : "50px")};
+  height: 100%;
+  background-color: #2c3e50; /* Dark blue background */
+  overflow-y: auto; /* Enable vertical scrolling */
+  transition: width 0.3s ease; /* Smooth width transition */
+  z-index: 100;
 `;
 
 const SidebarHeader = styled.div`
@@ -28,7 +37,6 @@ const SidebarHeader = styled.div`
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  background-color: #1e1e23;
 `;
 
 const SidebarNav = styled.ul`
@@ -41,10 +49,10 @@ const SidebarNavItem = styled.li`
   align-items: center;
   padding: 12px 20px;
   font-size: 18px;
-  border-bottom: 1px solid #37373c;
+  border-bottom: 1px solid #34495c;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: #37373c;
+    background-color: #34495c;
   }
 `;
 
@@ -69,7 +77,7 @@ const ToggleButton = styled.div`
   right: 0;
   width: 30px;
   height: 30px;
-  background-color: #1e1e23;
+  background-color: #34495e;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -91,7 +99,7 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <SidebarContainer>
+    <SidebarContainer style={{width:isOpen ? '250px' : '60px'}} >
       <SidebarHeader>
         <Logo src="../assets/bg1.png" alt="Logo" />
       </SidebarHeader>
