@@ -1,21 +1,30 @@
 import Events from "../models/event.model.js";
 
 export const createEvents = async (req, res, next) => {
+  console.log(req.body);
   const { events } = req.body;
-  if (!events) {
-    return next("Please Fill Form!", 400);
+  try {
+    if (!events) {
+      return next("Please Fill Form!", 400);
+    }
+    await Events.create({ events });
+    res.status(200).json({
+      success: true,
+      message: "Event is Created!",
+    });
+  } catch (err) {
+    next(err);
   }
-  await Events.create({ events });
-  res.status(200).json({
-    success: true,
-    message: "Event is Created!",
-  });
 };
 
 export const getAllEvents = async (req, res, next) => {
-  const event = await Events.find();
-  res.status(200).json({
-    success: true,
-    event,
-  });
+  try {
+    const event = await Events.find();
+    res.status(200).json({
+      success: true,
+      event,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
