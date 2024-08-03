@@ -1,44 +1,39 @@
 import React, { useState } from "react";
 import {
-  AdminSignInContainer,
+  AdminRegisterContainer,
   FormContainer,
   InputField,
   SubmitButton,
-} from "../../styles/adminSignin.styles";
-import axios from "axios";
+} from "../../styles/adminRegister.styles";
+import axios from "axios"; // Import axios
 
-const AdminSignIn = () => {
+const AdminRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignIn = async (e) => {
-    e.preventDefault();
+  const handleRegister = async (e) => {
+    e.preventDefault(); // Prevent default form submission
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/admin/signin",
-        { email, password },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        "http://localhost:5000/api/admin/create",
+        { email, password }
       );
       if (response.status === 200) {
-        // Sign-in successful, redirect to admin dashboard
-        window.location.href = "/admin/dashboard";
+        // Registration successful, redirect to admin login
+        window.location.href = "/admin-signIn";
       } else {
-        // Handle sign-in errors
-        console.error("Sign-in failed");
+        // Handle registration errors
+        console.error("Registration failed");
       }
     } catch (error) {
-      console.error("Error during sign-in:", error);
+      console.error("Error during registration:", error);
     }
   };
 
   return (
-    <AdminSignInContainer>
-      <h2>Admin Sign In</h2>
+    <AdminRegisterContainer>
+      <h2>Admin Register</h2>
       <FormContainer>
         <InputField
           type="email"
@@ -54,10 +49,10 @@ const AdminSignIn = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <SubmitButton onClick={handleSignIn}>Sign In</SubmitButton>
+        <SubmitButton onClick={(e) => handleRegister(e)}>Register</SubmitButton>
       </FormContainer>
-    </AdminSignInContainer>
+    </AdminRegisterContainer>
   );
 };
 
-export default AdminSignIn;
+export default AdminRegister;
