@@ -1,40 +1,76 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+// Attendance.js
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  AttendanceContainer,
+  Content,
+  AttendanceContent,
+  AttendanceHeader,
+  AttendanceList,
+  AttendanceItem,
+  StudentName,
+  CheckboxLabel,
+  Divider,
+  SubmitButton,
+} from "../../../styles/attendance.styles";
 import { Sidebar } from "../../../component";
 
-const AttendanceContainer = styled.div`
-  display: flex;
-`;
-
-const Content = styled.div`
-  flex: 1;
-`;
-
-const AttendanceContent = styled.div`
-  padding: 20px;
-`;
-
-const AttendanceHeader = styled.h2`
-  font-size: 24px;
-  margin-bottom: 20px;
-`;
-
-const AttendanceList = styled.ul`
-  list-style: none;
-  padding: 0;
-`;
-
-const AttendanceItem = styled.li`
-  margin-bottom: 10px;
-`;
-
 const Attendance = () => {
-  // Sample attendance data
-  const attendanceData = [
-    { id: 1, name: "John Doe", status: "Present" },
-    { id: 2, name: "Jane Smith", status: "Absent" },
-    { id: 3, name: "Michael Johnson", status: "Present" },
-  ];
+  const [students, setStudents] = useState([]);
+  const [attendanceData, setAttendanceData] = useState([]);
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/student/getall"
+      );
+      setStudents(response.data.students);
+      initializeAttendanceData(response.data.students);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  };
+
+  const initializeAttendanceData = (students) => {
+    const initialAttendanceData = students.map((student) => ({
+      id: student.id,
+      name: student.name,
+      status: "Present", // Default to 'Present'
+    }));
+    setAttendanceData(initialAttendanceData);
+  };
+
+  const handleStatusChange = (id, status) => {
+    const updatedData = attendanceData.map((student) => {
+      if (student.id === id) {
+        return { ...student, status };
+      }
+      return student;
+    });
+    setAttendanceData(updatedData);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      // Send attendance data to the database
+      const formattedData = attendanceData.map(({ id, name, status }) => ({
+        studentId: id,
+        name,
+        status,
+      }));
+      const response = await axios.post(
+        "http://localhost:5000/api/attendance/create",
+        { attendanceData: formattedData }
+      );
+      console.log("Attendance data submitted:", response.data);
+    } catch (error) {
+      console.error("Error submitting attendance data:", error);
+    }
+  };
 
   return (
     <AttendanceContainer>
@@ -43,12 +79,44 @@ const Attendance = () => {
         <AttendanceContent>
           <AttendanceHeader>Attendance</AttendanceHeader>
           <AttendanceList>
-            {attendanceData.map((student) => (
-              <AttendanceItem key={student.id}>
-                {student.name}: {student.status}
-              </AttendanceItem>
+            {students.map((student, index) => (
+              <React.Fragment key={student.id}>
+                <AttendanceItem>
+                  <StudentName>{student.name}</StudentName>
+                  <CheckboxLabel>
+                    <input
+                      type="checkbox"
+                      checked={attendanceData[index]?.status === "Present"}
+                      onChange={() => handleStatusChange(student.id, "Present")}
+                    />
+                    Present
+                  </CheckboxLabel>
+                  <CheckboxLabel>
+                    <input
+                      type="checkbox"
+                      checked={attendanceData[index]?.status === "Absent"}
+                      onChange={() => handleStatusChange(student.id, "Absent")}
+                    />
+                    Absent
+                  </CheckboxLabel>
+                  <CheckboxLabel>
+                    <input
+                      type="checkbox"
+                      checked={
+                        attendanceData[index]?.status === "Absent with apology"
+                      }
+                      onChange={() =>
+                        handleStatusChange(student.id, "Absent with apology")
+                      }
+                    />
+                    Absent with apology
+                  </CheckboxLabel>
+                </AttendanceItem>
+                {index !== students.length - 1 && <Divider />}
+              </React.Fragment>
             ))}
           </AttendanceList>
+          <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
         </AttendanceContent>
       </Content>
     </AttendanceContainer>
