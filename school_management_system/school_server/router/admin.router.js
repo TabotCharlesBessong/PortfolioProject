@@ -5,6 +5,6 @@ import { adminSignIn } from "../controller/user.controller.js";
 const adminRouter = express.Router();
 
 adminRouter.post("/signin", adminSignIn);
-adminRouter.post("/admin", adminRegister);
+adminRouter.post("/create", adminRegister);
 
 export default adminRouter;

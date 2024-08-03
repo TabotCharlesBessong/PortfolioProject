@@ -14,7 +14,7 @@ export const adminSignIn = async (req, res, next) => {
         .status(401)
         .json({ success: false, message: "Invalid email or password" });
     }
-    const isPasswordValid = await existingAdmin.isValidPassword(password);
+    const isPasswordValid = password === existingAdmin.password;
 
     if (!isPasswordValid) {
       return res
