@@ -1,64 +1,20 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Sidebar } from "../../../component";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-const AssignmentsContainer = styled.div`
-  display: flex;
-`;
-
-const Content = styled.div`
-  flex: 1;
-`;
-
-const AddAssignmentTextArea = styled.textarea`
-  padding: 8px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const AssignmentsContent = styled.div`
-  padding: 20px;
-`;
-
-const AssignmentsHeader = styled.h2`
-  font-size: 24px;
-  margin-bottom: 20px;
-`;
-
-const AssignmentList = styled.ul`
-  list-style: none;
-  padding: 0;
-`;
-
-const AssignmentItem = styled.li`
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 10px 20px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-const AddAssignmentForm = styled.form`
-  margin-bottom: 20px;
-`;
-
-const AddAssignmentInput = styled.input`
-  padding: 8px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const AddAssignmentButton = styled.button`
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-`;
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  AssignmentsContainer,
+  Content,
+  AssignmentsContent,
+  AssignmentsHeader,
+  AssignmentList,
+  AssignmentItem,
+  AddAssignmentForm,
+  AddAssignmentInput,
+  AddAssignmentTextArea,
+  AddAssignmentButton,
+} from "../../../styles/assignment.styles";
+import { Sidebar } from "../../../component";
 
 const Assignments = () => {
   const [newAssignment, setNewAssignment] = useState({
@@ -86,19 +42,39 @@ const Assignments = () => {
 
   const handleAddAssignment = async (e) => {
     e.preventDefault();
-    if (newAssignment.title.trim() !== '' && newAssignment.description.trim() !== '' && newAssignment.grade.trim() !== '' && newAssignment.deadline.trim() !== '') {
+    if (
+      newAssignment.title.trim() !== "" &&
+      newAssignment.description.trim() !== "" &&
+      newAssignment.grade.trim() !== "" &&
+      newAssignment.deadline.trim() !== ""
+    ) {
       try {
-        const response = await axios.post('http://localhost:5000/api/assignment/create', newAssignment);
+        const response = await axios.post(
+          "http://localhost:5000/api/assignment/create",
+          newAssignment
+        );
+        // Display success toast message
+        toast.success("Assignment added successfully");
+        // Add the new assignment to the list
         setAssignments([...assignments, response.data.assignment]);
-        setNewAssignment({ title: '', description: '', grade: '', deadline: '' });
+        // Clear the form
+        setNewAssignment({
+          title: "",
+          description: "",
+          grade: "",
+          deadline: "",
+        });
       } catch (error) {
-        console.error('Error adding assignment:', error);
+        console.error("Error adding assignment:", error);
+        // Display error toast message
+        toast.error("Error adding assignment");
       }
     }
   };
 
   return (
     <AssignmentsContainer>
+      <ToastContainer />
       <Sidebar />
       <Content>
         <AssignmentsContent>
