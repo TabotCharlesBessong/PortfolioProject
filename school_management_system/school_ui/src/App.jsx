@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { ChooseUser } from "./component";
 import {
   AdminDashboard,
+  AdminRegister,
   AdminSignin,
   Announcement,
   Assignments,
@@ -46,6 +47,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/choose" element={<ChooseUser />} />
         <Route path="/admin-signin" element={<AdminSignin />} />
+        <Route path="/admin/register" element={<AdminRegister />} />
         <Route path="/student-signin" element={<StudentSignin />} />
         <Route path="/teacher-signin" element={<TeacherSignin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />

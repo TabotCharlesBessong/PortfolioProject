@@ -1,34 +1,21 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+// EventCalendar.js
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  EventCalendarContainer,
+  Content,
+  CalendarContainer,
+  Events,
+  Event,
+  AddEventForm,
+  EventInput,
+  AddEventButton,
+  ErrorText,
+} from "../../../styles/eventCalendar.styles";
 import { Sidebar } from "../../../component";
-import axios from "axios"
-
-const EventCalendarContainer = styled.div`
-  display: flex;
-`;
-
-const Content = styled.div`
-  flex: 1;
-  padding: 20px;
-`;
-
-const CalendarContainer = styled.div`
-  margin-top: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
-`;
-
-const Events = styled.div`
-  margin-top: 20px;
-`;
-
-const Event = styled.div`
-  margin-bottom: 10px;
-`;
 
 const EventCalendar = () => {
-  const [events, setEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
   const [newEvent, setNewEvent] = useState("");
   const [error, setError] = useState(null);
 
@@ -38,7 +25,7 @@ const EventCalendar = () => {
       const response = await axios.get(
         "http://localhost:5000/api/event/getall"
       );
-      setEvents(response.data.events || []); // Ensure events array is initialized even if response.data.events is undefined
+      setAllEvents(response.data.events || []);
     } catch (error) {
       console.error("Error fetching events:", error);
       setError("Error fetching events");
@@ -50,15 +37,21 @@ const EventCalendar = () => {
   }, []);
 
   // Function to add a new event
-  const addEvent = async () => {
+  const addEvent = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post("http://localhost:5000/api/event/create", {
-        event: newEvent,
+        events: newEvent,
       });
-      setEvents([...events, response.data.event]);
+      setAllEvents([...events, response.data.event]);
+      setNewEvent("");
     } catch (error) {
       console.error("Error adding event:", error);
-      setError("Error adding event");
+      if (error.response && error.response.data && error.response.data.error) {
+        setError(error.response.data.error);
+      } else {
+        setError("Error adding event");
+      }
     }
   };
 
@@ -67,29 +60,26 @@ const EventCalendar = () => {
       <Sidebar />
       <Content>
         <h1>Events & Calendar</h1>
-        {/* Current Time Display */}
         <div>Current Time: {new Date().toLocaleString()}</div>
-        {/* Calendar */}
         <CalendarContainer>
           {/* Display Calendar Here */}
           {/* For example: <Calendar /> */}
           Calendar
         </CalendarContainer>
-        {/* Add New Event */}
-        <div>
+        <AddEventForm onSubmit={addEvent}>
           <h2>Add New Event</h2>
-          <input
+          <EventInput
             type="text"
             value={newEvent}
             onChange={(e) => setNewEvent(e.target.value)}
             placeholder="Enter Event"
           />
-          <button onClick={addEvent}>Add Event</button>
-        </div>
-        {/* List of Events */}
+          <AddEventButton type="submit">Add Event</AddEventButton>
+        </AddEventForm>
+        {error && <ErrorText>{error}</ErrorText>}
         <Events>
           <h2>Events</h2>
-          {events.map((event, index) => (
+          {allEvents.map((event, index) => (
             <Event key={index}>{event}</Event>
           ))}
         </Events>
