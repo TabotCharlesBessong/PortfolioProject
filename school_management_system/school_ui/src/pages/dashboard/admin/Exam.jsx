@@ -1,55 +1,133 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+// Exam.js
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  ExamContainer,
+  SidebarContainer,
+  Content,
+  ExamHeader,
+  ExamForm,
+  FormLabel,
+  FormInput,
+  AddButton,
+} from "../../../styles/exam.styles";
 import { Sidebar } from "../../../component";
-
-const ExamContainer = styled.div`
-  display: flex;
-`;
-
-const Content = styled.div`
-  flex: 1;
-`;
-
-const ExamContent = styled.div`
-  padding: 20px;
-`;
-
-const ExamHeader = styled.h2`
-  font-size: 24px;
-  margin-bottom: 20px;
-`;
-
-const ExamList = styled.ul`
-  list-style: none;
-  padding: 0;
-`;
-
-const ExamItem = styled.li`
-  margin-bottom: 10px;
-`;
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Exam = () => {
-  // Sample exam results data
-  const examResults = [
-    { id: 1, name: "John Doe", subject: "Math", score: 85 },
-    { id: 2, name: "Jane Smith", subject: "Science", score: 75 },
-    { id: 3, name: "Michael Johnson", subject: "English", score: 90 },
-  ];
+  const [examData, setExamData] = useState([]);
+  const [name, setName] = useState("");
+  const [registrationNumber, setRegistrationNumber] = useState("");
+  const [className, setClassName] = useState("");
+  const [marks, setMarks] = useState("");
+
+  useEffect(() => {
+    fetchExams();
+  }, []);
+
+  const fetchExams = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/exam/getall"
+      );
+      if (Array.isArray(response.data)) {
+        setExamData(response.data.exams);
+      } else {
+        setExamData([response.data.exams]); // Wrap non-array response in an array
+      }
+    } catch (error) {
+      console.error("Error fetching exams:", error);
+    }
+  };
+
+  const handleAddExam = async (e) => {
+    e.preventDefault();
+    const newExam = {
+      name,
+      registrationNumber,
+      className,
+      marks: parseInt(marks),
+    };
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/exam/create",
+        newExam
+      );
+      // Ensure response data is always an object
+      toast.success("Successfully added an exam")
+      if (typeof response.data === "object") {
+        setExamData([...examData, response.data.exams]);
+        setName("");
+        setRegistrationNumber("");
+        setClassName("");
+        setMarks("");
+      } else {
+        console.error("Error: API response data is not an object");
+      }
+    } catch (error) {
+      console.error("Error adding exam:", error);
+      toast.error("Failed to add an exam")
+    }
+  };
+
+  const calculateTotalMarks = () => {
+    let total = 0;
+    for (let i = 0; i < examData.length; i++) {
+      total += examData[i].marks;
+    }
+    return total;
+  };
 
   return (
     <ExamContainer>
-      <Sidebar />
+      <SidebarContainer>
+        <ToastContainer />
+        <Sidebar />
+      </SidebarContainer>
       <Content>
-        <ExamContent>
-          <ExamHeader>Exam Results</ExamHeader>
-          <ExamList>
-            {examResults.map((result) => (
-              <ExamItem key={result.id}>
-                {result.name} - {result.subject}: {result.score}
-              </ExamItem>
-            ))}
-          </ExamList>
-        </ExamContent>
+        <ExamHeader>Exam Details</ExamHeader>
+        <ExamForm onSubmit={handleAddExam}>
+          <FormLabel>Name:</FormLabel>
+          <FormInput
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <FormLabel>Registration Number:</FormLabel>
+          <FormInput
+            type="text"
+            value={registrationNumber}
+            onChange={(e) => setRegistrationNumber(e.target.value)}
+            required
+          />
+          <FormLabel>Class:</FormLabel>
+          <FormInput
+            type="text"
+            value={className}
+            onChange={(e) => setClassName(e.target.value)}
+            required
+          />
+          <FormLabel>Marks:</FormLabel>
+          <FormInput
+            type="number"
+            value={marks}
+            onChange={(e) => setMarks(e.target.value)}
+            required
+          />
+          <AddButton type="submit">Add Exam</AddButton>
+        </ExamForm>
+        <h2>Total Marks: {calculateTotalMarks()}</h2>
+        <h3>Exam Details:</h3>
+        <ul>
+          {examData.map((exam, index) => (
+            <li key={index}>
+              Name: {exam.name}, Registration Number: {exam.registrationNumber},
+              Class: {exam.className}, Marks: {exam.marks}
+            </li>
+          ))}
+        </ul>
       </Content>
     </ExamContainer>
   );
