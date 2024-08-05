@@ -21,30 +21,35 @@ const SingupComponent = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
-
-    const newForm = new FormData();
-
-    newForm.append("file", avatar);
-    newForm.append("name", name);
-    newForm.append("email", email);
-    newForm.append("password", password);
-
-    axios
-      .post("http://localhost:5000/api/user/signup", newForm, config)
-      .then((res) => {
-        toast.success(res.data.message);
-        setName("");
-        setEmail("");
-        setPassword("");
-        setAvatar();
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
-    // console.log("submitting")
-    navigate("/")
+    try {
+      
+      e.preventDefault();
+      const config = { headers: { "Content-Type": "multipart/form-data" } };
+  
+      const newForm = new FormData();
+  
+      newForm.append("avatar", avatar);
+      newForm.append("name", name);
+      newForm.append("email", email);
+      newForm.append("password", password);
+  
+      axios
+        .post("http://localhost:5000/api/user/signup", newForm, config)
+        .then((res) => {
+          toast.success(res.data.message);
+          setName("");
+          setEmail("");
+          setPassword("");
+          setAvatar();
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+        });
+      // console.log("submitting")
+      navigate("/")
+    } catch (error) {
+      console.log("error creating user: ", error)
+    }
   };
 
   return (
