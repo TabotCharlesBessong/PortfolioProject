@@ -1,7 +1,7 @@
 import React from "react";
-import {BrowserRouter as Router,Routes,Route} from "react-router-dom"
-import { HomePage, Login, Signup } from "./pages";
-import {ToastContainer} from "react-toastify"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Activation, BestSelling, Events, HomePage, Login, Signup } from "./pages";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
@@ -10,6 +10,9 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/activate" element={<Activation />} />
+        <Route path="/best-selling" element={<BestSelling />} />
+        <Route path="/events" element={<Events />} />
       </Routes>
       <ToastContainer
         position="bottom-center"
