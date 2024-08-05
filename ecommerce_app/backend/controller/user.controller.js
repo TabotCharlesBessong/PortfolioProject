@@ -23,14 +23,14 @@ const signup = async (req, res, next) => {
       return next(new ErrorHandler("User already exists", 400));
     }
 
-    // const filename = req.file.filename;
-    // const fileUrl = path.join(filename);
+    const filename = req.file.filename;
+    const fileUrl = path.join(filename);
 
     const user = {
       name: name,
       email: email,
       password: password,
-      // avatar: fileUrl,
+      avatar: fileUrl,
     };
 
     const activationToken = createActivationToken(user);
