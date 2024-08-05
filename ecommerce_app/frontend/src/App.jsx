@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Activation, BestSelling, Events, FAQ, HomePage, Login, Signup } from "./pages";
+import { Activation, BestSelling, Events, FAQ, HomePage, Login, Products, Signup } from "./pages";
 import { ToastContainer } from "react-toastify";
 
 const App = () => {
@@ -14,6 +14,7 @@ const App = () => {
         <Route path="/best-selling" element={<BestSelling />} />
         <Route path="/events" element={<Events />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/products" element={<Products />} />
       </Routes>
       <ToastContainer
         position="bottom-center"

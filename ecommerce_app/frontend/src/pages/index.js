@@ -5,4 +5,5 @@ export { default as BestSelling } from "./common/BestSelling"
 export { default as Events } from "./common/Events"
 export { default as FAQ } from "./common/FAQPage"
 export { default as HomePage } from "./common/HomePage"
+export { default as Products } from "./common/Products"
 
