@@ -14,4 +14,7 @@ export { default as Sponsored } from "./home/Sponsored";
 export { default as Footer } from "./layout/Footer";
 export { default as Header } from "./layout/Header";
 export { default as Navbar } from "./layout/Navbar";
+export { default as Cart } from "./shop/Cart";
+export { default as CartSingle } from "./shop/CartSingle";
+export { default as WishList } from "./shop/WishList";
 
