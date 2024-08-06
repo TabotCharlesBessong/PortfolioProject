@@ -3,7 +3,6 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-const ErrorHandler = require("./utils/ErrorHandler");
 const userRouter = require("./router/user.router");
 
 const app = express();
