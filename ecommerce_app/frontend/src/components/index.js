@@ -1,5 +1,7 @@
-export { default as LoginComponent } from "./auth/LoginComponent";
-export { default as SignupComponent } from "./auth/SignupComponent";
+export { default as CreateShopComponent } from "./auth/shop/CreateShopComponent";
+export { default as ShopLoginComponent } from "./auth/shop/ShopLoginComponent";
+export { default as LoginComponent } from "./auth/user/LoginComponent";
+export { default as SignupComponent } from "./auth/user/SignupComponent";
 export { default as CountDown } from "./common/CountDown";
 export { default as DropDown } from "./common/DropDown";
 export { default as EventCard } from "./common/EventCard";

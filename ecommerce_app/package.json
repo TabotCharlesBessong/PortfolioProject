@@ -1,0 +1,6 @@
+{
+	"dependencies": {
+		"react-redux": "^9.1.2",
+		"@mui/x-data-grid": "^7.12.0"
+	}
+}
