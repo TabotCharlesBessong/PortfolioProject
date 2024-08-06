@@ -273,11 +273,11 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/619L9jf3-rL._AC_UY218_.jpg",
       },
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/619L9jf3-rL._AC_UY218_.jpg",
       },
     ],
     shop: {
@@ -325,7 +325,7 @@ export const productData = [
     category: "Mobile & Tablets",
   },
   {
-    id: 1,
+    id: 3,
     category: "Computers and Laptop",
     name: "MacBook pro M2 chipset 256gb ssd 8gb ram space gray color with apple 1 year warranty",
     description:
@@ -333,11 +333,11 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/619L9jf3-rL._AC_UY218_.jpg",
       },
       {
         public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        url: "https://m.media-amazon.com/images/I/619L9jf3-rL._AC_UY218_.jpg",
       },
     ],
     shop: {
@@ -395,11 +395,11 @@ export const productData = [
     image_Url: [
       {
         public_id: "test",
-        url: "https://mirzacdns3.s3.ap-south-1.amazonaws.com/cache/catalog/RLV0015/2-800x800.jpg",
+        url: "https://m.media-amazon.com/images/I/415STKHjbTL._AC_UL320_.jpg",
       },
       {
         public_id: "test",
-        url: "https://mirzacdns3.s3.ap-south-1.amazonaws.com/cache/catalog/RLV0015/2-800x800.jpg",
+        url: "https://m.media-amazon.com/images/I/415STKHjbTL._AC_UL320_.jpg",
       },
     ],
     shop: {
