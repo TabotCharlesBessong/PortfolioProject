@@ -32,10 +32,10 @@ const shopSchema = new mongoose.Schema({
     type: String,
     default: "Seller",
   },
-  avatar: {
-    type: String,
-    required: true,
-  },
+  // avatar: {
+  //   type: String,
+  //   required: true,
+  // },
   zipCode: {
     type: Number,
     required: true,
