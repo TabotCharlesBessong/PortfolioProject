@@ -1,4 +1,6 @@
 export { default as SignIn } from "./auth/SignIn"
+export { default as SignUp } from "./auth/SignUp"
+export { default as Footer } from "./common/Footer"
 export { default as Navbar } from "./common/Navbar"
 export { default as AboutUs } from "./patient/AboutUs"
 export { default as Appointment } from "./patient/Appointment"

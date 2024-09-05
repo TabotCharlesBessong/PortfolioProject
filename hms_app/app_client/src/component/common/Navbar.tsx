@@ -50,12 +50,19 @@ const Navbar: React.FC = () => {
             LogIn
           </button>
         </div>
-        <span
-          className="z-50 text-4xl md:hidden cursor-pointer hover:scale-100 duration-300 active:scale-90"
+        <svg
+          className={
+            isMobNav
+              ? "size-10 md:hidden cursor-pointer z-50 text-white"
+              : "size-10 md:hidden cursor-pointer z-50"
+          }
           onClick={handleNav}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
         >
-          ⬅️
-        </span>
+          <path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path>
+        </svg>
         <div
           className={
             !isMobNav
