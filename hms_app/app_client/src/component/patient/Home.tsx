@@ -1,9 +1,9 @@
 import images from "../../constant/images";
 
 const Home = () => {
-  const handleNewsletter = () => {
-    alert("Thanks for subscribing to our newsletter");
-  };
+  // const handleNewsletter = () => {
+  //   alert("Thanks for subscribing to our newsletter");
+  // };
   return (
     <div className="bg-slate-300">
       <section>
