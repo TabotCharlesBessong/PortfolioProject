@@ -5,7 +5,7 @@ import { navItems } from "../../constant/data";
 
 const Navbar = ({ active }) => {
   return (
-    <div className={`${styles.noramlFlex}`}>
+    <div className={`block 800px ${styles.noramlFlex}`}>
       {navItems &&
         navItems.map((i, index) => (
           <div className="flex">
