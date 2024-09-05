@@ -1,5 +1,7 @@
-export { default as LoginComponent } from "./auth/LoginComponent";
-export { default as SignupComponent } from "./auth/SignupComponent";
+export { default as CreateShopComponent } from "./auth/shop/CreateShopComponent";
+export { default as ShopLoginComponent } from "./auth/shop/ShopLoginComponent";
+export { default as LoginComponent } from "./auth/user/LoginComponent";
+export { default as SignupComponent } from "./auth/user/SignupComponent";
 export { default as CountDown } from "./common/CountDown";
 export { default as DropDown } from "./common/DropDown";
 export { default as EventCard } from "./common/EventCard";
@@ -14,4 +16,9 @@ export { default as Sponsored } from "./home/Sponsored";
 export { default as Footer } from "./layout/Footer";
 export { default as Header } from "./layout/Header";
 export { default as Navbar } from "./layout/Navbar";
+export { default as Cart } from "./shop/cart/Cart";
+export { default as CartSingle } from "./shop/cart/CartSingle";
+export { default as WishList } from "./shop/cart/WishList";
+export { default as Checkout } from "./shop/checkout/Checkout";
+export { default as CheckoutSteps } from "./shop/checkout/CheckoutSteps";
 
