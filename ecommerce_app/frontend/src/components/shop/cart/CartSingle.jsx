@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styles from "../../styles";
+import styles from "../../../styles";
 import { RxCross1 } from "react-icons/rx";
-import {HiPlus,HiOutlineMinus} from "react-icons/hi"
+import { HiPlus, HiOutlineMinus } from "react-icons/hi";
 
 const CartSingle = ({ data }) => {
   const [value, setValue] = useState(1);
@@ -45,4 +45,4 @@ const CartSingle = ({ data }) => {
   );
 };
 
-export default CartSingle
+export default CartSingle;
