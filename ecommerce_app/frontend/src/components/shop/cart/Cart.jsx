@@ -2,7 +2,7 @@ import React from "react";
 import { IoBagHandleOutline } from "react-icons/io5";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import styles from "../../styles";
+import styles from "../../../styles";
 import CartSingle from "./CartSingle";
 
 const Cart = ({ setOpenCart }) => {
@@ -64,6 +64,5 @@ const Cart = ({ setOpenCart }) => {
     </div>
   );
 };
-
 
 export default Cart;
