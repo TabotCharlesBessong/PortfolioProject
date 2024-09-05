@@ -27,9 +27,9 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div className="bg-slate-300 h-[80px] w-full">
+    <div className="bg-slate-300 h-[80px] w-full fixed">
       <div className="flex max-w-7xl items-center justify-between m-auto h-full">
-        <div className="text-3xl">HMS</div>
+        <div className="text-5xl">HMS</div>
         <div className="justify-center items-center gap-6 text-xl hidden md:flex">
           <NavLink style={navLinkStyle} to="/home">
             Home
@@ -44,14 +44,14 @@ const Navbar: React.FC = () => {
             Contact Us
           </NavLink>
           <button
-            className="bg-slate-900 text-white p-1 rounded-lg hover:scale-110 duration-300 active:scale-90"
+            className="bg-slate-900 text-white p-1 pe-2 ps-2 rounded-full hover:scale-110 hover:bg-slate-800 duration-300 active:scale-90"
             onClick={handleClick}
           >
             LogIn
           </button>
         </div>
         <span
-          className="z-50 text-4xl md:hidden cursor-pointer"
+          className="z-50 text-4xl md:hidden cursor-pointer hover:scale-100 duration-300 active:scale-90"
           onClick={handleNav}
         >
           ⬅️
