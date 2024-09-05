@@ -1,2 +1,4 @@
 *node_modules
 /inventory_management_system/frontend_ui/node_modules
+# school_management_system/school_server/.env
+*.env

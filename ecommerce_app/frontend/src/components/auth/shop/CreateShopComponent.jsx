@@ -1,24 +1,21 @@
-import { React, useState } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import styles from "../../styles";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import styles from "../../../styles";
 import { RxAvatar } from "react-icons/rx";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import axios from "axios";
-// import { server } from "../../server";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const SingupComponent = () => {
+const CreateShopComponent = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [address, setAddress] = useState("");
+  const [zipCode, setZipCode] = useState();
+  const [avatar, setAvatar] = useState();
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
-  const [avatar, setAvatar] = useState(null);
-  const navigate = useNavigate();
-
-  const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    setAvatar(file);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,31 +27,40 @@ const SingupComponent = () => {
     newForm.append("name", name);
     newForm.append("email", email);
     newForm.append("password", password);
-
+    newForm.append("zipCode", zipCode);
+    newForm.append("address", address);
+    newForm.append("phoneNumber", phoneNumber);
     axios
-      .post("http://localhost:5000/api/user/signup", newForm, config)
+      .post("http://localhost:5000/api/user/create-shop", newForm, config)
       .then((res) => {
         toast.success(res.data.message);
         setName("");
         setEmail("");
         setPassword("");
         setAvatar();
+        setZipCode();
+        setAddress("");
+        setPhoneNumber();
+        navigate("/shop-login");
       })
       .catch((error) => {
         toast.error(error.response.data.message);
       });
-    // console.log("submitting")
-    navigate("/")
+  };
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    setAvatar(file);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Register as a new user
+          Register as a seller
         </h2>
       </div>
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-[35rem]">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
@@ -62,16 +68,34 @@ const SingupComponent = () => {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                Full Name
+                Shop Name
               </label>
               <div className="mt-1">
                 <input
-                  type="text"
+                  type="name"
                   name="name"
-                  autoComplete="name"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Phone Number
+              </label>
+              <div className="mt-1">
+                <input
+                  type="number"
+                  name="phone-number"
+                  required
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
@@ -99,6 +123,44 @@ const SingupComponent = () => {
 
             <div>
               <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Address
+              </label>
+              <div className="mt-1">
+                <input
+                  type="address"
+                  name="address"
+                  required
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Zip Code
+              </label>
+              <div className="mt-1">
+                <input
+                  type="number"
+                  name="zipcode"
+                  required
+                  value={zipCode}
+                  onChange={(e) => setZipCode(e.target.value)}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
               >
@@ -117,13 +179,13 @@ const SingupComponent = () => {
                 {visible ? (
                   <AiOutlineEye
                     className="absolute right-2 top-2 cursor-pointer"
-                    size={28}
+                    size={25}
                     onClick={() => setVisible(false)}
                   />
                 ) : (
                   <AiOutlineEyeInvisible
                     className="absolute right-2 top-2 cursor-pointer"
-                    size={28}
+                    size={25}
                     onClick={() => setVisible(true)}
                   />
                 )}
@@ -174,8 +236,8 @@ const SingupComponent = () => {
             </div>
             <div className={`${styles.noramlFlex} w-full`}>
               <h4>Already have an account?</h4>
-              <Link to="/login" className="text-blue-600 pl-2">
-                Sign In
+              <Link to="/shop-login" className="text-blue-600 pl-2">
+                Sign in
               </Link>
             </div>
           </form>
@@ -185,4 +247,4 @@ const SingupComponent = () => {
   );
 };
 
-export default SingupComponent;
+export default CreateShopComponent;

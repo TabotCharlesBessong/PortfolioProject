@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import styles from "../../styles";
+import styles from "../../../styles";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -19,8 +19,8 @@ const LoginComponent = () => {
         {
           email,
           password,
-        },
-        { withCredentials: true }
+        }
+        // { withCredentials: true }
       )
       .then((res) => {
         toast.success("Login Success!");
@@ -28,8 +28,8 @@ const LoginComponent = () => {
         window.location.relaoad();
       })
       .catch((err) => {
-      toast.error(err.response.data.message);
-    });
+        toast.error(err.response.data.message);
+      });
   };
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
