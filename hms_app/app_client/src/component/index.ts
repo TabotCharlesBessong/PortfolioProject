@@ -1,0 +1,6 @@
+export { default as SignIn } from "./auth/SignIn"
+export { default as Navbar } from "./common/Navbar"
+export { default as AboutUs } from "./patient/AboutUs"
+export { default as Appointment } from "./patient/Appointment"
+export { default as ContactUs } from "./patient/ContactUs"
+export { default as Home } from "./patient/Home"
