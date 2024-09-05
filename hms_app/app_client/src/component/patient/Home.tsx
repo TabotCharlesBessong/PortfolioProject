@@ -1,6 +1,9 @@
 import images from "../../constant/images";
 
 const Home = () => {
+  const handleNewsletter = () => {
+    alert("Thanks for subscribing to our newsletter");
+  };
   return (
     <div className="bg-slate-300">
       <section>
@@ -397,7 +400,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {/* <section>footer</section> */}
     </div>
   );
 };
