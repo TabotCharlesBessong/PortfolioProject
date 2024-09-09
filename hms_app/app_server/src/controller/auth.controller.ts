@@ -3,31 +3,37 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import User from "../models/user.model";
 import config from "config";
+import { AuthRequest } from "src/types";
 
 // Middleware to verify user by JWT token
 export const verifyUser = (
-  req: Request,
+  req: AuthRequest,
   res: Response,
   next: NextFunction
 ): Response | void => {
   const token = req.cookies.token;
+
   if (!token) {
-    return res.json("The Token is Not Available");
-  } else {
-    jwt.verify(
-      token,
-      config.get<string>("jwtsecret"),
-      (err: any, decoded: any) => {
-        if (err) {
-          return res.json("The Token is Not Valid");
-        } else {
-          req.email = decoded.email;
-          req.username = decoded.username;
-          next();
-        }
-      }
-    );
+    return res.status(401).json("Token is not available");
   }
+
+  jwt.verify(
+    token,
+    process.env.JWT_SECRET as string,
+    (err: any, decoded: any) => {
+      if (err) {
+        return res.status(401).json("Token is not valid");
+      }``
+
+      if (decoded) {
+        // Ensure decoded contains email and username
+        req.email = decoded.email;
+        req.username = decoded.username;
+      }
+
+      next();
+    }
+  );
 };
 
 // Controller to register a new user
@@ -78,7 +84,7 @@ export const loginUser = async (
       if (isPasswordValid) {
         const token = jwt.sign(
           { id: user._id, role: user.role },
-          config.get<string>("jwtsecret"),
+          process.env.JWT_SECRET as string,
           {
             expiresIn: "2d",
           }

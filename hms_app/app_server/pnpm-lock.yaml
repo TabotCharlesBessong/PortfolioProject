@@ -60,6 +60,9 @@ importers:
       '@types/bcrypt':
         specifier: ^5.0.2
         version: 5.0.2
+      '@types/body-parser':
+        specifier: ^1.19.5
+        version: 1.19.5
       '@types/config':
         specifier: ^3.3.5
         version: 3.3.5

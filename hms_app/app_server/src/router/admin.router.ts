@@ -10,21 +10,21 @@ import {
 } from "../controller/admin.controller";
 import checkAdmin from "../middlewares/checkAdmin";
 
-const router = express.Router();
+const adminRouter = express.Router();
 
 // Routes for users
-router.get("/get-users", checkAdmin, getUsers);
-router.delete("/delete-user/:id", checkAdmin, deleteUser);
+adminRouter.get("/get-users", checkAdmin, getUsers);
+adminRouter.delete("/delete-user/:id", checkAdmin, deleteUser);
 
 // Routes for contacts
-router.get("/get-contacts", checkAdmin, getContacts);
+adminRouter.get("/get-contacts", checkAdmin, getContacts);
 
 // Routes for departments
-router.post("/add-department", checkAdmin, addDepartment);
-router.delete("/delete-department/:id", checkAdmin, deleteDepartment);
-router.get("/get-department", checkAdmin, getDepartments);
+adminRouter.post("/add-department", checkAdmin, addDepartment);
+adminRouter.delete("/delete-department/:id", checkAdmin, deleteDepartment);
+adminRouter.get("/get-department", checkAdmin, getDepartments);
 
 // Count all users, contacts, and departments
-router.get("/count-all", checkAdmin, countAll);
+adminRouter.get("/count-all", checkAdmin, countAll);
 
-export default router;
+export default adminRouter;

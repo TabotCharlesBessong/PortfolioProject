@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { addContactUs } from "src/controller/user.controller";
+import { addContactUs } from "../controller/user.controller";
 
-const router = Router();
+const userRouter = Router();
 
 // POST route to add a Contact Us entry
-router.post("/add-contact-us", addContactUs);
+userRouter.post("/add-contact-us", addContactUs);
 
-export default router;
+export default userRouter;

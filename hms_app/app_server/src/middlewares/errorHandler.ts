@@ -5,4 +5,4 @@ const errorHandler = (err:TypeError, req:Request, res:Response, next:NextFunctio
   res.status(500).send("Something went wrong!");
 };
 
-module.exports = errorHandler;
+export default errorHandler;

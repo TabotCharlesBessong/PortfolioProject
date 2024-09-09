@@ -1,25 +1,31 @@
-import { Router } from "express";
+// src/router/auth.router.ts
+import { Router, Request, Response } from "express";
 import {
   verifyUser,
   registerUser,
   loginUser,
   logoutUser,
 } from "../controller/auth.controller"; // Import the controllers
+import { AuthRequest } from "src/types";
 
-const router = Router();
+const authRouter = Router();
 
 // Route to get the current user (Protected)
-router.get("/", verifyUser, (req, res) => {
-  return res.json({ email: req.email, username: req.username });
+authRouter.post("/", verifyUser, (req: AuthRequest, res: Response) => {
+  // Access email and username from the extended Request object
+  const email = req.email;
+  const username = req.username;
+
+  return res.json({ email, username });
 });
 
 // Route to register a new user
-router.post("/register", registerUser);
+authRouter.post("/register", registerUser);
 
 // Route to log in the user
-router.post("/login", loginUser);
+authRouter.post("/login", loginUser);
 
 // Route to log out the user
-router.get("/logout", logoutUser);
+authRouter.get("/logout", logoutUser);
 
-export default router;
+export default authRouter;
