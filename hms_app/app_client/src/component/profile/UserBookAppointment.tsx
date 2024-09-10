@@ -52,6 +52,13 @@ function UserBookAppointment() {
               >
                 Book Appointment
               </NavLink>
+              <NavLink
+                style={navLinkStyle}
+                className={"w-full p-2 h-[40px] "}
+                to="/user-medication"
+              >
+                Medication
+              </NavLink>
             </div>
           </div>
           <div className="w-full text-center  h-[80px] p-2">
@@ -142,7 +149,7 @@ function UserBookAppointment() {
                 ></input>
               </div>
             </div>
-            <button className="bg-black text-white p-2 rounded-full">
+            <button className="bg-black w-[95%] text-white p-2 rounded-full">
               Book Now
             </button>
           </form>

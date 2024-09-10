@@ -3,15 +3,22 @@ import {
   AboutUs,
   Appointment,
   ContactUs,
+  DoctorAppointment,
+  DoctorReview,
   Footer,
   Navbar,
+  NurseBed,
+  NurseMedication,
   UserAppointment,
   UserBookAppointment,
+  UserMedication,
 } from "./component";
 import {
   DoctorAuthPage,
+  DoctorProfilePage,
   HomePage,
   NurseAuthPage,
+  NurseProfilePage,
   SignInPage,
   SignUpPage,
   UserProfilePage,
@@ -36,6 +43,13 @@ const App = () => {
           element={<UserBookAppointment />}
         />
         <Route path="/appointment" element={<Appointment />} />
+        <Route path="/doctor-profile" element={<DoctorProfilePage />} />
+        <Route path="/user-medication" element={<UserMedication />} />
+        <Route path="/doctor-review" element={<DoctorReview />} />
+        <Route path="/doctor-appointments" element={<DoctorAppointment />} />
+        <Route path="/nurse-profile" element={<NurseProfilePage />} />
+        <Route path="/nurse-medication" element={<NurseMedication />} />
+        <Route path="/nurse-bed" element={<NurseBed />} />
       </Routes>
       <Footer />
     </Router>

@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom";
-import images from "../../constant/images";
+import images from "../../../constant/images";
 
 interface NavLinkStyleProps {
   isActive: boolean;
 }
 
-function UserAppointment() {
+function DoctorAppointment() {
   const navLinkStyle = ({
     isActive,
   }: NavLinkStyleProps): React.CSSProperties => {
@@ -23,40 +23,35 @@ function UserAppointment() {
           <div className="flex flex-col gap-16">
             <div className="w-full flex flex-col items-center gap-3">
               <img
-                src={images.human6}
+                src={images.doct2}
                 className="size-24 rounded-full"
                 alt="profile"
               />
-              <p>Name</p>
+              <p>
+                <span className="font-semibold">Dr.</span>Name
+              </p>
             </div>
             <div className="flex flex-col items-start w-full gap-4 ">
               <NavLink
                 style={navLinkStyle}
-                className={"w-full   p-2 h-[40px] "}
-                to="/user-profile"
+                className={"w-full  p-2 h-[40px] "}
+                to="/doctor-profile"
               >
                 Settings
               </NavLink>
               <NavLink
                 style={navLinkStyle}
                 className={"w-full  p-2 h-[40px] "}
-                to="/user-appointments"
+                to="/doctor-appointments"
               >
-                History
+                Appointments
               </NavLink>
               <NavLink
                 style={navLinkStyle}
                 className={"w-full p-2 h-[40px] "}
-                to="/user-book-appointment"
+                to="/doctor-review"
               >
-                Book Appointment
-              </NavLink>
-              <NavLink
-                style={navLinkStyle}
-                className={"w-full p-2 h-[40px] "}
-                to="/user-medication"
-              >
-                Medication
+                Review
               </NavLink>
             </div>
           </div>
@@ -66,12 +61,12 @@ function UserAppointment() {
             </button>
           </div>
         </div>
-        <div className="overflow-auto  w-[70%] ms-24 p-4 flex flex-col  ">
-          {/* main content comes here */}
+        <div className=" w-[70%] ms-24 p-4 flex flex-col overflow-auto ">
+          appointments comes here
         </div>
       </div>
     </section>
   );
 }
 
-export default UserAppointment;
+export default DoctorAppointment;
