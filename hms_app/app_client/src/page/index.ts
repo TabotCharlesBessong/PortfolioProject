@@ -1,3 +1,5 @@
-export {default as HomePage} from "./HomePage"
-export {default as SignInPage} from "./auth/SignInPage"
-export {default as SignUpPage} from "./auth/SignUpPage"
+export { default as DoctorAuthPage } from "./auth/DoctorAuthPage"
+export { default as NurseAuthPage } from "./auth/NurseAuthPage"
+export { default as SignInPage } from "./auth/SignInPage"
+export { default as SignUpPage } from "./auth/SignUpPage"
+export { default as HomePage } from "./HomePage"

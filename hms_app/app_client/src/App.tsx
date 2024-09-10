@@ -1,6 +1,12 @@
-import {BrowserRouter as Router, Route,Routes} from "react-router-dom"
-import { AboutUs, ContactUs, Footer, Navbar } from "./component"
-import { HomePage, SignInPage, SignUpPage } from "./page"
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { AboutUs, ContactUs, Footer, Navbar } from "./component";
+import {
+  DoctorAuthPage,
+  HomePage,
+  NurseAuthPage,
+  SignInPage,
+  SignUpPage,
+} from "./page";
 
 const App = () => {
   return (
@@ -12,10 +18,12 @@ const App = () => {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
+        <Route path="/doctor-sign-in" element={<DoctorAuthPage />} />
+        <Route path="/nurse-sign-in" element={<NurseAuthPage />} />
       </Routes>
       <Footer />
     </Router>
   );
-}
+};
 
-export default App
+export default App;

@@ -1,3 +1,5 @@
+export { default as DoctorAuth } from "./auth/DoctorAuth.tsx"
+export { default as NurseAuth } from "./auth/NurseAuth.tsx"
 export { default as SignIn } from "./auth/SignIn"
 export { default as SignUp } from "./auth/SignUp"
 export { default as Footer } from "./common/Footer"
