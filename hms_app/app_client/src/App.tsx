@@ -1,11 +1,20 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { AboutUs, ContactUs, Footer, Navbar } from "./component";
+import {
+  AboutUs,
+  Appointment,
+  ContactUs,
+  Footer,
+  Navbar,
+  UserAppointment,
+  UserBookAppointment,
+} from "./component";
 import {
   DoctorAuthPage,
   HomePage,
   NurseAuthPage,
   SignInPage,
   SignUpPage,
+  UserProfilePage,
 } from "./page";
 
 const App = () => {
@@ -20,6 +29,13 @@ const App = () => {
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/doctor-sign-in" element={<DoctorAuthPage />} />
         <Route path="/nurse-sign-in" element={<NurseAuthPage />} />
+        <Route path="/user-profile" element={<UserProfilePage />} />
+        <Route path="/user-appointments" element={<UserAppointment />} />
+        <Route
+          path="/user-book-appointment"
+          element={<UserBookAppointment />}
+        />
+        <Route path="/appointment" element={<Appointment />} />
       </Routes>
       <Footer />
     </Router>
