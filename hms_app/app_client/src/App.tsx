@@ -1,6 +1,11 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import {
   AboutUs,
+  AdminDoctor,
+  AdminNewsletter,
+  AdminNurse,
+  AdminPatient,
+  AdminQuery,
   Appointment,
   ContactUs,
   DoctorAppointment,
@@ -14,6 +19,7 @@ import {
   UserMedication,
 } from "./component";
 import {
+  AdminDashPage,
   DoctorAuthPage,
   DoctorProfilePage,
   HomePage,
@@ -50,6 +56,13 @@ const App = () => {
         <Route path="/nurse-profile" element={<NurseProfilePage />} />
         <Route path="/nurse-medication" element={<NurseMedication />} />
         <Route path="/nurse-bed" element={<NurseBed />} />
+        <Route path="/nurse-bed" element={<NurseBed />} />
+        <Route path="/admin-dashboard" element={<AdminDashPage />} />
+        <Route path="/admin-doctor" element={<AdminDoctor />} />
+        <Route path="/admin-nurse" element={<AdminNurse />} />
+        <Route path="/admin-patient" element={<AdminPatient />} />
+        <Route path="/admin-query" element={<AdminQuery />} />
+        <Route path="/admin-newsletter" element={<AdminNewsletter />} />
       </Routes>
       <Footer />
     </Router>
