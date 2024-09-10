@@ -43,7 +43,7 @@ const ContactUs = () => {
               <span className="text-zinc-500 text-base">feedback@hms.org</span>
             </div>
           </div>
-          <div className="flex flex-col w-[500px] h-4/5 p-4 justify-center items-center gap-10 border border-solid rounded-lg border-transparent shadow-xl shadow-slate-950">
+          <div className="flex flex-col w-[500px] h-4/5 p-4 justify-center items-center bg-white gap-10 border border-solid rounded-lg border-transparent shadow-xl shadow-slate-950">
             <span className="text-zinc-650 text-3xl font-medium">
               Get in touch
             </span>

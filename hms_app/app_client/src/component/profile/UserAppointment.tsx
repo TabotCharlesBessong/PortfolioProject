@@ -18,7 +18,7 @@ function UserAppointment() {
 
   return (
     <section className="bg-slate-300 flex justify-center items-center">
-      <div className="h-[80%] w-[80%] bg-white shadow-xl p-2">
+      <div className="h-[80%] w-[80%] bg-white shadow-xl p-2 flex">
         <div className="bg-slate- h-full w-[18%] flex flex-col justify-between p-2 ">
           <div className="flex flex-col gap-16">
             <div className="w-full flex flex-col items-center gap-3">
@@ -42,7 +42,7 @@ function UserAppointment() {
                 className={"w-full  p-2 h-[40px] "}
                 to="/user-appointments"
               >
-                Appointments
+                History
               </NavLink>
               <NavLink
                 style={navLinkStyle}
@@ -58,6 +58,9 @@ function UserAppointment() {
               Sign Out
             </button>
           </div>
+        </div>
+        <div className="overflow-auto  w-[70%] ms-24 p-4 flex flex-col  ">
+          {/* main content comes here */}
         </div>
       </div>
     </section>

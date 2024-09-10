@@ -43,7 +43,7 @@ const UserProfile: FC = () => {
                 className="w-full p-2 h-[40px]"
                 to="/user-appointments"
               >
-                Appointments
+                History
               </NavLink>
               <NavLink
                 style={navLinkStyle}
