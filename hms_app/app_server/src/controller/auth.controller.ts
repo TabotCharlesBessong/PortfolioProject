@@ -62,7 +62,7 @@ export const registerUser = async (
     });
 
     const savedUser = await newUser.save();
-    return res.json(savedUser);
+    return res.json({savedUser,message:"Success"});
   } catch (error:any) {
     return res.status(500).json({ error: error.message });
   }
