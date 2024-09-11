@@ -5,7 +5,7 @@ const Home = () => {
   //   alert("Thanks for subscribing to our newsletter");
   // };
   return (
-    <div className="bg-slate-300">
+    <div className="bg-[#FEFAE0]">
       <section>
         <div className="flex flex-col lg:flex-row h-screen w-screen justify-center items-center max-w-7xl m-auto">
           <div className="flex flex-col justify-center">
@@ -135,7 +135,7 @@ const Home = () => {
             {/* from here */}
 
             <div className="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              <div className="w-[270px] m-4 h-[300px] border border-gray-200 rounded-lg bg-green-400 shadow flex justify-center">
+              <div className="w-[270px] m-4 h-[300px] border border-gray-200 rounded-lg bg-[#D4A373] shadow flex justify-center">
                 <div className="flex flex-col items-center justify-center ">
                   <img
                     className="w-24 h-24 mb-3 rounded-full shadow-lg"
@@ -157,7 +157,7 @@ const Home = () => {
                 </div>
               </div>
 
-              <div className="w-[270px] m-4 h-[300px] bg-green-400 border border-gray-200 rounded-lg shadow flex justify-center">
+              <div className="w-[270px] m-4 h-[300px] bg-[#D4A373] border border-gray-200 rounded-lg shadow flex justify-center">
                 <div className="flex flex-col items-center justify-center ">
                   <img
                     className="w-24 h-24 mb-3 rounded-full shadow-lg"
@@ -178,7 +178,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-[270px] m-4 h-[300px] bg-green-400 border border-gray-200 rounded-lg shadow flex justify-center">
+              <div className="w-[270px] m-4 h-[300px] bg-[#D4A373] border border-gray-200 rounded-lg shadow flex justify-center">
                 <div className="flex flex-col items-center justify-center ">
                   <img
                     className="w-24 h-24 mb-3 rounded-full shadow-lg"
@@ -199,7 +199,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-[270px] m-4 h-[300px] bg-green-400 border border-gray-200 rounded-lg shadow flex justify-center">
+              <div className="w-[270px] m-4 h-[300px] bg-[#D4A373] border border-gray-200 rounded-lg shadow flex justify-center">
                 <div className="flex flex-col items-center justify-center ">
                   <img
                     className="w-24 h-24 mb-3 rounded-full shadow-lg"
@@ -221,7 +221,7 @@ const Home = () => {
                 </div>
               </div>
             
-              <div className="w-[270px] m-4 h-[300px] bg-green-400 border border-gray-200 rounded-lg shadow flex justify-center">
+              <div className="w-[270px] m-4 h-[300px] bg-[#D4A373] border border-gray-200 rounded-lg shadow flex justify-center">
                 <div className="flex flex-col items-center justify-center ">
                   <img
                     className="w-24 h-24 mb-3 rounded-full shadow-lg"
@@ -242,7 +242,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-[270px] m-4 h-[300px] bg-green-400 border border-gray-200 rounded-lg shadow flex justify-center">
+              <div className="w-[270px] m-4 h-[300px] bg-[#D4A373] border border-gray-200 rounded-lg shadow flex justify-center">
                 <div className="flex flex-col items-center justify-center ">
                   <img
                     className="w-24 h-24 mb-3 rounded-full shadow-lg"
@@ -263,7 +263,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-[270px] m-4 h-[300px] bg-green-400 border border-gray-200 rounded-lg shadow flex justify-center">
+              <div className="w-[270px] m-4 h-[300px] bg-[#D4A373] border border-gray-200 rounded-lg shadow flex justify-center">
                 <div className="flex flex-col items-center justify-center ">
                   <img
                     className="w-24 h-24 mb-3 rounded-full shadow-lg"
@@ -284,7 +284,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-[270px] m-4 h-[300px] bg-green-400 border border-gray-200 rounded-lg shadow flex justify-center">
+              <div className="w-[270px] m-4 h-[300px] bg-[#D4A373] border border-gray-200 rounded-lg shadow flex justify-center">
                 <div className="flex flex-col items-center justify-center ">
                   <img
                     className="w-24 h-24 mb-3 rounded-full shadow-lg"
@@ -321,13 +321,13 @@ const Home = () => {
               medical equipment.
             </p>
           </div>
-          <div className="flex items-center ">
+          <div className="flex items-center gap-4">
             <img
               className="h-[300px] hidden md:block"
               src={images.feedback}
               alt=""
             />
-            <div className="flex flex-col items-start py-5 p-5 w-[450px] shadow-xl shadow-violet-400 rounded-lg">
+            <div className="flex flex-col items-start py-5 p-5 w-[450px] shadow-xl bg-[#E9EDC9] shadow-violet-400 rounded-lg">
               <div className="flex justify-center items-center">
                 <img
                   src={images.review}

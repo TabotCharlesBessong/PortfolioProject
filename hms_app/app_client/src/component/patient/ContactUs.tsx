@@ -1,7 +1,7 @@
 
 const ContactUs = () => {
   return (
-    <section className="h-screen w-screen bg-slate-300">
+    <section className="h-screen w-screen bg-[#FEFAE0]">
       <div className="h-screen w-screen flex justify-center items-center pt-24">
         <div className="flex gap-10 mx-14 py-14">
           <div className="flex-col hidden md:flex">
@@ -43,7 +43,7 @@ const ContactUs = () => {
               <span className="text-zinc-500 text-base">feedback@hms.org</span>
             </div>
           </div>
-          <div className="flex flex-col w-[500px] h-4/5 p-4 justify-center items-center bg-white gap-10 border border-solid rounded-lg border-transparent shadow-xl shadow-slate-950">
+          <div className="flex flex-col w-[500px] h-4/5 p-4 justify-center items-center bg-[#FAEDCD] gap-10 border border-solid rounded-lg border-transparent shadow-xl shadow-slate-950">
             <span className="text-zinc-650 text-3xl font-medium">
               Get in touch
             </span>
@@ -70,7 +70,7 @@ const ContactUs = () => {
             ></textarea>
             <button
               type="button"
-              className="rounded-md bg-blue-600 px-10 py-3 text-lg font-semibold text-white shadow-sm hover:bg-blue-600/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              className="rounded-md bg-[#D4A373] px-10 py-3 text-lg font-semibold text-white shadow-sm hover:scale-105 duration-150 active:scale-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
             >
               Submit
             </button>
