@@ -1,15 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
-
-interface SignInProps {
-  email:string
-  password:string
-}
-
-interface LoginResponse {
-  role: string;
-}
+import { LoginResponse, SignInProps } from "../../types";
 
 const  DoctorAuth = () => {
   const [data, setData] = useState<SignInProps>({
@@ -22,7 +14,7 @@ const  DoctorAuth = () => {
     e.preventDefault();
 
   try {
-    const res = await axios.post<LoginResponse>("http://localhost:5000/auth/login", data);
+    const res = await axios.post<LoginResponse>("http://localhost:5000/api/auth/login", data);
 
     if (res.data.role === "doctor") {
       navigate('/doctor-profile');

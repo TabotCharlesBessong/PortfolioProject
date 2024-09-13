@@ -1,5 +1,28 @@
+import axios from "axios";
+import { FormEvent, useState } from "react";
+import { IContact } from "../../types";
 
 const ContactUs = () => {
+  const [contactUs, setContactUs] = useState<IContact>({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/user/add-contact-us",
+        contactUs
+      );
+      alert("Your message has been sent successfully");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <section className="h-screen w-screen bg-[#FEFAE0]">
       <div className="h-screen w-screen flex justify-center items-center pt-24">

@@ -1,4 +1,61 @@
+import { FormEvent, useEffect, useState } from "react";
+import { IAppointment, IDoctor } from "../../types";
+import axios from "axios";
+
 const Appointment = () => {
+  const [doctors, setDoctors] = useState<IDoctor[]>([]);
+  const [appointment, setAppointment] = useState<IAppointment>({
+    patient: "",
+    phone: "",
+    appointmentDate: "",
+    time: "",
+    doctor: "",
+    reason: "",
+    city: "",
+    email: "",
+    date: new Date()
+  });
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:5000/api/doctor/get-doctors"
+        );
+        setDoctors(res.data);
+      } catch (err) {
+        console.error("Error fetching doctors:", err);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
+
+  // Function to handle form submission
+  const handleSubmit = async (
+    e: FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/appointment/add-appointment",
+        {
+          patient: appointment.patient,
+          phone: appointment.phone,
+          doctor: appointment.doctor,
+          appointmentDate: appointment.appointmentDate,
+          reason: appointment.reason,
+          email: appointment.email,
+          time: appointment.time,
+        }
+      );
+      console.log(res.data);
+      alert("Appointment Request Sent Successfully");
+    } catch (err) {
+      alert("Error sending appointment request");
+      console.error(err);
+    }
+  };
   return (
     <section className="bg-slate-300">
       <div className="h-screen f-screen flex justify-center items-center">
@@ -22,12 +79,18 @@ const Appointment = () => {
                   type="text"
                   id="firstname"
                   placeholder="First Name"
+                  onChange={(e) =>
+                    setAppointment({ ...appointment, patient: e.target.value })
+                  }
                 />
                 <span className="p-2"></span>
                 <input
                   className="flex h-12 w-full text-lg rounded-md border border-black/30 px-3  placeholder:text-black focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="Last Name"
+                  onChange={(e) =>
+                    setAppointment({ ...appointment, patient: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -43,6 +106,9 @@ const Appointment = () => {
                 type="text"
                 placeholder="0000 00 00 00"
                 id="phoneNumber"
+                onChange={(e) =>
+                  setAppointment({ ...appointment, phone: e.target.value })
+                }
               />
             </div>
 

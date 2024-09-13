@@ -1,5 +1,29 @@
+import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SignUpProps } from "../../types";
+import axios from "axios";
 
 const SignUp = () => {
+  const [data, setData] = useState<SignUpProps>({
+    userName: "",
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: FormEvent, data: SignUpProps) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/api/auth/register", data)
+      .then((res) => {
+        if (res.data.message === "Success") {
+          navigate("/sign-in");
+        }
+      })
+      .catch(() => {
+        alert("Invalid Credentials or Please Try Again!");
+      });
+  };
   return (
     <section className="bg-[#FEFAE0] h-screen f-screen">
       <div className="flex items-center justify-center px-8 py-24">
@@ -32,7 +56,11 @@ const SignUp = () => {
                     className="flex h-10 w-full rounded-md border border-black bg-transparent px-3 py-2 text-sm placeholder:text-black focus:outline-none focus:ring-1 focus:ring-black focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="text"
                     placeholder="Full Name"
-                    id="name"
+                    id="userName"
+                    onChange={(e) =>
+                      setData({ ...data, userName: e.target.value })
+                    }
+                    value={data.userName}
                   ></input>
                 </div>
               </div>
@@ -50,6 +78,10 @@ const SignUp = () => {
                     type="email"
                     placeholder="Email"
                     id="email"
+                    onChange={(e) =>
+                      setData({ ...data, email: e.target.value })
+                    }
+                    value={data.email}
                   ></input>
                 </div>
               </div>
@@ -69,6 +101,10 @@ const SignUp = () => {
                     type="password"
                     placeholder="Password"
                     id="password"
+                    onChange={(e) =>
+                      setData({ ...data, password: e.target.value })
+                    }
+                    value={data.password}
                   ></input>
                 </div>
               </div>
@@ -78,6 +114,7 @@ const SignUp = () => {
             <button
               type="button"
               className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-black px-3.5 py-2.5 font-semibold text-white transition-all duration-200 hover:bg-slate-900"
+              onClick={(e) => handleSubmit(e, data)}
             >
               Sign up
             </button>
@@ -86,6 +123,6 @@ const SignUp = () => {
       </div>
     </section>
   );
-}
+};
 
 export default SignUp;

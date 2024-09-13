@@ -1,6 +1,32 @@
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {  SignInProps } from "../../types";
+import axios from "axios";
 
 const SignIn = () => {
+  const [data, setData] = useState<SignInProps>({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (
+    e: FormEvent,
+    data: SignInProps,
+    navigate: ReturnType<typeof useNavigate>
+  ): Promise<void> => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:5000/api/auth/login", data)
+      .then((res) => {
+        if (res.data.status === "Success") {
+          navigate("/");
+        }
+      })
+      .catch(() => {
+        alert("Invalid Credentials or Please Try Again!");
+      });
+  };
   const navigate = useNavigate();
   const handleDoctor = () => navigate("/doctor-sign-in");
   const handleNurse = () => navigate("/nurse-sign-in");
@@ -36,6 +62,10 @@ const SignIn = () => {
                     className="flex h-10 w-full rounded-md border border-black bg-transparent px-3 py-2 text-sm placeholder:text-black focus:outline-none focus:ring-1 focus:ring-black focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="email"
                     placeholder="Email"
+                    onChange={(e) =>
+                      setData({ ...data, email: e.target.value })
+                    }
+                    value={data.email}
                   ></input>
                 </div>
               </div>
@@ -54,6 +84,10 @@ const SignIn = () => {
                     className="flex h-10 w-full rounded-md border border-black bg-transparent px-3 py-2 text-sm placeholder:text-black focus:outline-none focus:ring-1 focus:ring-black focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="password"
                     placeholder="Password"
+                    onChange={(e) =>
+                      setData({ ...data, password: e.target.value })
+                    }
+                    value={data.password}
                   ></input>
                 </div>
               </div>
@@ -61,6 +95,7 @@ const SignIn = () => {
                 <button
                   type="button"
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  onClick={(e) => handleSubmit(e, data, navigate)}
                 >
                   Get started
                 </button>
