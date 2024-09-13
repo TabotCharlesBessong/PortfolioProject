@@ -6,6 +6,7 @@ interface IDoctor extends Document {
   email: string;
   password: string;
   specialization: string;
+  role: "admin" | "doctor" | "nurse" | "receptionist" | "patient"
 }
 
 // Define Doctor Schema
@@ -26,6 +27,11 @@ const doctorSchema = new Schema<IDoctor>({
   specialization: {
     type: String,
     required: true,
+  },
+  role: {
+    type: String,
+    enum: ["admin", "doctor", "nurse", "receptionist", "patient"],
+    default: "doctor",
   },
 });
 

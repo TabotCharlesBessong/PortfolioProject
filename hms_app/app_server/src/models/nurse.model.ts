@@ -7,6 +7,7 @@ interface INurse extends Document {
   password: string;
   ward: string;
   department: Types.ObjectId; // Reference to Department
+  role: "admin" | "doctor" | "nurse" | "receptionist" | "patient";
 }
 
 // Define Nurse Schema
@@ -31,6 +32,11 @@ const nurseSchema = new Schema<INurse>({
   department: {
     type: Schema.Types.ObjectId,
     ref: "Department",
+  },
+  role: {
+    type: String,
+    enum: ["admin", "doctor", "nurse", "receptionist", "patient"],
+    default: "doctor",
   },
 });
 
