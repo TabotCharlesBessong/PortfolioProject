@@ -23,12 +23,9 @@ export interface IAppointment {
   patient: string;
   phone: string;
   appointmentDate: string;
-  date: Date;
   time: string;
   doctor: string;
   reason: string;
-  email: string;
-  city: string;
 }
 
 export interface IContact {
@@ -36,4 +33,15 @@ export interface IContact {
   email: string;
   phone: string;
   message: string;
+}
+
+export interface UserData {
+  name: string;
+  mobileNumber: string;
+  address: string;
+  city: string;
+  state: string;
+  dateOfBirth: string;
+  gender: string;
+  email: string;
 }

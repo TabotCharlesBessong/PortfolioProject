@@ -11,9 +11,6 @@ const Appointment = () => {
     time: "",
     doctor: "",
     reason: "",
-    city: "",
-    email: "",
-    date: new Date()
   });
 
   useEffect(() => {
@@ -32,9 +29,7 @@ const Appointment = () => {
   }, []);
 
   // Function to handle form submission
-  const handleSubmit = async (
-    e: FormEvent<HTMLFormElement>
-  ): Promise<void> => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
       const res = await axios.post(
@@ -45,7 +40,6 @@ const Appointment = () => {
           doctor: appointment.doctor,
           appointmentDate: appointment.appointmentDate,
           reason: appointment.reason,
-          email: appointment.email,
           time: appointment.time,
         }
       );
@@ -60,7 +54,10 @@ const Appointment = () => {
     <section className="bg-slate-300">
       <div className="h-screen f-screen flex justify-center items-center">
         <div className=" flex justify-center  w-[50%]  p-4 rounded-xl items-center pt-[80px] ">
-          <div className=" sm:container-sm flex justify-center flex-col p-4 shadow-xl rounded-lg bg-white shadow-stone-900">
+          <form
+            onSubmit={handleSubmit}
+            className=" sm:container-sm flex justify-center flex-col p-4 shadow-xl rounded-lg bg-white shadow-stone-900"
+          >
             <div className="heading flex justify-center ">
               <span className="text-black font-semibold text-2xl">
                 Appointment Form
@@ -190,7 +187,7 @@ const Appointment = () => {
             </div>
             <div className="button ">
               <button
-                type="button"
+                type="submit"
                 className="i items-center flex justify-center rounded-lg bg-black px-3 mt-3  text-lg font-semibold text-white hover:bg-black/80 h-[7vh]
             w-full"
               >
@@ -209,7 +206,7 @@ const Appointment = () => {
                 </svg>
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </section>

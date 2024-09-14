@@ -1,12 +1,68 @@
-import React, { FC } from "react";
+import React, { FC, FormEvent, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import images from "../../constant/images";
+import axios from "axios";
+import { UserData } from "../../types";
 
 interface NavLinkStyleProps {
   isActive: boolean;
 }
 
 const UserProfile: FC = () => {
+  const [userData, setUserData] = useState<UserData>({
+    name: "",
+    mobileNumber: "",
+    address: "",
+    city: "",
+    state: "",
+    dateOfBirth: "",
+    gender: "",
+    email: "",
+  });
+  // const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchInfo = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/user/profile");
+        setUserData(res.data);
+      } catch (error) {
+        console.error("Error fetching Data:", error);
+      }
+    };
+
+    const setProfileData = () => {
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        name: prevUserData.name,
+        mobileNumber: prevUserData.mobileNumber,
+        address: prevUserData.address,
+        city: prevUserData.city,
+        state: prevUserData.state,
+        dateOfBirth: prevUserData.dateOfBirth,
+        gender: prevUserData.gender,
+        email: prevUserData.email,
+      }));
+    };
+
+    fetchInfo();
+    setProfileData();
+  }, []);
+
+  const handleUpdate = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      axios
+        .put("http://localhost:5000/api/user/profile-update", userData)
+        .then((res) => {
+          if (res.data.message === "Success") {
+          }
+        });
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   const navLinkStyle = ({
     isActive,
   }: NavLinkStyleProps): React.CSSProperties => {
@@ -69,11 +125,17 @@ const UserProfile: FC = () => {
         </div>
         <div className="w-[70%] ms-24 p-4 flex flex-col justify-around">
           <p className="font-semibold text-3xl">Account Settings</p>
-          <form action="" className="flex flex-col h-[80%] justify-between">
+          <form
+            onSubmit={handleUpdate}
+            className="flex flex-col h-[80%] justify-between"
+          >
             <div className="w-full flex justify-between">
               <div className="flex flex-col w-[50%] justify-start">
                 <p>Enter Your Name:</p>
                 <input
+                  onChange={(e) =>
+                    setUserData({ ...userData, name: e.target.value })
+                  }
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="Name"
@@ -82,6 +144,9 @@ const UserProfile: FC = () => {
               <div className="flex flex-col w-[50%] justify-start">
                 <p>Enter Your Email:</p>
                 <input
+                  onChange={(e) =>
+                    setUserData({ ...userData, email: e.target.value })
+                  }
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="email"
                   placeholder="Email"
@@ -95,6 +160,9 @@ const UserProfile: FC = () => {
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="Phone"
+                  onChange={(e) =>
+                    setUserData({ ...userData, mobileNumber: e.target.value })
+                  }
                 />
               </div>
               <div className="flex flex-col w-[50%] justify-start">
@@ -102,6 +170,9 @@ const UserProfile: FC = () => {
                 <input
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="date"
+                  onChange={(e) =>
+                    setUserData({ ...userData, dateOfBirth: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -113,6 +184,9 @@ const UserProfile: FC = () => {
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="Male/Female/Others"
+                  onChange={(e) =>
+                    setUserData({ ...userData, gender: e.target.value })
+                  }
                 />
               </div>
               <div className="flex flex-col w-[50%] justify-start">
@@ -121,6 +195,9 @@ const UserProfile: FC = () => {
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="City"
+                  onChange={(e) =>
+                    setUserData({ ...userData, city: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -131,6 +208,9 @@ const UserProfile: FC = () => {
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="State"
+                  onChange={(e) =>
+                    setUserData({ ...userData, state: e.target.value })
+                  }
                 />
               </div>
               <div className="flex flex-col w-[50%] justify-start">
@@ -139,10 +219,13 @@ const UserProfile: FC = () => {
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="Address"
+                  onChange={(e) =>
+                    setUserData({ ...userData, address: e.target.value })
+                  }
                 />
               </div>
             </div>
-            <button className="bg-black w-[95%] text-white p-2 rounded-full">
+            <button type="submit" className="bg-black w-[95%] text-white p-2 rounded-full">
               Update
             </button>
           </form>

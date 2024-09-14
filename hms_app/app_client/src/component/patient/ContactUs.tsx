@@ -10,7 +10,7 @@ const ContactUs = () => {
     message: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -66,7 +66,7 @@ const ContactUs = () => {
               <span className="text-zinc-500 text-base">feedback@hms.org</span>
             </div>
           </div>
-          <div className="flex flex-col w-[500px] h-4/5 p-4 justify-center items-center bg-[#FAEDCD] gap-10 border border-solid rounded-lg border-transparent shadow-xl shadow-slate-950">
+          <form onSubmit={handleSubmit} className="flex flex-col w-[500px] h-4/5 p-4 justify-center items-center bg-[#FAEDCD] gap-10 border border-solid rounded-lg border-transparent shadow-xl shadow-slate-950">
             <span className="text-zinc-650 text-3xl font-medium">
               Get in touch
             </span>
@@ -74,30 +74,46 @@ const ContactUs = () => {
               className="flex h-10 w-2/3 rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
               type="text"
               placeholder="Name *"
+              onChange={(e) =>
+                setContactUs({ ...contactUs, name: e.target.value })
+              }
+              value={contactUs.name}
             />
             <input
               className="flex h-10 w-2/3 rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
               type="number"
               placeholder="Phone / Mobile *"
+              onChange={(e) =>
+                setContactUs({ ...contactUs, phone: e.target.value })
+              }
+              value={contactUs.phone}
             />
             <input
               className="flex h-10 w-2/3 rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
               type="email"
               placeholder="Email Address *"
+              onChange={(e) =>
+                setContactUs({ ...contactUs, email: e.target.value })
+              }
+              value={contactUs.email}
             />
             <textarea
               id="message"
               rows={4}
               className="flex h-30 w-2/3 rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
               placeholder="Message *"
+              onChange={(e) =>
+                setContactUs({ ...contactUs, message: e.target.value })
+              }
+              value={contactUs.message}
             ></textarea>
             <button
-              type="button"
+              type="submit"
               className="rounded-md bg-[#D4A373] px-10 py-3 text-lg font-semibold text-white shadow-sm hover:scale-105 duration-150 active:scale-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
             >
               Submit
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </section>
