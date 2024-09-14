@@ -11,6 +11,7 @@ import human1 from "../assets/images/human1.jpg"
 import human3 from "../assets/images/human3.jpg"
 import human4 from "../assets/images/human4.jpg"
 import human6 from "../assets/images/human6.jpg"
+import appoint from "../assets/images/appoint.png"
 
 const images = {
   banner,
@@ -25,7 +26,8 @@ const images = {
   human1,
   human3,
   human4,
-  human6
+  human6,
+  appoint
 }
 
 export default images

@@ -19,15 +19,15 @@ export const addAppointment = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const { doctorId, patientId, appointmentDate, reason, status } = req.body;
+  const { doctor, patient, appointmentDate, reason, phone } = req.body;
 
   try {
     const newAppointment = new Appointment({
-      doctor: doctorId,
-      patient: patientId,
+      doctor,
+      patient,
       appointmentDate,
       reason,
-      status,
+      phone,
     });
 
     const savedAppointment = await newAppointment.save();

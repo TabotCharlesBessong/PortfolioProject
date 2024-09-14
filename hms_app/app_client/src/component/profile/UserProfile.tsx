@@ -19,45 +19,76 @@ const UserProfile: FC = () => {
     gender: "",
     email: "",
   });
-  // const [error, setError] = useState("");
+  const [name, setName] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [gender, setGender] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const fetchInfo = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/user/profile");
-        setUserData(res.data);
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        setUserData(user);
+        setName(user.userName);
+        setMobileNumber(user.phoneNumber);
+        setAddress(user.address.street);
+        setCity(user.address.city);
+        setState(user.address.state);
+        const formattedDateOfBirth = user.dateOfBirth
+          ? user.dateOfBirth.split("T")[0]
+          : "";
+        setDateOfBirth(formattedDateOfBirth);
+        setGender(user.gender);
+        setEmail(user.email);
       } catch (error) {
         console.error("Error fetching Data:", error);
       }
     };
 
-    const setProfileData = () => {
-      setUserData((prevUserData) => ({
-        ...prevUserData,
-        name: prevUserData.name,
-        mobileNumber: prevUserData.mobileNumber,
-        address: prevUserData.address,
-        city: prevUserData.city,
-        state: prevUserData.state,
-        dateOfBirth: prevUserData.dateOfBirth,
-        gender: prevUserData.gender,
-        email: prevUserData.email,
-      }));
-    };
-
     fetchInfo();
-    setProfileData();
   }, []);
 
   const handleUpdate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      axios
-        .put("http://localhost:5000/api/user/profile-update", userData)
-        .then((res) => {
-          if (res.data.message === "Success") {
-          }
-        });
+      const res = await axios.put("http://localhost:5000/api/user/profile-update", {
+        userId: userData._id,
+        updatedProfile: {
+          email,
+          userName: name,
+          phoneNumber: mobileNumber,
+          address: {
+            street: address,
+            city: city,
+            state: state,
+          },
+          gender: gender,
+          dateOfBirth: dateOfBirth,
+        },
+      });
+      if (res.data.status === "Success") {
+        alert("Profile Updated");
+        const user = res.data.user;
+        localStorage.setItem("user", JSON.stringify(user));
+        window.location.href = "/user-profile";
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const res = await axios.get("http://localhost:5000/api/user/sign-out");
+      if (res.data.message === "Success") {
+        localStorage.removeItem("user");
+        window.location.href = "/";
+      }
     } catch (err) {
       alert(err);
     }
@@ -84,7 +115,7 @@ const UserProfile: FC = () => {
                 className="size-24 rounded-full"
                 alt="profile"
               />
-              <p>Name</p>
+              <p>{name}</p>
             </div>
             <div className="flex flex-col items-start w-full gap-4 ">
               <NavLink
@@ -118,7 +149,10 @@ const UserProfile: FC = () => {
             </div>
           </div>
           <div className="w-full text-center h-[80px] p-2">
-            <button className="bg-black text-white rounded-full text-md font-medium p-2 cursor-pointer hover:scale-110 duration-200 active:scale-90">
+            <button
+              className="bg-black text-white rounded-full text-md font-medium p-2 cursor-pointer hover:scale-110 duration-200 active:scale-90"
+              onClick={handleSignOut}
+            >
               Sign Out
             </button>
           </div>
@@ -133,9 +167,8 @@ const UserProfile: FC = () => {
               <div className="flex flex-col w-[50%] justify-start">
                 <p>Enter Your Name:</p>
                 <input
-                  onChange={(e) =>
-                    setUserData({ ...userData, name: e.target.value })
-                  }
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="Name"
@@ -144,9 +177,8 @@ const UserProfile: FC = () => {
               <div className="flex flex-col w-[50%] justify-start">
                 <p>Enter Your Email:</p>
                 <input
-                  onChange={(e) =>
-                    setUserData({ ...userData, email: e.target.value })
-                  }
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="email"
                   placeholder="Email"
@@ -157,22 +189,20 @@ const UserProfile: FC = () => {
               <div className="flex flex-col w-[50%] justify-start">
                 <p>Enter Your Phone:</p>
                 <input
+                  value={mobileNumber}
+                  onChange={(e) => setMobileNumber(e.target.value)}
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="Phone"
-                  onChange={(e) =>
-                    setUserData({ ...userData, mobileNumber: e.target.value })
-                  }
                 />
               </div>
               <div className="flex flex-col w-[50%] justify-start">
                 <p>Enter Your DOB:</p>
                 <input
+                  value={dateOfBirth}
+                  onChange={(e) => setDateOfBirth(e.target.value)}
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="date"
-                  onChange={(e) =>
-                    setUserData({ ...userData, dateOfBirth: e.target.value })
-                  }
                 />
               </div>
             </div>
@@ -181,52 +211,53 @@ const UserProfile: FC = () => {
               <div className="flex flex-col w-[50%] justify-start">
                 <p>Enter Your Gender:</p>
                 <input
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="Male/Female/Others"
-                  onChange={(e) =>
-                    setUserData({ ...userData, gender: e.target.value })
-                  }
                 />
               </div>
               <div className="flex flex-col w-[50%] justify-start">
                 <p>Enter Your City:</p>
                 <input
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="City"
-                  onChange={(e) =>
-                    setUserData({ ...userData, city: e.target.value })
-                  }
                 />
               </div>
             </div>
+
             <div className="w-full flex justify-between">
-              <div className="flex flex-col w-[50%] justify-start">
-                <p>Enter Your State:</p>
-                <input
-                  className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                  type="text"
-                  placeholder="State"
-                  onChange={(e) =>
-                    setUserData({ ...userData, state: e.target.value })
-                  }
-                />
-              </div>
               <div className="flex flex-col w-[50%] justify-start">
                 <p>Enter Your Address:</p>
                 <input
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
                   className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="Address"
-                  onChange={(e) =>
-                    setUserData({ ...userData, address: e.target.value })
-                  }
+                />
+              </div>
+              <div className="flex flex-col w-[50%] justify-start">
+                <p>Enter Your State:</p>
+                <input
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  className="flex h-10 w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                  type="text"
+                  placeholder="State"
                 />
               </div>
             </div>
-            <button type="submit" className="bg-black w-[95%] text-white p-2 rounded-full">
-              Update
+
+            <button
+              type="submit"
+              className="w-[200px] self-center bg-black text-white p-3 rounded-full"
+            >
+              Save Changes
             </button>
           </form>
         </div>

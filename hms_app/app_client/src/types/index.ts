@@ -44,4 +44,25 @@ export interface UserData {
   dateOfBirth: string;
   gender: string;
   email: string;
+  _id?: string
+}
+
+export interface User {
+  userName: string;
+  phoneNumber: string;
+  address: {
+    street: string;
+  };
+  gender: string;
+  email: string;
+}
+
+export interface AppointmentForm {
+  patient: string;
+  phone: string;
+  address: string;
+  gender: string;
+  email: string;
+  appointmentDate: string;
+  reason: string;
 }

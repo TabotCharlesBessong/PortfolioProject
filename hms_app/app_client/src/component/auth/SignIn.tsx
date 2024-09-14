@@ -20,6 +20,8 @@ const SignIn = () => {
       .post("http://localhost:5000/api/auth/login", data)
       .then((res) => {
         if (res.data.status === "Success") {
+          const user = res.data.user
+          localStorage.setItem('user',JSON.stringify(user))
           navigate("/");
         }
       })

@@ -90,7 +90,7 @@ export const loginUser = async (
           }
         );
         res.cookie("token", token);
-        return res.json({ status: "Success", token, role: user.role });
+        return res.json({ status: "Success", token, role: user.role,user:user });
       }
     }
     return res.status(400).json({ error: "Invalid email or password" });

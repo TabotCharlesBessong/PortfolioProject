@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { IAppointment, IDoctor } from "../../types";
 import axios from "axios";
+import images from "../../constant/images";
 
 const Appointment = () => {
   const [doctors, setDoctors] = useState<IDoctor[]>([]);
@@ -51,8 +52,13 @@ const Appointment = () => {
     }
   };
   return (
-    <section className="bg-slate-300">
+    <section className="bg-[#FEFAE0]">
       <div className="h-screen f-screen flex justify-center items-center">
+        <div>
+            <img src={images.appoint} 
+            className="size-80"
+            alt="nurse" />
+          </div>
         <div className=" flex justify-center  w-[50%]  p-4 rounded-xl items-center pt-[80px] ">
           <form
             onSubmit={handleSubmit}
