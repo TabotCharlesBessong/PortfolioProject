@@ -84,11 +84,11 @@ const UserProfile: FC = () => {
   const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      const res = await axios.get("http://localhost:5000/api/user/sign-out");
-      if (res.data.message === "Success") {
+      // const res = await axios.get("http://localhost:5000/api/user/sign-out");
+      // if (res.data.message === "Success") {
         localStorage.removeItem("user");
         window.location.href = "/";
-      }
+      // }
     } catch (err) {
       alert(err);
     }

@@ -55,6 +55,7 @@ export interface User {
   };
   gender: string;
   email: string;
+  _id?: string
 }
 
 export interface AppointmentForm {

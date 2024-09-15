@@ -41,7 +41,7 @@ export const registerUser = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const { userName, email, password } = req.body;
+  const { userName, email, password,role } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -54,11 +54,13 @@ export const registerUser = async (
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
+    const newRole = role ? role : "patient"
 
     const newUser = new User({
       userName,
       email,
       password: hashedPassword,
+      role: newRole
     });
 
     const savedUser = await newUser.save();

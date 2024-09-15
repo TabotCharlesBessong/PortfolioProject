@@ -1,11 +1,15 @@
 import { NavLink } from "react-router-dom";
 import images from "../../constant/images";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { IAppointment, User } from "../../types";
 
 interface NavLinkStyleProps {
   isActive: boolean;
 }
 
-function UserAppointment() {
+const UserAppointment = () => {
+  const [appointments, setAppointments] = useState<IAppointment []>([])
   const navLinkStyle = ({
     isActive,
   }: NavLinkStyleProps): React.CSSProperties => {
@@ -15,6 +19,26 @@ function UserAppointment() {
       backgroundColor: isActive ? "black" : "white",
     };
   };
+
+  useEffect(() => {
+    const user: User = JSON.parse(localStorage.getItem("user") || "{}");
+
+    const fetchAppointments = async (_id: string) => {
+      try {
+        const res = await axios.get(
+          `http://localhost:4451/appointment/get-appointment/${_id}`
+        );
+        console.log(res.data);
+        setAppointments(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (user._id) {
+      fetchAppointments(user._id);
+    }
+  }, []);
 
   return (
     <section className="bg-slate-300 flex justify-center items-center">
