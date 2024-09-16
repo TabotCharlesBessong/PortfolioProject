@@ -2,6 +2,7 @@ import { Schema, model, Document } from "mongoose";
 
 // Define Doctor Interface extending Document for Mongoose model typing
 interface IDoctor extends Document {
+  doctorId: string;
   name: string;
   email: string;
   password: string;
@@ -16,6 +17,11 @@ const doctorSchema = new Schema<IDoctor>({
     required: true,
   },
   email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  doctorId: {
     type: String,
     required: true,
     unique: true,

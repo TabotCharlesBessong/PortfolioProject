@@ -8,9 +8,9 @@ export const getDoctors = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const doctors = await Doctor.find({});
+    const doctors = await Doctor.find();
     return res.json(doctors);
-  } catch (error:any) {
+  } catch (error: any) {
     return res.status(500).json({ error: error.message });
   }
 };
@@ -43,7 +43,34 @@ export const addDoctor = async (
 
     const savedUser = await newUser.save();
     return res.json(savedUser);
-  } catch (error:any) {
+  } catch (error: any) {
     return res.status(500).json({ error: error.message });
+  }
+};
+
+export const updateDoctor = async (req: Request, res: Response) => {
+  const { name, email, specialization } = req.body;
+  try {
+    const userExist = await Doctor.findOne({ email });
+    if (!userExist)
+      return res.status(404).json({ error: "Doctor does not exist!" });
+
+    const updatedUser = {
+      name,
+      email,
+      specialization,
+    };
+
+    const user = await Doctor.findByIdAndUpdate(req.params.id, updatedUser);
+    res.json(user);
+  } catch (error) {}
+};
+
+export const deleteDoctor = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  try {
+    const user = await Doctor.findByIdAndDelete(userId);
+  } catch (error) {
+    res.status(500).json({ error: (error as TypeError).message });
   }
 };
