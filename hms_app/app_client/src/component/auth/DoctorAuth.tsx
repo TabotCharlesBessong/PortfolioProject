@@ -1,32 +1,45 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 import { LoginResponse, SignInProps } from "../../types";
 
-const  DoctorAuth = () => {
+const DoctorAuth = () => {
   const [data, setData] = useState<SignInProps>({
-    email:"",
-    password:""
-  })
-  const navigate = useNavigate()
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e:FormEvent,data:SignInProps,navigate:ReturnType<typeof useNavigate>):Promise<void> => {
+  const handleSubmit = async (
+    e: FormEvent,
+    data: SignInProps,
+    navigate: ReturnType<typeof useNavigate>
+  ): Promise<void> => {
     e.preventDefault();
 
-  try {
-    const res = await axios.post<LoginResponse>("http://localhost:5000/api/auth/login", data);
+    try {
+      const res = await axios.post<LoginResponse>(
+        "http://localhost:5000/api/auth/login",
+        data
+      );
 
-    if (res.data.role === "doctor") {
-      navigate('/doctor-profile');
-    } else if (res.data.role === "user" || res.data.role === "admin" || res.data.role === "nurse") {
-      alert("Wrong Login Page!");
-    } else {
-      alert("Invalid Role!");
+      if (res.data.role === "doctor") {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        navigate("/doctor-profile");
+      } else if (
+        res.data.role === "user" ||
+        res.data.role === "admin" ||
+        res.data.role === "nurse"
+      ) {
+        alert("Wrong Login Page!");
+      } else {
+        alert("Invalid Role!");
+      }
+    } catch (err) {
+      alert("Invalid Credentials or Please Try Again!");
     }
-  } catch (err) {
-    alert("Invalid Credentials or Please Try Again!");
-  }
-  }
+  };
 
   return (
     <section className="bg-[#FEFAE0] h-screen w-screen">
@@ -104,6 +117,6 @@ const  DoctorAuth = () => {
       </div>
     </section>
   );
-}
+};
 
-export default DoctorAuth
+export default DoctorAuth;

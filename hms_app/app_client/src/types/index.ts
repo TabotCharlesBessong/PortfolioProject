@@ -11,12 +11,8 @@ export interface SignUpProps {
 
 export interface LoginResponse {
   role: string;
-}
-
-export interface IDoctor {
-  _id: string;
-  name: string;
-  specialty?: string;
+  token: string
+  user:User
 }
 
 export interface IAppointment {
@@ -66,4 +62,14 @@ export interface AppointmentForm {
   email: string;
   appointmentDate: string;
   reason: string;
+}
+
+export interface IDoctor {
+  doctorId: string;
+  name: string;
+  email: string;
+  password: string;
+  specialization: string;
+  role: "admin" | "doctor" | "nurse" | "receptionist" | "patient";
+  _id: string
 }

@@ -25,6 +25,6 @@ adminRouter.delete("/delete-department/:id", checkAdmin, deleteDepartment);
 adminRouter.get("/get-department", checkAdmin, getDepartments);
 
 // Count all users, contacts, and departments
-adminRouter.get("/count-all", checkAdmin, countAll);
+adminRouter.get("/count-all", countAll);
 
 export default adminRouter;

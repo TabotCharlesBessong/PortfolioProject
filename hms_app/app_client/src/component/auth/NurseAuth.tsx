@@ -31,6 +31,10 @@ const NurseAuth = () => {
         res.data.role === "nurse"
       ) {
         alert("Wrong Login Page!");
+      }else if(res.data.role === "nurse") {
+        localStorage.setItem("token",res.data.token)
+        localStorage.setItem("user",JSON.stringify(res.data.user))
+        navigate("/user-profile")
       } else {
         alert("Invalid Role!");
       }

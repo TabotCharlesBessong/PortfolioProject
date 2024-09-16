@@ -20,9 +20,23 @@ const SignIn = () => {
       .post("http://localhost:5000/api/auth/login", data)
       .then((res) => {
         if (res.data.status === "Success") {
-          const user = res.data.user
-          localStorage.setItem('user',JSON.stringify(user))
+          const user = res.data.user;
+          localStorage.setItem("user", JSON.stringify(user));
           navigate("/");
+        } else if (res.data.role === "patient") {
+          const user = res.data.user;
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user", JSON.stringify(user));
+          navigate("/user-profile");
+        } else if (res.data.role === "admin") {
+          const user = res.data.user;
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user", JSON.stringify(user));
+          navigate("/admin-dashboard");
+        } else if (res.data.role === "doctor" || res.data.role === "nurse") {
+          alert("Wrong Login Page!");
+        } else {
+          alert("Invalid Role!");
         }
       })
       .catch(() => {

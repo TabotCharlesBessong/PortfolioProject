@@ -111,7 +111,7 @@ export const countAll = async (
     const patientCount = await User.countDocuments({role:"patient"}).exec()
     const queriesCount = await ContactUs.countDocuments({}).exec()
     const nurseCount = await NurseModel.countDocuments({}).exec()
-    const doctorCount = await DoctorModel.countDocuments({}).exec()
+    const doctorCount = await DoctorModel.countDocuments().exec()
 
     return res.json({
       patientCount,

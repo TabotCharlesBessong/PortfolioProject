@@ -1,12 +1,77 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import images from "../../constant/images";
+import axios from "axios";
+import { IDoctor } from "../../types";
 
 interface NavLinkStyleProps {
   isActive: boolean;
 }
 
-function AdminDoctor() {
+const AdminDoctor = () => {
+  const [doctors, setDoctors] = useState<IDoctor[]>([]);
+  const userString: string | null = localStorage.getItem("user");
+  let userObject: any = null;
+  if (userString) userObject = JSON.parse(userString);
+
+  const [docname, setDocName] = useState("");
+  const [password, setPassword] = useState("");
+  const [docdept, setDocDept] = useState("");
+  const [docemail, setDocEmail] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/doctor/get-doctors"
+        );
+        setDoctors(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching doctors:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!doctors) return <h1>Loading....</h1>;
+
+  const handleAddDoctor = async () => {
+    try {
+      await axios.post("http://localhost:5000/api/doctor/add-doctor", {
+        name: docname,
+        password,
+        specialization: docdept,
+        email: docemail,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  console.log(doctors);
+
+  const editPatient = async (id: string) => {
+    await axios
+      .put(`http://localhost:5000/api/doctor/update-doctor/${id}`, {})
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deletePatient = async (id: string) => {
+    await axios
+      .delete(`http://localhost:5000/api/doctor/delete-doctor/${id}`, {})
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const navLinkStyle = ({
     isActive,
   }: NavLinkStyleProps): React.CSSProperties => {
@@ -113,21 +178,42 @@ function AdminDoctor() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    >
-                      Ramesh
-                    </th>
-                    <td className="px-6 py-4">10012</td>
-                    <td className="px-6 py-4">Surgeon</td>
-                    <td className="px-6 py-4 text-right">
-                      <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
+                  {doctors &&
+                    doctors.map((item) => (
+                      <tr key={item._id}>
+                        <td scope="col" className="px-6 py-3">
+                          {item.doctorId}
+                        </td>
+                        <td scope="col" className="px-6 py-3">
+                          {item.name}
+                        </td>
+                        <td scope="col" className="px-6 py-3">
+                          {item.email}
+                        </td>
+                        <td scope="col" className="px-6 py-3">
+                          {item.specialization}
+                        </td>
+                        <td scope="col" className="d-flex gap-3 ">
+                          <button
+                            onClick={() => {
+                              editPatient(item._id);
+                            }}
+                            className="btn btn-success"
+                          >
+                            Edit
+                          </button>
+                          <br />
+                          <button
+                            onClick={() => {
+                              deletePatient(item._id);
+                            }}
+                            className="btn btn-danger"
+                          >
+                            Remove
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -141,21 +227,35 @@ function AdminDoctor() {
         </div>
         {isCreate && (
           <div className="absolute h-[78%] w-[79%] z-50 bg-white">
-            <form className="flex flex-col w-full h-full justify-center gap-4 items-center">
+            <form
+              onSubmit={handleAddDoctor}
+              className="flex flex-col w-full h-full justify-center gap-4 items-center"
+            >
               <div className="flex flex-col w-[40%] items-center ">
                 <p className="">Enter Doctors Name:</p>
                 <input
                   className="flex h-10  w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="Doctor Name"
+                  onChange={(e) => setDocName(e.target.value)}
                 ></input>
               </div>
               <div className="flex flex-col w-[40%] items-center ">
-                <p className="">Enter Doctors ID:</p>
+                <p className="">Enter Doctors Password:</p>
                 <input
                   className="flex h-10  w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                ></input>
+              </div>
+              <div className="flex flex-col w-[40%] items-center ">
+                <p className="">Enter Doctors Email:</p>
+                <input
+                  onChange={(e) => setDocEmail(e.target.value)}
+                  className="flex h-10  w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
-                  placeholder="ID"
+                  placeholder="Email"
                 ></input>
               </div>
               <div className="flex flex-col w-[40%] items-center ">
@@ -164,6 +264,7 @@ function AdminDoctor() {
                   className="flex h-10  w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                   type="text"
                   placeholder="Department"
+                  onChange={(e) => setDocDept(e.target.value)}
                 ></input>
               </div>
 
@@ -183,6 +284,6 @@ function AdminDoctor() {
       </div>
     </section>
   );
-}
+};
 
 export default AdminDoctor;
