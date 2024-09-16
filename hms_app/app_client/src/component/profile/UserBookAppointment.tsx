@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import images from "../../constant/images";
 import axios from "axios";
 import { IDoctor } from "../../types";
+import Swal from "sweetalert2";
 
 interface NavLinkStyleProps {
   isActive: boolean;
@@ -62,7 +63,7 @@ function UserBookAppointment() {
   const handleSubmit = async (e:FormEvent) => {
     e.preventDefault();
     await axios
-      .post("http://localhost:4451/appointment/add-appointment", {
+      .post("http://localhost:5000/api/appointment/add-appointment", {
         patient: userName,
         phone: mobileNumber,
         doctor: doctor,
@@ -71,10 +72,20 @@ function UserBookAppointment() {
       })
       .then((res) => {
         console.log(res.data);
-        alert("Appointment Request Sent Successfully");
+        Swal.fire({
+          title: "Success",
+          icon: "success",
+          confirmButtonText: "Ok",
+          text: "Appointment Request Sent Successfully! We will get back to you soon!",
+        });
       })
-      .catch((err) => {
-        alert(err);
+      .catch(() => {
+        Swal.fire({
+          title: "Error",
+          icon: "error",
+          confirmButtonText: "Ok",
+          text: "Error Sending Appointment Request! Please Try Again!",
+        });
       });
   };
 

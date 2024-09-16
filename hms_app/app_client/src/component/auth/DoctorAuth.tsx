@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { LoginResponse, SignInProps } from "../../types";
+import Swal from "sweetalert2";
 
 const DoctorAuth = () => {
   const [data, setData] = useState<SignInProps>({
@@ -32,12 +33,30 @@ const DoctorAuth = () => {
         res.data.role === "admin" ||
         res.data.role === "nurse"
       ) {
-        alert("Wrong Login Page!");
+        // alert("Wrong Login Page!");
+        Swal.fire({
+          title: "Invalid Role!",
+          icon: "error",
+          confirmButtonText: "Ok",
+          text: "Login Through Your Respective Page!",
+        });
       } else {
-        alert("Invalid Role!");
+        // alert("Invalid Role!");
+        Swal.fire({
+          title: "Invalid Access!",
+          icon: "error",
+          confirmButtonText: "Ok",
+          text: "You are not authorized to access this page!",
+        });
       }
     } catch (err) {
-      alert("Invalid Credentials or Please Try Again!");
+      // alert("Invalid Credentials or Please Try Again!");
+      Swal.fire({
+        title: "Invalid Credentials!",
+        icon: "error",
+        confirmButtonText: "Ok",
+        text: "Please Check Your Credentials and Try Again!",
+      });
     }
   };
 

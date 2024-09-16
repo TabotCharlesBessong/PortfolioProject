@@ -3,6 +3,7 @@ import images from "../../constant/images";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { IAppointment, User } from "../../types";
+import Swal from "sweetalert2";
 
 interface NavLinkStyleProps {
   isActive: boolean;
@@ -26,12 +27,18 @@ const UserAppointment = () => {
     const fetchAppointments = async (_id: string) => {
       try {
         const res = await axios.get(
-          `http://localhost:4451/appointment/get-appointment/${_id}`
+          `http://localhost:5000/api/appointment/get-appointment/${_id}`
         );
         console.log(res.data);
         setAppointments(res.data);
       } catch (err) {
         console.error(err);
+        Swal.fire({
+          title: "Error",
+          icon: "error",
+          confirmButtonText: "Ok",
+          text: "Error Fetching Appointments! Please Try Again!",
+        });
       }
     };
 

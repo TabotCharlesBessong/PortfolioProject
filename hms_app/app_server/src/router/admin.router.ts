@@ -7,13 +7,15 @@ import {
   deleteDepartment,
   getDepartments,
   countAll,
+  getNewsLetter,
+  createNewsLetter,
 } from "../controller/admin.controller";
 import checkAdmin from "../middlewares/checkAdmin";
 
 const adminRouter = express.Router();
 
 // Routes for users
-adminRouter.get("/get-users", checkAdmin, getUsers);
+adminRouter.get("/get-users", getUsers);
 adminRouter.delete("/delete-user/:id", checkAdmin, deleteUser);
 
 // Routes for contacts
@@ -26,5 +28,8 @@ adminRouter.get("/get-department", checkAdmin, getDepartments);
 
 // Count all users, contacts, and departments
 adminRouter.get("/count-all", countAll);
+
+adminRouter.get("/get-sent-newsletter", getNewsLetter)
+adminRouter.post("/newsletter", createNewsLetter)
 
 export default adminRouter;

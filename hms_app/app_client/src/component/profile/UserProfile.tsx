@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import images from "../../constant/images";
 import axios from "axios";
 import { UserData } from "../../types";
+import Swal from "sweetalert2";
 
 interface NavLinkStyleProps {
   isActive: boolean;
@@ -71,13 +72,23 @@ const UserProfile: FC = () => {
         },
       });
       if (res.data.status === "Success") {
-        alert("Profile Updated");
+        Swal.fire({
+          title: "Success",
+          icon: "success",
+          confirmButtonText: "Ok",
+          text: "Profile Updated Successfully!",
+        });
         const user = res.data.user;
         localStorage.setItem("user", JSON.stringify(user));
         window.location.href = "/user-profile";
       }
     } catch (err) {
-      alert(err);
+      Swal.fire({
+        title: "Error",
+        icon: "error",
+        confirmButtonText: "Ok",
+        text: "Error Updating Profile! Please Try Again!",
+      });
     }
   };
 

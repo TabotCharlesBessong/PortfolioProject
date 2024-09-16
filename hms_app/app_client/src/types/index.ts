@@ -22,6 +22,7 @@ export interface IAppointment {
   time: string;
   doctor: string;
   reason: string;
+  email: string
 }
 
 export interface IContact {
@@ -29,6 +30,7 @@ export interface IContact {
   email: string;
   phone: string;
   message: string;
+  _id?: string
 }
 
 export interface UserData {
@@ -52,6 +54,7 @@ export interface User {
   gender: string;
   email: string;
   _id?: string
+  role?: string
 }
 
 export interface AppointmentForm {
@@ -73,3 +76,9 @@ export interface IDoctor {
   role: "admin" | "doctor" | "nurse" | "receptionist" | "patient";
   _id: string
 }
+
+export interface INewsLetter {
+  subject: string;
+  message: string;
+}
+

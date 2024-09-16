@@ -4,6 +4,7 @@ import Department from "../models/department.model";
 import ContactUs from "../models/contactUs.model";
 import NurseModel from "../models/nurse.model";
 import DoctorModel from "../models/doctor.model";
+import NewsLetterModel from "../models/newsLetter.model";
 
 // Get all users
 export const getUsers = async (
@@ -11,7 +12,7 @@ export const getUsers = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const users = await User.find({});
+    const users = await User.find({role:"patient"});
     return res.json(users);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
@@ -41,6 +42,30 @@ export const getContacts = async (
     return res.json(contacts);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
+  }
+};
+
+// sending a newsletter
+export const createNewsLetter = async (req:Request,res:Response) => {
+  const { subject, message } = req.body;
+  try {
+    const newletter = new NewsLetterModel({
+      subject,
+      message,
+    });
+    const savedletter = await newletter.save();
+    res.json({ status: "Saved", savedletter });
+  } catch (error) {
+    res.status(500).json({ error: (error as TypeError).message });
+  }
+}
+
+export const getNewsLetter = async (req:Request, res:Response) => {
+  try {
+    const sentnews = await NewsLetterModel.find({});
+    res.json(sentnews);
+  } catch (error) {
+    res.status(500).json({ error: (error as TypeError).message });
   }
 };
 

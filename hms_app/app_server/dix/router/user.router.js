@@ -4,4 +4,7 @@ const express_1 = require("express");
 const user_controller_1 = require("../controller/user.controller");
 const userRouter = (0, express_1.Router)();
 userRouter.post("/add-contact-us", user_controller_1.addContactUs);
+userRouter.get("/profile", user_controller_1.getUserProfile);
+userRouter.put("/profile-update", user_controller_1.updateUserProfile);
+userRouter.get("/sign-out", user_controller_1.logout);
 exports.default = userRouter;

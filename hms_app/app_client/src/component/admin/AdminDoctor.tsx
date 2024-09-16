@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import images from "../../constant/images";
 import axios from "axios";
 import { IDoctor } from "../../types";
+import Swal from "sweetalert2";
 
 interface NavLinkStyleProps {
   isActive: boolean;
@@ -29,6 +30,11 @@ const AdminDoctor = () => {
         console.log(response.data);
       } catch (error) {
         console.error("Error fetching doctors:", error);
+        Swal.fire({
+          title: "Error",
+          icon: "error",
+          text: "Error Fetching Data!",
+        });
       }
     };
 
@@ -45,8 +51,18 @@ const AdminDoctor = () => {
         specialization: docdept,
         email: docemail,
       });
+      Swal.fire({
+        title: "Success",
+        icon: "success",
+        text: "Doctor Added Successfully!",
+      });
     } catch (err) {
       console.log(err);
+      Swal.fire({
+        title: "Error",
+        icon: "error",
+        text: "Error Adding Doctor!",
+      });
     }
   };
   console.log(doctors);
@@ -57,8 +73,18 @@ const AdminDoctor = () => {
       .then((res) => {
         console.log(res);
       })
+      Swal.fire({
+          title: "Success",
+          icon: "success",
+          text: "Doctor Updated Successfully!",
+        })
       .catch((err) => {
         console.log(err);
+        Swal.fire({
+          title: "Error",
+          icon: "warning",
+          text: "Could not update Doctor!",
+        });
       });
   };
 
@@ -67,9 +93,19 @@ const AdminDoctor = () => {
       .delete(`http://localhost:5000/api/doctor/delete-doctor/${id}`, {})
       .then((res) => {
         console.log(res);
+        Swal.fire({
+          title: "Success",
+          icon: "success",
+          text: "Patient Deleted Successfully!",
+        });
       })
       .catch((err) => {
         console.log(err);
+        Swal.fire({
+          title: "Error",
+          icon: "error",
+          text: "Error Deleting Patient!",
+        });
       });
   };
   const navLinkStyle = ({

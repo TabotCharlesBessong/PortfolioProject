@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import images from "../../constant/images";
 import { CSSProperties, FormEvent, useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface NavLinkStyleProps {
   isActive: boolean;
@@ -25,9 +26,15 @@ const AdminDashboard = () => {
           setpatientcount(res.data.patientCount);
           setquerieslef(res.data.queriesCount);
           setDepts(res.data.deptsCount);
+          // Swal. 
         })
         .catch((err) => {
           console.log(err);
+          Swal.fire({
+            title:"Error",
+            icon:"error",
+            text:"Error fetching data"
+          })
         });
     };
     fetchInfo();
