@@ -45,16 +45,48 @@ export interface UserData {
   _id?: string
 }
 
+export interface MedicalHistory {
+  condition: string;
+  diagnosisDate?: Date;
+  treatment: string;
+  medications: Medication[];
+}
+
+export interface Medication {
+  name: string;
+  dosage: string;
+  frequency: string;
+}
+
+// Define Appointment Interface
+export interface Appointment {
+  date: Date;
+  doctor: string;
+  reason: string;
+  // Add more fields as necessary
+}
+
 export interface User {
   userName: string;
-  phoneNumber: string;
-  address: {
-    street: string;
-  };
-  gender: string;
   email: string;
-  _id?: string
-  role?: string
+  password: string;
+  role: "admin" | "doctor" | "nurse" | "receptionist" | "patient";
+  phoneNumber?: string;
+  dateOfBirth?: Date;
+  gender?: string;
+  address?: {
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+  };
+  emergencyContact?: {
+    name?: string;
+    relationship?: string;
+    phoneNumber?: string;
+  };
+  medicalHistory?: MedicalHistory[];
+  appointments?: Appointment[];
 }
 
 export interface AppointmentForm {
