@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className="bg-[#FEFAE0]">
       <section>
-        <div className="flex flex-col lg:flex-row h-screen w-screen justify-center items-center max-w-7xl m-auto">
+        <div className="flex flex-col lg:flex-row h-screen w-screen justify-center items-center max-w-7xl m-auto overflow-auto">
           <div className="flex flex-col justify-center">
             <p className="text-3xl font-semibold text-center">
               The Power to Heal{" "}
@@ -129,7 +129,7 @@ const Home = () => {
         </div>
       </section>
       <section>
-        <div className="h-full w-full flex flex-col justify-center items-center ">
+        <div className="h-full max-w-7xl m-auto overflow-auto flex flex-col justify-center items-center ">
           <p className="font-semibold text-3xl pt-16">Meet Our Specialist</p>
           <div className="flex flex-col gap-2">
             {/* from here */}
@@ -310,7 +310,7 @@ const Home = () => {
         </div>
       </section>
       <section>
-        <div className=" max-w-7xl m-auto flex flex-col justify-center gap-8 items-center w-full h-full ">
+        <div className=" max-w-7xl m-auto flex flex-col justify-center gap-8 items-center w-full h-full overflow-auto ">
           <div className="flex flex-col justify-center items-center">
             <p className="text-3xl font-semibold">
               Our Patients Feedback About Us
@@ -392,7 +392,7 @@ const Home = () => {
                 </p>
                 <p>
                   {" "}
-                  I would highly recommend KIMS to all. Once again many thanks
+                  I would highly recommend HMS to all. Once again many thanks
                   for your help.
                 </p>
               </div>
