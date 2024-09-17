@@ -1,8 +1,8 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import images from "../../constant/images";
+import images from "../../../constant/images";
 import axios from "axios";
-import { IDoctor } from "../../types";
+import { IDoctor } from "../../../types";
 import Swal from "sweetalert2";
 
 interface NavLinkStyleProps {
@@ -60,7 +60,7 @@ function UserBookAppointment() {
     };
   };
 
-  const handleSubmit = async (e:FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await axios
       .post("http://localhost:5000/api/appointment/add-appointment", {
@@ -141,7 +141,10 @@ function UserBookAppointment() {
         </div>
         <div className=" w-[70%] ms-24 p-4 flex flex-col justify-around ">
           <p className="font-semibold text-3xl">Book Appointment</p>
-          <form onSubmit={handleSubmit} className="flex flex-col h-[80%] justify-between">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col h-[80%] justify-between"
+          >
             <div className="w-full flex justify-between">
               <div className="flex flex-col w-[50%] justify-start">
                 <p>Enter Your Name:</p>
@@ -243,7 +246,10 @@ function UserBookAppointment() {
                 ></input>
               </div>
             </div>
-            <button type="submit" className="bg-black w-[95%] text-white p-2 rounded-full">
+            <button
+              type="submit"
+              className="bg-black w-[95%] text-white p-2 rounded-full"
+            >
               Book Now
             </button>
           </form>
