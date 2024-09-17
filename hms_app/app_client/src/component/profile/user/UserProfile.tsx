@@ -1,8 +1,8 @@
 import React, { FC, FormEvent, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import images from "../../constant/images";
+import images from "../../../constant/images";
 import axios from "axios";
-import { UserData } from "../../types";
+import { UserData } from "../../../types";
 import Swal from "sweetalert2";
 
 interface NavLinkStyleProps {
@@ -56,21 +56,24 @@ const UserProfile: FC = () => {
   const handleUpdate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await axios.put("http://localhost:5000/api/user/profile-update", {
-        userId: userData._id,
-        updatedProfile: {
-          email,
-          userName: name,
-          phoneNumber: mobileNumber,
-          address: {
-            street: address,
-            city: city,
-            state: state,
+      const res = await axios.put(
+        "http://localhost:5000/api/user/profile-update",
+        {
+          userId: userData._id,
+          updatedProfile: {
+            email,
+            userName: name,
+            phoneNumber: mobileNumber,
+            address: {
+              street: address,
+              city: city,
+              state: state,
+            },
+            gender: gender,
+            dateOfBirth: dateOfBirth,
           },
-          gender: gender,
-          dateOfBirth: dateOfBirth,
-        },
-      });
+        }
+      );
       if (res.data.status === "Success") {
         Swal.fire({
           title: "Success",

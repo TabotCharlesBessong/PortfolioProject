@@ -23,6 +23,7 @@ export interface IAppointment {
   doctor: string;
   reason: string;
   email: string
+  _id: string
 }
 
 export interface IContact {
@@ -87,6 +88,7 @@ export interface User {
   };
   medicalHistory?: MedicalHistory[];
   appointments?: Appointment[];
+  _id?: string
 }
 
 export interface AppointmentForm {
