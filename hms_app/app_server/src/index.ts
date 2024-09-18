@@ -19,10 +19,7 @@ const port = process.env.PORT as string;
 const app = express();
 
 app.use(
-  cors({
-    credentials: true,
-    origin: ["http://localhost:5137"],
-  })
+  cors()
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -27,11 +27,11 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div className="bg-slate-300 h-[80px] w-full fixed">
+    <div className="bg-[#FEFAE0] h-[80px] w-full fixed z-20">
       <div className="flex max-w-7xl items-center justify-between m-auto h-full">
         <div className="text-5xl">HMS</div>
         <div className="justify-center items-center gap-6 text-xl hidden md:flex">
-          <NavLink style={navLinkStyle} to="/home">
+          <NavLink style={navLinkStyle} to="/">
             Home
           </NavLink>
           <NavLink style={navLinkStyle} to="/appointment">
@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
               : "flex flex-col absolute top-0 left-0 h-screen w-screen text-white text-xl justify-center items-center bg-black md:hidden"
           }
         >
-          <NavLink className="py-6 text-3xl" style={navLinkStyle} to="/home">
+          <NavLink className="py-6 text-3xl" style={navLinkStyle} to="/">
             Home
           </NavLink>
           <NavLink
