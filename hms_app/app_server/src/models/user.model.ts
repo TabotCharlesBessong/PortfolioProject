@@ -25,7 +25,7 @@ interface Appointment {
 }
 
 // Define User Interface extending Document for Mongoose model typing
-interface User extends Document {
+export interface User extends Document {
   userName: string;
   email: string;
   password: string;
