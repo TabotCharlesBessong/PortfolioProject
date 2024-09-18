@@ -1,8 +1,9 @@
 import React, { FC, FormEvent, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import images from "../../constant/images";
+import images from "../../../constant/images";
 import axios from "axios";
-import { UserData } from "../../types";
+import { UserData } from "../../../types";
+import Swal from "sweetalert2";
 
 interface NavLinkStyleProps {
   isActive: boolean;
@@ -55,40 +56,53 @@ const UserProfile: FC = () => {
   const handleUpdate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await axios.put("http://localhost:5000/api/user/profile-update", {
-        userId: userData._id,
-        updatedProfile: {
-          email,
-          userName: name,
-          phoneNumber: mobileNumber,
-          address: {
-            street: address,
-            city: city,
-            state: state,
+      const res = await axios.put(
+        "http://localhost:5000/api/user/profile-update",
+        {
+          userId: userData._id,
+          updatedProfile: {
+            email,
+            userName: name,
+            phoneNumber: mobileNumber,
+            address: {
+              street: address,
+              city: city,
+              state: state,
+            },
+            gender: gender,
+            dateOfBirth: dateOfBirth,
           },
-          gender: gender,
-          dateOfBirth: dateOfBirth,
-        },
-      });
+        }
+      );
       if (res.data.status === "Success") {
-        alert("Profile Updated");
+        Swal.fire({
+          title: "Success",
+          icon: "success",
+          confirmButtonText: "Ok",
+          text: "Profile Updated Successfully!",
+        });
         const user = res.data.user;
         localStorage.setItem("user", JSON.stringify(user));
         window.location.href = "/user-profile";
       }
     } catch (err) {
-      alert(err);
+      Swal.fire({
+        title: "Error",
+        icon: "error",
+        confirmButtonText: "Ok",
+        text: "Error Updating Profile! Please Try Again!",
+      });
     }
   };
 
   const handleSignOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      // const res = await axios.get("http://localhost:5000/api/user/sign-out");
-      // if (res.data.message === "Success") {
+      const res = await axios.get("http://localhost:5000/api/user/sign-out");
+      if (res.data.message === "Success") {
         localStorage.removeItem("user");
         window.location.href = "/";
-      // }
+      }
     } catch (err) {
       alert(err);
     }

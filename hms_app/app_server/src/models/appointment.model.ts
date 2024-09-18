@@ -9,6 +9,7 @@ interface IAppointment extends Document {
   status: "scheduled" | "inProgress" | "completed" | "cancelled";
   notes?: string;
   phone?:string
+  email: string
 }
 
 // Define Appointment Schema
@@ -20,7 +21,7 @@ export const appointmentSchema = new Schema<IAppointment>({
   },
   patient: {
     type: Schema.Types.ObjectId,
-    ref:"User",
+    ref: "User",
     required: true,
   },
   appointmentDate: {
@@ -41,6 +42,10 @@ export const appointmentSchema = new Schema<IAppointment>({
   },
   notes: {
     type: String,
+  },
+  email: {
+    type: String,
+    required: true,
   },
 });
 

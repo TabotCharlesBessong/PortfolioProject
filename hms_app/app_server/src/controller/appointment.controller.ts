@@ -16,25 +16,25 @@ export const getAppointments = async (
 };
 
 // getting a single appointment information
-export const getAppointmentDetail = async (req:Request,res:Response) => {
-  const {id} = req.params
+export const getAppointmentDetail = async (req: Request, res: Response) => {
+  const { id } = req.params;
   try {
-    const appointment = await AppointmentModel.findById(id)
-    if(appointment === null) {
-      return res.json({message:"No appointments booked!"})
+    const appointment = await AppointmentModel.findById(id);
+    if (appointment === null) {
+      return res.json({ message: "No appointments booked!" });
     }
-    return res.json({appointment})
-  } catch (error:any) {
-    res.status(5000).json({error:error.message})
+    return res.json({ appointment });
+  } catch (error: any) {
+    res.status(5000).json({ error: error.message });
   }
-}
+};
 
 // Add a new appointment
 export const addAppointment = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const { doctor, patient, appointmentDate, reason, phone } = req.body;
+  const { doctor, patient, appointmentDate, reason, phone, email } = req.body;
 
   try {
     const newAppointment = new Appointment({
@@ -42,7 +42,8 @@ export const addAppointment = async (
       patient,
       appointmentDate,
       reason,
-      phone
+      phone,
+      email,
     });
 
     const savedAppointment = await newAppointment.save();

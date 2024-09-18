@@ -13,5 +13,5 @@ adminRouter.get("/get-contacts", checkAdmin_1.default, admin_controller_1.getCon
 adminRouter.post("/add-department", checkAdmin_1.default, admin_controller_1.addDepartment);
 adminRouter.delete("/delete-department/:id", checkAdmin_1.default, admin_controller_1.deleteDepartment);
 adminRouter.get("/get-department", checkAdmin_1.default, admin_controller_1.getDepartments);
-adminRouter.get("/count-all", checkAdmin_1.default, admin_controller_1.countAll);
+adminRouter.get("/count-all", admin_controller_1.countAll);
 exports.default = adminRouter;
