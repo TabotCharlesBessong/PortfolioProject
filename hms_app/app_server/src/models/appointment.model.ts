@@ -8,6 +8,8 @@ interface IAppointment extends Document {
   reason?: string;
   status: "scheduled" | "inProgress" | "completed" | "cancelled";
   notes?: string;
+  phone?:string
+  email: string
 }
 
 // Define Appointment Schema
@@ -29,6 +31,10 @@ export const appointmentSchema = new Schema<IAppointment>({
   reason: {
     type: String,
   },
+  phone: {
+    type: String,
+    required: true,
+  },
   status: {
     type: String,
     enum: ["scheduled", "inProgress", "completed", "cancelled"],
@@ -36,6 +42,10 @@ export const appointmentSchema = new Schema<IAppointment>({
   },
   notes: {
     type: String,
+  },
+  email: {
+    type: String,
+    required: true,
   },
 });
 
