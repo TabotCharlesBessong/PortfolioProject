@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SignUpProps } from "../../types";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const [data, setData] = useState<SignUpProps>({
@@ -21,7 +22,11 @@ const SignUp = () => {
         }
       })
       .catch(() => {
-        alert("Invalid Credentials or Please Try Again!");
+        Swal.fire({
+          title: "Error",
+          icon: "error",
+          text: "Error Registering User! Please Try Again!",
+        });
       });
   };
   return (

@@ -1,13 +1,20 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {  SignInProps } from "../../types";
+import { SignInProps } from "../../types";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, AppState } from "../../store";
+import { login, loginFailure, loginSuccess } from "../../store/slice/UserSlice";
 
 const SignIn = () => {
   const [data, setData] = useState<SignInProps>({
     email: "",
     password: "",
   });
+
+  const dispatch = useDispatch<AppDispatch>()
+  const {loading,currentUser} = useSelector((state:AppState) => state.user)
 
   const handleSubmit = async (
     e: FormEvent,
@@ -20,18 +27,55 @@ const SignIn = () => {
       .post("http://localhost:5000/api/auth/login", data)
       .then((res) => {
         if (res.data.status === "Success") {
-          const user = res.data.user
-          localStorage.setItem('user',JSON.stringify(user))
+          const user = res.data.user;
+          localStorage.setItem("user", JSON.stringify(user));
           navigate("/");
+        } else if (res.data.role === "patient") {
+          const user = res.data.user;
+          dispatch(login(user))
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user", JSON.stringify(user));
+          dispatch(loginSuccess())
+          navigate("/user-profile");
+        } else if (res.data.role === "admin") {
+          const user = res.data.user;
+          dispatch(login(user))
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user", JSON.stringify(user));
+          dispatch(loginSuccess())
+          navigate("/admin-dashboard");
+        } else if (res.data.role === "doctor" || res.data.role === "nurse") {
+          dispatch(loginFailure())
+          Swal.fire({
+            title: "Invalid Role!",
+            icon: "error",
+            confirmButtonText: "Ok",
+            text: "Login Through Your Respective Page!",
+          });
+        } else {
+          dispatch(loginFailure())
+          Swal.fire({
+            title: "Invalid Access!",
+            icon: "error",
+            confirmButtonText: "Ok",
+            text: "You are not authorized to access this page!",
+          });
         }
       })
       .catch(() => {
-        alert("Invalid Credentials or Please Try Again!");
+        Swal.fire({
+          title: "Invalid Credentials!",
+          icon: "error",
+          confirmButtonText: "Ok",
+          text: "Please Check Your Credentials and Try Again!",
+        });
       });
   };
   const navigate = useNavigate();
   const handleDoctor = () => navigate("/doctor-sign-in");
   const handleNurse = () => navigate("/nurse-sign-in");
+
+  // if(!loading || !currentUser) return <h1>Loading....</h1>
   return (
     <section className="bg-[#FEFAE0] h-screen w-screen">
       <div className="flex items-center justify-center h-full max-w-7xl m-auto md:w-[60%] rounded-xl lg:w-[40%]  ">
