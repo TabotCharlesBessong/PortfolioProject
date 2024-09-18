@@ -1,17 +1,89 @@
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SignInProps } from "../../types";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, AppState } from "../../store";
+import { login, loginFailure, loginSuccess } from "../../store/slice/UserSlice";
 
 const SignIn = () => {
+  const [data, setData] = useState<SignInProps>({
+    email: "",
+    password: "",
+  });
+
+  const dispatch = useDispatch<AppDispatch>()
+  const {loading,currentUser} = useSelector((state:AppState) => state.user)
+
+  const handleSubmit = async (
+    e: FormEvent,
+    data: SignInProps,
+    navigate: ReturnType<typeof useNavigate>
+  ): Promise<void> => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:5000/api/auth/login", data)
+      .then((res) => {
+        if (res.data.status === "Success") {
+          const user = res.data.user;
+          localStorage.setItem("user", JSON.stringify(user));
+          navigate("/");
+        } else if (res.data.role === "patient") {
+          const user = res.data.user;
+          dispatch(login(user))
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user", JSON.stringify(user));
+          dispatch(loginSuccess())
+          navigate("/user-profile");
+        } else if (res.data.role === "admin") {
+          const user = res.data.user;
+          dispatch(login(user))
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("user", JSON.stringify(user));
+          dispatch(loginSuccess())
+          navigate("/admin-dashboard");
+        } else if (res.data.role === "doctor" || res.data.role === "nurse") {
+          dispatch(loginFailure())
+          Swal.fire({
+            title: "Invalid Role!",
+            icon: "error",
+            confirmButtonText: "Ok",
+            text: "Login Through Your Respective Page!",
+          });
+        } else {
+          dispatch(loginFailure())
+          Swal.fire({
+            title: "Invalid Access!",
+            icon: "error",
+            confirmButtonText: "Ok",
+            text: "You are not authorized to access this page!",
+          });
+        }
+      })
+      .catch(() => {
+        Swal.fire({
+          title: "Invalid Credentials!",
+          icon: "error",
+          confirmButtonText: "Ok",
+          text: "Please Check Your Credentials and Try Again!",
+        });
+      });
+  };
   const navigate = useNavigate();
   const handleDoctor = () => navigate("/doctor-sign-in");
   const handleNurse = () => navigate("/nurse-sign-in");
+
+  // if(!loading || !currentUser) return <h1>Loading....</h1>
   return (
-    <section className="bg-slate-300 h-screen w-screen">
+    <section className="bg-[#FEFAE0] h-screen w-screen">
       <div className="flex items-center justify-center h-full max-w-7xl m-auto md:w-[60%] rounded-xl lg:w-[40%]  ">
-        <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md bg-white p-4 rounded-lg">
+        <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md bg-[#CCD5AE] shadow-xl shadow-black p-4 rounded-lg">
           <h2 className="text-center text-2xl font-bold leading-tight text-black">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600 ">
+          <p className="mt-2 text-center text-sm text-black ">
             Don&apos;t have an account?{" "}
             <a
               href="/sign-up"
@@ -33,9 +105,13 @@ const SignIn = () => {
                 </label>
                 <div className="mt-2">
                   <input
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-black bg-transparent px-3 py-2 text-sm placeholder:text-black focus:outline-none focus:ring-1 focus:ring-black focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="email"
                     placeholder="Email"
+                    onChange={(e) =>
+                      setData({ ...data, email: e.target.value })
+                    }
+                    value={data.email}
                   ></input>
                 </div>
               </div>
@@ -51,9 +127,13 @@ const SignIn = () => {
                 </div>
                 <div className="mt-2">
                   <input
-                    className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-black bg-transparent px-3 py-2 text-sm placeholder:text-black focus:outline-none focus:ring-1 focus:ring-black focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="password"
                     placeholder="Password"
+                    onChange={(e) =>
+                      setData({ ...data, password: e.target.value })
+                    }
+                    value={data.password}
                   ></input>
                 </div>
               </div>
@@ -61,6 +141,7 @@ const SignIn = () => {
                 <button
                   type="button"
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+                  onClick={(e) => handleSubmit(e, data, navigate)}
                 >
                   Get started
                 </button>
