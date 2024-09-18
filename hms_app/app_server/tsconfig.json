@@ -1,3 +1,4 @@
+
 {
   "compilerOptions": {
     "module": "CommonJS",
@@ -12,5 +13,9 @@
     "outDir": "./dix",
     "baseUrl": ".",
     "resolveJsonModule": true
-  }
+  },
+  "include": [
+    "src/**/*",
+    "src/types/**/*"
+  ]
 }
