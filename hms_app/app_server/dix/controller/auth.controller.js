@@ -35,7 +35,7 @@ const verifyUser = (req, res, next) => {
 };
 exports.verifyUser = verifyUser;
 const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userName, email, password } = req.body;
+    const { userName, email, password, role } = req.body;
     try {
         const existingUser = yield user_model_1.default.findOne({ email });
         if (existingUser) {
@@ -45,13 +45,15 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         }
         const salt = yield bcrypt_1.default.genSalt(10);
         const hashedPassword = yield bcrypt_1.default.hash(password, salt);
+        const newRole = role ? role : "patient";
         const newUser = new user_model_1.default({
             userName,
             email,
             password: hashedPassword,
+            role: newRole
         });
         const savedUser = yield newUser.save();
-        return res.json(savedUser);
+        return res.json({ savedUser, message: "Success" });
     }
     catch (error) {
         return res.status(500).json({ error: error.message });
@@ -69,7 +71,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     expiresIn: "2d",
                 });
                 res.cookie("token", token);
-                return res.json({ status: "Success", token, role: user.role });
+                return res.json({ status: "Success", token, role: user.role, user: user });
             }
         }
         return res.status(400).json({ error: "Invalid email or password" });

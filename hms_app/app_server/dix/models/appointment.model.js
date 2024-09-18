@@ -20,6 +20,10 @@ exports.appointmentSchema = new mongoose_1.Schema({
     reason: {
         type: String,
     },
+    phone: {
+        type: String,
+        required: true,
+    },
     status: {
         type: String,
         enum: ["scheduled", "inProgress", "completed", "cancelled"],

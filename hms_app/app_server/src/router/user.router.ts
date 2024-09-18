@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { addContactUs, getUserProfile, updateUserProfile } from "../controller/user.controller";
+import {
+  addContactUs,
+  getUserProfile,
+  logout,
+  updateUserProfile,
+} from "../controller/user.controller";
 
 const userRouter = Router();
 
@@ -11,5 +16,8 @@ userRouter.get("/profile", getUserProfile);
 
 // Route to update the user profile
 userRouter.put("/profile-update", updateUserProfile);
+
+// Route for user logout
+userRouter.get("/sign-out", logout);
 
 export default userRouter;

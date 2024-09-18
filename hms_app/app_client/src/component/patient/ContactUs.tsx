@@ -1,6 +1,7 @@
 import axios from "axios";
 import { FormEvent, useState } from "react";
 import { IContact } from "../../types";
+import Swal from "sweetalert2";
 
 const ContactUs = () => {
   const [contactUs, setContactUs] = useState<IContact>({
@@ -14,13 +15,30 @@ const ContactUs = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
+      await axios.post(
         "http://localhost:5000/api/user/add-contact-us",
         contactUs
       );
-      alert("Your message has been sent successfully");
+      Swal.fire({
+        title: "Success",
+        icon: "success",
+        confirmButtonText: "Ok",
+        text: "Message Sent Successfully! We will get back to you soon!",
+      });
+      setContactUs({
+        email:"",
+        message:"",
+        name:"",
+        phone:""
+      })
     } catch (err) {
       console.log(err);
+      Swal.fire({
+        title: "Error",
+        icon: "error",
+        confirmButtonText: "Ok",
+        text: "Error Sending Message! Please Try Again!",
+      });
     }
   };
   return (
