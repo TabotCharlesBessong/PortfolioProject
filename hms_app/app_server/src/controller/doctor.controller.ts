@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import Doctor from "../models/doctor.model"; // Import the Doctor model
+import AppointmentModel from "../models/appointment.model";
 
 // Controller to get all doctors
 export const getDoctors = async (
@@ -74,3 +75,18 @@ export const deleteDoctor = async (req: Request, res: Response) => {
     res.status(500).json({ error: (error as TypeError).message });
   }
 };
+
+export const getAppoinments = async (req:Request,res:Response) => {
+  const {doctor} = req.params;
+  try {
+    const appointments = await AppointmentModel.find({ doctor });
+
+    if (appointments.length === 0) {
+      return res.json({ message: "No appointments found" });
+    } else {
+      return res.json(appointments);
+    }
+  } catch (error) {
+    res.status(500).json({ error: (error as TypeError).message });
+  }
+}
