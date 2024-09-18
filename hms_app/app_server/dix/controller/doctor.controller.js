@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addDoctor = exports.getDoctors = void 0;
+exports.deleteDoctor = exports.updateDoctor = exports.addDoctor = exports.getDoctors = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const doctor_model_1 = __importDefault(require("../models/doctor.model"));
 const getDoctors = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const doctors = yield doctor_model_1.default.find({});
+        const doctors = yield doctor_model_1.default.find();
         return res.json(doctors);
     }
     catch (error) {
@@ -50,3 +50,30 @@ const addDoctor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.addDoctor = addDoctor;
+const updateDoctor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name, email, specialization } = req.body;
+    try {
+        const userExist = yield doctor_model_1.default.findOne({ email });
+        if (!userExist)
+            return res.status(404).json({ error: "Doctor does not exist!" });
+        const updatedUser = {
+            name,
+            email,
+            specialization,
+        };
+        const user = yield doctor_model_1.default.findByIdAndUpdate(req.params.id, updatedUser);
+        res.json(user);
+    }
+    catch (error) { }
+});
+exports.updateDoctor = updateDoctor;
+const deleteDoctor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req.params;
+    try {
+        const user = yield doctor_model_1.default.findByIdAndDelete(userId);
+    }
+    catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+exports.deleteDoctor = deleteDoctor;

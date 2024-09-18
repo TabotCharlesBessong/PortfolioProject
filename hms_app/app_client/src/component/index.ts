@@ -20,7 +20,8 @@ export { default as DoctorReview } from "./profile/doctor/DoctorReview";
 export { default as NurseBed } from "./profile/nurse/NurseBed";
 export { default as NurseMedication } from "./profile/nurse/NurseMedication";
 export { default as NurseProfile } from "./profile/nurse/NurseProfile";
-export { default as UserAppointment } from "./profile/UserAppointment";
-export { default as UserBookAppointment } from "./profile/UserBookAppointment";
-export { default as UserMedication } from "./profile/UserMedication";
-export { default as UserProfile } from "./profile/UserProfile";
+export { default as UserAppointment } from "./profile/user/UserAppointment";
+export { default as UserBookAppointment } from "./profile/user/UserBookAppointment";
+export { default as UserMedication } from "./profile/user/UserMedication";
+export { default as UserProfile } from "./profile/user/UserProfile";
+export {default as UserSidebar} from "./profile/user/UserSidebar"

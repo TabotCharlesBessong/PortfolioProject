@@ -11,12 +11,8 @@ export interface SignUpProps {
 
 export interface LoginResponse {
   role: string;
-}
-
-export interface IDoctor {
-  _id: string;
-  name: string;
-  specialty?: string;
+  token: string
+  user:User
 }
 
 export interface IAppointment {
@@ -26,6 +22,8 @@ export interface IAppointment {
   time: string;
   doctor: string;
   reason: string;
+  email: string
+  _id: string
 }
 
 export interface IContact {
@@ -33,6 +31,7 @@ export interface IContact {
   email: string;
   phone: string;
   message: string;
+  _id?: string
 }
 
 export interface UserData {
@@ -44,4 +43,76 @@ export interface UserData {
   dateOfBirth: string;
   gender: string;
   email: string;
+  _id?: string
 }
+
+export interface MedicalHistory {
+  condition: string;
+  diagnosisDate?: Date;
+  treatment: string;
+  medications: Medication[];
+}
+
+export interface Medication {
+  name: string;
+  dosage: string;
+  frequency: string;
+}
+
+// Define Appointment Interface
+export interface Appointment {
+  date: Date;
+  doctor: string;
+  reason: string;
+  // Add more fields as necessary
+}
+
+export interface User {
+  userName: string;
+  email: string;
+  password: string;
+  role: "admin" | "doctor" | "nurse" | "receptionist" | "patient";
+  phoneNumber?: string;
+  dateOfBirth?: Date;
+  gender?: string;
+  address?: {
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+  };
+  emergencyContact?: {
+    name?: string;
+    relationship?: string;
+    phoneNumber?: string;
+  };
+  medicalHistory?: MedicalHistory[];
+  appointments?: Appointment[];
+  _id?: string
+}
+
+export interface AppointmentForm {
+  patient: string;
+  phone: string;
+  address: string;
+  gender: string;
+  email: string;
+  appointmentDate: string;
+  reason: string;
+}
+
+export interface IDoctor {
+  doctorId: string;
+  name: string;
+  email: string;
+  password: string;
+  specialization: string;
+  role: "admin" | "doctor" | "nurse" | "receptionist" | "patient";
+  _id: string
+}
+
+export interface INewsLetter {
+  subject: string;
+  message: string;
+}
+

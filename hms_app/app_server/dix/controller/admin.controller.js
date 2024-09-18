@@ -16,6 +16,8 @@ exports.countAll = exports.getDepartments = exports.deleteDepartment = exports.a
 const user_model_1 = __importDefault(require("../models/user.model"));
 const department_model_1 = __importDefault(require("../models/department.model"));
 const contactUs_model_1 = __importDefault(require("../models/contactUs.model"));
+const nurse_model_1 = __importDefault(require("../models/nurse.model"));
+const doctor_model_1 = __importDefault(require("../models/doctor.model"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const users = yield user_model_1.default.find({});
@@ -91,13 +93,21 @@ const getDepartments = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.getDepartments = getDepartments;
 const countAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const usersCount = yield user_model_1.default.countDocuments();
-        const contactsCount = yield contactUs_model_1.default.countDocuments();
-        const deptsCount = yield department_model_1.default.countDocuments();
+        const usersCount = yield user_model_1.default.countDocuments().exec();
+        const contactsCount = yield contactUs_model_1.default.countDocuments().exec();
+        const deptsCount = yield department_model_1.default.countDocuments().exec();
+        const patientCount = yield user_model_1.default.countDocuments({ role: "patient" }).exec();
+        const queriesCount = yield contactUs_model_1.default.countDocuments({}).exec();
+        const nurseCount = yield nurse_model_1.default.countDocuments({}).exec();
+        const doctorCount = yield doctor_model_1.default.countDocuments().exec();
         return res.json({
-            users: usersCount,
-            contacts: contactsCount,
-            depts: deptsCount,
+            patientCount,
+            queriesCount,
+            deptsCount,
+            doctorCount,
+            nurseCount,
+            usersCount,
+            contactsCount
         });
     }
     catch (error) {
