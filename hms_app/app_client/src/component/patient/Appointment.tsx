@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { IAppointment, IDoctor } from "../../types";
 import axios from "axios";
 import images from "../../constant/images";
+import Swal from "sweetalert2";
 
 const Appointment = () => {
   const [doctors, setDoctors] = useState<IDoctor[]>([]);
@@ -12,6 +13,7 @@ const Appointment = () => {
     time: "",
     doctor: "",
     reason: "",
+    email: ""
   });
 
   useEffect(() => {
@@ -29,11 +31,13 @@ const Appointment = () => {
     fetchDoctors();
   }, []);
 
+  if(!doctors) return <h1>Loading....</h1>
+
   // Function to handle form submission
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     try {
-      const res = await axios.post(
+      await axios.post(
         "http://localhost:5000/api/appointment/add-appointment",
         {
           patient: appointment.patient,
@@ -42,12 +46,24 @@ const Appointment = () => {
           appointmentDate: appointment.appointmentDate,
           reason: appointment.reason,
           time: appointment.time,
+          email: appointment.email
         }
-      );
-      console.log(res.data);
-      alert("Appointment Request Sent Successfully");
+      ).then((res) => {
+        console.log(res.data);
+        Swal.fire({
+          title: "Success",
+          icon: "success",
+          confirmButtonText: "Ok",
+          text: "Appointment Request Sent Successfully!",
+        });
+      })
     } catch (err) {
-      alert("Error sending appointment request");
+      Swal.fire({
+        title: "Error",
+        icon: "error",
+        confirmButtonText: "Ok",
+        text: "Error Sending Appointment Request! Please Try Again!",
+      });
       console.error(err);
     }
   };

@@ -1,32 +1,64 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 import { LoginResponse, SignInProps } from "../../types";
+import Swal from "sweetalert2";
 
-const  DoctorAuth = () => {
+const DoctorAuth = () => {
   const [data, setData] = useState<SignInProps>({
-    email:"",
-    password:""
-  })
-  const navigate = useNavigate()
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e:FormEvent,data:SignInProps,navigate:ReturnType<typeof useNavigate>):Promise<void> => {
+  const handleSubmit = async (
+    e: FormEvent,
+    data: SignInProps,
+    navigate: ReturnType<typeof useNavigate>
+  ): Promise<void> => {
     e.preventDefault();
 
-  try {
-    const res = await axios.post<LoginResponse>("http://localhost:5000/api/auth/login", data);
+    try {
+      const res = await axios.post<LoginResponse>(
+        "http://localhost:5000/api/auth/login",
+        data
+      );
 
-    if (res.data.role === "doctor") {
-      navigate('/doctor-profile');
-    } else if (res.data.role === "user" || res.data.role === "admin" || res.data.role === "nurse") {
-      alert("Wrong Login Page!");
-    } else {
-      alert("Invalid Role!");
+      if (res.data.role === "doctor") {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        navigate("/doctor-profile");
+      } else if (
+        res.data.role === "user" ||
+        res.data.role === "admin" ||
+        res.data.role === "nurse"
+      ) {
+        // alert("Wrong Login Page!");
+        Swal.fire({
+          title: "Invalid Role!",
+          icon: "error",
+          confirmButtonText: "Ok",
+          text: "Login Through Your Respective Page!",
+        });
+      } else {
+        // alert("Invalid Role!");
+        Swal.fire({
+          title: "Invalid Access!",
+          icon: "error",
+          confirmButtonText: "Ok",
+          text: "You are not authorized to access this page!",
+        });
+      }
+    } catch (err) {
+      // alert("Invalid Credentials or Please Try Again!");
+      Swal.fire({
+        title: "Invalid Credentials!",
+        icon: "error",
+        confirmButtonText: "Ok",
+        text: "Please Check Your Credentials and Try Again!",
+      });
     }
-  } catch (err) {
-    alert("Invalid Credentials or Please Try Again!");
-  }
-  }
+  };
 
   return (
     <section className="bg-[#FEFAE0] h-screen w-screen">
@@ -104,6 +136,6 @@ const  DoctorAuth = () => {
       </div>
     </section>
   );
-}
+};
 
-export default DoctorAuth
+export default DoctorAuth;

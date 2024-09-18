@@ -1,11 +1,38 @@
 import { NavLink } from "react-router-dom";
 import images from "../../constant/images";
+import { useEffect, useState } from "react";
+import { User } from "../../types";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 interface NavLinkStyleProps {
   isActive: boolean;
 }
 
-function AdminPatient() {
+const AdminPatient = () => {
+  const [users, setUsers] = useState<User[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/admin/get-users"
+        );
+        setUsers(response.data);
+        console.log(response)
+      } catch (error) {
+        Swal.fire({
+          title: "Error",
+          icon: "error",
+          text: "Error Fetching Data!",
+        });
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!users) return <h1>Loading...</h1>;
   const navLinkStyle = ({
     isActive,
   }: NavLinkStyleProps): React.CSSProperties => {
@@ -80,6 +107,11 @@ function AdminPatient() {
             </button>
           </div>
         </div>
+        <div className="w-full text-center  h-[80px] p-2">
+          <button className="bg-black text-white rounded-full text-md font-medium p-2 cursor-pointer hover:scale-110 duration-200 active:scale-90 ">
+            Sign Out
+          </button>
+        </div>
         <div className=" w-[70%] ms-24 p-4 flex flex-col justify-start gap-5 ">
           <p className="font-semibold text-3xl">Patient</p>
           <div className="w-full">
@@ -88,35 +120,53 @@ function AdminPatient() {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="px-6 py-3">
-                      Docotor Name
+                      Patient Id
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Doctor Id
+                    Patient Name
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Department
+                    Patient Email
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      <span className="sr-only">Edit</span>
+                      Role
+                    </th>
+                    <th scope="col" className="px-6 py-3">
+                      {/* <span className="sr-only">Edit</span> */}
+                      actions
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                    >
-                      Ramesh
-                    </th>
-                    <td className="px-6 py-4">10012</td>
-                    <td className="px-6 py-4">Surgeon</td>
-                    <td className="px-6 py-4 text-right">
-                      <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
+                  {users &&
+                    users.map((item, index) => (
+                      <tr key={item._id}>
+                        <td scope="col" className="px-3 py-4">
+                          {index + 1}
+                        </td>
+                        <td scope="col" className="px-6 py-3">
+                          {item.userName}
+                        </td>
+                        <td scope="col" className="px-6 py-3">
+                          {item.email}
+                        </td>
+                        <td scope="col" className="px-6 py-3">
+                          {item.role}
+                        </td>
+                        <td scope="col" className="d-flex gap-3 ">
+                          <button
+                            onClick={() => {}}
+                            className="btn btn-success"
+                          >
+                            Edit
+                          </button>
+                          <br />
+                          <button onClick={() => {}} className="btn btn-danger">
+                            Remove
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -125,6 +175,6 @@ function AdminPatient() {
       </div>
     </section>
   );
-}
+};
 
 export default AdminPatient;

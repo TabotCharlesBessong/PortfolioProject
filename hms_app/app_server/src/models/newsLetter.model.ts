@@ -1,9 +1,19 @@
-import { model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 
-const newsletterSchema = new Schema<{email:string}>({
-  email: {
+export interface newsLetter extends Document{
+  subject: string
+  message: string
+}
+
+const newsletterSchema = new Schema<newsLetter>({
+  subject: {
     type: String,
+    required: true
   },
+  message:{
+    type:String,
+    required:true
+  }
 });
 
 const NewsLetterModel = model<{email:string}>("newsLetter", newsletterSchema, "newsletter");

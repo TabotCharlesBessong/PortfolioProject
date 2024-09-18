@@ -7,5 +7,6 @@ const express_1 = __importDefault(require("express"));
 const appointment_controller_1 = require("../controller/appointment.controller");
 const appointmentRouter = express_1.default.Router();
 appointmentRouter.get("/get-appointments", appointment_controller_1.getAppointments);
+appointmentRouter.get("/get-appointment/:id", appointment_controller_1.getAppointmentDetail);
 appointmentRouter.post("/add-appointment", appointment_controller_1.addAppointment);
 exports.default = appointmentRouter;
