@@ -57,10 +57,10 @@ export const updateUserProfile = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  const { email, updatedProfile } = req.body;
+  const { userId, updatedProfile } = req.body;
 
   try {
-    if (!email || !updatedProfile) {
+    if (!userId || !updatedProfile) {
       res
         .status(400)
         .json({
@@ -71,7 +71,7 @@ export const updateUserProfile = async (
     }
 
     const updatedUser = await UserModel.findOneAndUpdate(
-      { email },
+      { _id: userId },
       { $set: updatedProfile },
       { new: true, runValidators: true }
     );
@@ -87,3 +87,7 @@ export const updateUserProfile = async (
     res.status(500).json({ status: "Error", message: error.message });
   }
 };
+
+export const logout = async (req:Request,res:Response) => {
+  res.clearCookie("token").json("User signed out successfully")
+}

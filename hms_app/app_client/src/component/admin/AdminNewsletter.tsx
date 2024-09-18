@@ -1,11 +1,71 @@
 import { NavLink } from "react-router-dom";
 import images from "../../constant/images";
+import { FormEvent, useEffect, useState } from "react";
+import { INewsLetter } from "../../types";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 interface NavLinkStyleProps {
   isActive: boolean;
 }
 
-function AdminNewsletter() {
+const AdminNewsletter = () => {
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [sentMessages, setSentMessages] = useState<INewsLetter[]>([]);
+
+  const fetchSentMessages = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/admin/get-sent-newsletter"
+      );
+      const sortedMessages = response.data.sort(
+        (a: any, b: any) => b._id - a._id
+      );
+      setSentMessages(sortedMessages);
+    } catch (err) {
+      Swal.fire({
+        title: "Error",
+        icon: "error",
+        text: "Error Fetching Data!",
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchSentMessages();
+  }, []);
+
+  const handleAddNewsletter = async (e: FormEvent) => {
+    e.preventDefault();
+    await axios
+      .post("http://localhost:5000/api/admin/newsletter", {
+        subject: subject,
+        message: message,
+      })
+      .then((res) => {
+        if (res.data.status == "Saved") {
+          Swal.fire({
+            title: "Success",
+            icon: "success",
+            text: "Message Sent SuccessFully!",
+          });
+        }
+
+        setSubject("");
+        setMessage("");
+      })
+      .catch((err) => {
+        console.log((err as TypeError).message);
+        Swal.fire({
+          title: "Error",
+          icon: "error",
+          text: "Message Could Not Be Sent!",
+        });
+      });
+
+    fetchSentMessages();
+  };
   const navLinkStyle = ({
     isActive,
   }: NavLinkStyleProps): React.CSSProperties => {
@@ -80,13 +140,61 @@ function AdminNewsletter() {
             </button>
           </div>
         </div>
-        <div className=" w-[70%] ms-24 p-4 flex flex-col justify-around bg-yellow-200">
-          <p className="font-semibold text-3xl">Dashboard</p>
-          <div></div>
+        <div className="w-full text-center  h-[80px] p-2">
+          <button className="bg-black text-white rounded-full text-md font-medium p-2 cursor-pointer hover:scale-110 duration-200 active:scale-90 ">
+            Sign Out
+          </button>
+        </div>
+      </div>
+      <div className="relative h-[50%] w-[90%] z-50 bg-white">
+        <form className="flex flex-col w-full h-full justify-center gap-4 items-center">
+          <div className="flex flex-col w-[70%] items-center ">
+            <p className="">Enter Subject:</p>
+            <input
+              onChange={(e) => setSubject(e.target.value)}
+              className="flex h-10  w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+              type="text"
+              placeholder="Subject"
+            ></input>
+          </div>
+
+          <div className="flex flex-col h-full w-[70%] items-center ">
+            <p className="">Enter Message:</p>
+            <textarea
+              onChange={(e) => setMessage(e.target.value)}
+              className="flex h-full  min-h-[100px] w-[90%] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+              maxLength={300}
+              placeholder="Message"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            onClick={handleAddNewsletter}
+            className=" w-[35%] bg-black text-white rounded-full text-md font-medium p-2 cursor-pointer hover:scale-110 duration-200 active:scale-90"
+          >
+            Send NewsLetter
+          </button>
+        </form>
+
+        <br />
+
+        <div className="flex m-50 h-[80%] justify-center items-center">
+          <div className="m-25 pl-25 h-[100%] w-[90%] bg-amber-100 overflow-auto">
+            <h2 className="text-black mx-auto text-lg">All Sent Messages! </h2>
+            <ul className="mt-4">
+              {sentMessages.map((message, index) => (
+                <li key={index} className="border-b border-gray-300 py-2">
+                  <h3 className="text-lg font-semibold">{message.subject}</h3>
+                  <p className="text-sm text-gray-600">{message.message}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default AdminNewsletter;
