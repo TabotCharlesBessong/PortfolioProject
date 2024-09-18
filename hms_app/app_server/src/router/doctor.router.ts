@@ -1,6 +1,11 @@
 import { Router } from "express";
 import checkAdmin from "../middlewares/checkAdmin"; // Import the middleware
-import { addDoctor, getDoctors } from "../controller/doctor.controller";
+import {
+  addDoctor,
+  deleteDoctor,
+  getDoctors,
+  updateDoctor,
+} from "../controller/doctor.controller";
 
 const doctorRouter = Router();
 
@@ -8,6 +13,10 @@ const doctorRouter = Router();
 doctorRouter.get("/get-doctors", getDoctors);
 
 // POST route to add a new doctor (protected by admin check)
-doctorRouter.post("/add-doctor",  addDoctor);
+doctorRouter.post("/add-doctor", addDoctor);
+
+doctorRouter.put("/update-doctor/:id", updateDoctor);
+
+doctorRouter.delete("/delete-doctor/:id", deleteDoctor);
 
 export default doctorRouter;
