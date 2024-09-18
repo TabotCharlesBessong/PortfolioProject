@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import User from "../models/user.model";
 import Department from "../models/department.model";
 import ContactUs from "../models/contactUs.model";
+import NurseModel from "../models/nurse.model";
+import DoctorModel from "../models/doctor.model";
+import NewsLetterModel from "../models/newsLetter.model";
 
 // Get all users
 export const getUsers = async (
@@ -9,7 +12,7 @@ export const getUsers = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const users = await User.find({});
+    const users = await User.find({role:"patient"});
     return res.json(users);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
@@ -42,6 +45,30 @@ export const getContacts = async (
   }
 };
 
+// sending a newsletter
+export const createNewsLetter = async (req:Request,res:Response) => {
+  const { subject, message } = req.body;
+  try {
+    const newletter = new NewsLetterModel({
+      subject,
+      message,
+    });
+    const savedletter = await newletter.save();
+    res.json({ status: "Saved", savedletter });
+  } catch (error) {
+    res.status(500).json({ error: (error as TypeError).message });
+  }
+}
+
+export const getNewsLetter = async (req:Request, res:Response) => {
+  try {
+    const sentnews = await NewsLetterModel.find({});
+    res.json(sentnews);
+  } catch (error) {
+    res.status(500).json({ error: (error as TypeError).message });
+  }
+};
+
 // Add a new department
 export const addDepartment = async (
   req: Request,
@@ -66,8 +93,8 @@ export const addDepartment = async (
 
     const savedDept = await newDept.save();
     return res.json(savedDept);
-  } catch (error: any) {
-    return res.status(500).json({ error: error.message });
+  } catch (error) {
+    return res.status(500).json({ error: (error as TypeError).message });
   }
 };
 
@@ -103,14 +130,22 @@ export const countAll = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const usersCount = await User.countDocuments();
-    const contactsCount = await ContactUs.countDocuments();
-    const deptsCount = await Department.countDocuments();
+    const usersCount = await User.countDocuments().exec()
+    const contactsCount = await ContactUs.countDocuments().exec()
+    const deptsCount = await Department.countDocuments().exec()
+    const patientCount = await User.countDocuments({role:"patient"}).exec()
+    const queriesCount = await ContactUs.countDocuments({}).exec()
+    const nurseCount = await NurseModel.countDocuments({}).exec()
+    const doctorCount = await DoctorModel.countDocuments().exec()
 
     return res.json({
-      users: usersCount,
-      contacts: contactsCount,
-      depts: deptsCount,
+      patientCount,
+      queriesCount,
+      deptsCount,
+      doctorCount,
+      nurseCount,
+      usersCount,
+      contactsCount
     });
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
