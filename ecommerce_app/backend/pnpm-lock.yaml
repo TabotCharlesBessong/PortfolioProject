@@ -42,8 +42,8 @@ importers:
         specifier: 2.0.2
         version: 2.0.2
       nodemailer:
-        specifier: ^6.9.14
-        version: 6.9.14
+        specifier: ^7.0.7
+        version: 7.0.7
       nodemon:
         specifier: ^3.1.4
         version: 3.1.4
@@ -566,8 +566,8 @@ packages:
       encoding:
         optional: true
 
-  nodemailer@6.9.14:
-    resolution: {integrity: sha512-Dobp/ebDKBvz91sbtRKhcznLThrKxKt97GI2FAlAyy+fk19j73Uz3sBXolVtmcXjaorivqsbbbjDY+Jkt4/bQA==}
+  nodemailer@7.0.7:
+    resolution: {integrity: sha512-jGOaRznodf62TVzdyhKt/f1Q/c3kYynk8629sgJHpRzGZj01ezbgMMWJSAjHADcwTKxco3B68/R+KHJY2T5BaA==}
     engines: {node: '>=6.0.0'}
 
   nodemon@3.1.4:
@@ -1356,7 +1356,7 @@ snapshots:
     dependencies:
       whatwg-url: 5.0.0
 
-  nodemailer@6.9.14: {}
+  nodemailer@7.0.7: {}
 
   nodemon@3.1.4:
     dependencies:
