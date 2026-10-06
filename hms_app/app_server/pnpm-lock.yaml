@@ -10,13 +10,13 @@ importers:
     dependencies:
       axios:
         specifier: ^1.18.0
-        version: 1.18.0
+        version: 1.18.0(debug@4.4.3(supports-color@5.5.0))(supports-color@5.5.0)
       bcrypt:
         specifier: ^5.1.1
-        version: 5.1.1
+        version: 5.1.1(supports-color@5.5.0)
       body-parser:
         specifier: ^1.20.2
-        version: 1.20.2
+        version: 1.20.2(supports-color@5.5.0)
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
@@ -34,7 +34,7 @@ importers:
         version: 16.4.5
       express:
         specifier: ^4.19.2
-        version: 4.19.2
+        version: 4.19.2(supports-color@5.5.0)
       express-async-handler:
         specifier: ^1.2.0
         version: 1.2.0
@@ -43,10 +43,10 @@ importers:
         version: 9.0.2
       mongoose:
         specifier: ^8.22.1
-        version: 8.22.1
+        version: 8.22.1(supports-color@5.5.0)
       nodemailer:
-        specifier: ^9.0.1
-        version: 9.0.1
+        specifier: ^10.0.9
+        version: 10.0.15
       nodemon:
         specifier: ^3.1.4
         version: 3.1.4
@@ -788,9 +788,9 @@ packages:
       encoding:
         optional: true
 
-  nodemailer@9.0.1:
-    resolution: {integrity: sha512-Gwv8SQewT616ZM/URn0H54b8PWo/Wum7md3EW2aWy1lO27+WZCX+Xyak3J+NlmHUjDh5ME+uesJUDRbR3Ye8Bw==}
-    engines: {node: '>=6.0.0'}
+  nodemailer@10.0.15:
+    resolution: {integrity: sha512-EUqp5PhtcsYXs9Fq/lS7s/8zlTrnBqmzZWzFFROrNikMiz+om/YRKMwqN907t+0A1KKyT8jd39CBUbFZmaZmcA==}
+    engines: {node: '>=20.0.0'}
 
   nodemon@3.1.4:
     resolution: {integrity: sha512-wjPBbFhtpJwmIeY2yP7QF+UKzPfltVGtfce1g/bB15/8vCGZj8uxD62b/b9M9/WVgme0NZudpownKN+c0plXlQ==}
@@ -1133,10 +1133,10 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@mapbox/node-pre-gyp@1.0.11':
+  '@mapbox/node-pre-gyp@1.0.11(supports-color@5.5.0)':
     dependencies:
       detect-libc: 2.0.3
-      https-proxy-agent: 5.0.1
+      https-proxy-agent: 5.0.1(supports-color@5.5.0)
       make-dir: 3.1.0
       node-fetch: 2.7.0
       nopt: 5.0.0
@@ -1243,9 +1243,9 @@ snapshots:
 
   acorn@8.12.1: {}
 
-  agent-base@6.0.2:
+  agent-base@6.0.2(supports-color@5.5.0):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -1273,11 +1273,11 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios@1.18.0:
+  axios@1.18.0(debug@4.4.3(supports-color@5.5.0))(supports-color@5.5.0):
     dependencies:
-      follow-redirects: 1.16.0
+      follow-redirects: 1.16.0(debug@4.4.3(supports-color@5.5.0))
       form-data: 4.0.6
-      https-proxy-agent: 5.0.1
+      https-proxy-agent: 5.0.1(supports-color@5.5.0)
       proxy-from-env: 2.1.0
     transitivePeerDependencies:
       - debug
@@ -1285,9 +1285,9 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  bcrypt@5.1.1:
+  bcrypt@5.1.1(supports-color@5.5.0):
     dependencies:
-      '@mapbox/node-pre-gyp': 1.0.11
+      '@mapbox/node-pre-gyp': 1.0.11(supports-color@5.5.0)
       node-addon-api: 5.1.0
     transitivePeerDependencies:
       - encoding
@@ -1295,11 +1295,11 @@ snapshots:
 
   binary-extensions@2.3.0: {}
 
-  body-parser@1.20.2:
+  body-parser@1.20.2(supports-color@5.5.0):
     dependencies:
       bytes: 3.1.2
       content-type: 1.0.5
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       depd: 2.0.0
       destroy: 1.2.0
       http-errors: 2.0.0
@@ -1425,9 +1425,11 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.25.6
 
-  debug@2.6.9:
+  debug@2.6.9(supports-color@5.5.0):
     dependencies:
       ms: 2.0.0
+    optionalDependencies:
+      supports-color: 5.5.0
 
   debug@4.3.6(supports-color@5.5.0):
     dependencies:
@@ -1435,9 +1437,11 @@ snapshots:
     optionalDependencies:
       supports-color: 5.5.0
 
-  debug@4.4.3:
+  debug@4.4.3(supports-color@5.5.0):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 5.5.0
 
   define-data-property@1.1.4:
     dependencies:
@@ -1502,21 +1506,21 @@ snapshots:
 
   express-async-handler@1.2.0: {}
 
-  express@4.19.2:
+  express@4.19.2(supports-color@5.5.0):
     dependencies:
       accepts: 1.3.8
       array-flatten: 1.1.1
-      body-parser: 1.20.2
+      body-parser: 1.20.2(supports-color@5.5.0)
       content-disposition: 0.5.4
       content-type: 1.0.5
       cookie: 0.6.0
       cookie-signature: 1.0.6
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       depd: 2.0.0
       encodeurl: 1.0.2
       escape-html: 1.0.3
       etag: 1.8.1
-      finalhandler: 1.2.0
+      finalhandler: 1.2.0(supports-color@5.5.0)
       fresh: 0.5.2
       http-errors: 2.0.0
       merge-descriptors: 1.0.1
@@ -1528,8 +1532,8 @@ snapshots:
       qs: 6.11.0
       range-parser: 1.2.1
       safe-buffer: 5.2.1
-      send: 0.18.0
-      serve-static: 1.15.0
+      send: 0.18.0(supports-color@5.5.0)
+      serve-static: 1.15.0(supports-color@5.5.0)
       setprototypeof: 1.2.0
       statuses: 2.0.1
       type-is: 1.6.18
@@ -1542,9 +1546,9 @@ snapshots:
     dependencies:
       to-regex-range: 5.0.1
 
-  finalhandler@1.2.0:
+  finalhandler@1.2.0(supports-color@5.5.0):
     dependencies:
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       encodeurl: 1.0.2
       escape-html: 1.0.3
       on-finished: 2.4.1
@@ -1554,7 +1558,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  follow-redirects@1.16.0: {}
+  follow-redirects@1.16.0(debug@4.4.3(supports-color@5.5.0)):
+    optionalDependencies:
+      debug: 4.4.3(supports-color@5.5.0)
 
   form-data@4.0.6:
     dependencies:
@@ -1666,10 +1672,10 @@ snapshots:
       statuses: 2.0.1
       toidentifier: 1.0.1
 
-  https-proxy-agent@5.0.1:
+  https-proxy-agent@5.0.1(supports-color@5.5.0):
     dependencies:
-      agent-base: 6.0.2
-      debug: 4.4.3
+      agent-base: 6.0.2(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -1798,13 +1804,13 @@ snapshots:
       bson: 6.10.4
       mongodb-connection-string-url: 3.0.2
 
-  mongoose@8.22.1:
+  mongoose@8.22.1(supports-color@5.5.0):
     dependencies:
       bson: 6.10.4
       kareem: 2.6.3
       mongodb: 6.20.0
       mpath: 0.9.0
-      mquery: 5.0.0
+      mquery: 5.0.0(supports-color@5.5.0)
       ms: 2.1.3
       sift: 17.1.3
     transitivePeerDependencies:
@@ -1819,9 +1825,9 @@ snapshots:
 
   mpath@0.9.0: {}
 
-  mquery@5.0.0:
+  mquery@5.0.0(supports-color@5.5.0):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -1839,7 +1845,7 @@ snapshots:
     dependencies:
       whatwg-url: 5.0.0
 
-  nodemailer@9.0.1: {}
+  nodemailer@10.0.15: {}
 
   nodemon@3.1.4:
     dependencies:
@@ -1943,9 +1949,9 @@ snapshots:
 
   semver@7.6.3: {}
 
-  send@0.18.0:
+  send@0.18.0(supports-color@5.5.0):
     dependencies:
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@5.5.0)
       depd: 2.0.0
       destroy: 1.2.0
       encodeurl: 1.0.2
@@ -1961,12 +1967,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  serve-static@1.15.0:
+  serve-static@1.15.0(supports-color@5.5.0):
     dependencies:
       encodeurl: 1.0.2
       escape-html: 1.0.3
       parseurl: 1.3.3
-      send: 0.18.0
+      send: 0.18.0(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
 
